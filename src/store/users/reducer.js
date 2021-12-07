@@ -4,7 +4,10 @@ import {
   FETCH_USER_REGISTER_SUCCESS, 
   FETCH_USER_SIGN_IN_SUCCESS,
   FETCH_USER_SIGN_OUT_SUCCESS, 
-  FETCH_USER_UPDATE_SUCCESS
+  FETCH_USER_UPDATE_SUCCESS,
+  FETCH_POST_WISHLIST_SUCCESS,
+  FETCH_DELETE_WISHLIST_SUCCESS,
+  FETCH_UPDATE_CART_SUCCESS
 } from "./types";
 
 const initialState = {
@@ -54,11 +57,28 @@ const userReducer = (state = initialState, action) => {
         loading: false,
       }
     case FETCH_USER_UPDATE_SUCCESS:
-      // Cookies.set('user', action.user)
       return {
         ...state,
         loading: false,
         userInfo: action.userInfo
+      }
+    case FETCH_POST_WISHLIST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        wishList: action.wishList
+      }
+    case FETCH_DELETE_WISHLIST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        wishList: action.wishList
+      }
+    case FETCH_UPDATE_CART_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        cart: action.cart
       }
   }
 }
