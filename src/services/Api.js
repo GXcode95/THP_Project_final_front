@@ -169,12 +169,14 @@ export default class APIManager {
     const response = await API.get("/games")
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # getAllGames =>", response)
+    return response.data
   }
 
   static async getGame (gameId) {
     const response = await API.get(`/games/${gameId}`)
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # getGame =>", response)
+    return response.data
   }
 
   ///////////////////
@@ -185,19 +187,49 @@ export default class APIManager {
     const response = await API.post("/orders", orderInfo)
     .catch(error => handleCatchError(error))
     console.log("APIManager # creatOrder =>", response)
+    return response.data
   }
 
   static async updateOrder (orderId, orderInfoUpdated) {
     const response = await API.patch(`/orders/${orderId}`, orderInfoUpdated)
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # updateOrder =>", response)
+    return response.data
   }
 
   static async deleteOrder (orderId) {
     const response = await API.delete(`/orders/${orderId}`)
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # deleteOrder =>", response)
+    return response.data
   }
+
+  //////////////////
+  ///    RENT    ///
+  //////////////////
+
+  static async getRents () {
+    const response = await API.get("/rents")
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # getRents =>", response)
+    return response.data
+  }
+
+  static async createRent (rentInfo) {
+    const response = await API.post("/rents", rentInfo)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # createRent =>", response)
+    return response.data
+  }
+
+  static async deleteRent (rentId) {
+    const response = await API.delete(`/rents/${rentId}`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # deleteRent =>", response)
+    return response.data
+  }
+
+
 
   // static async fetchPosts(id) {
   //   const response = await API.get(`/posts/${id}`)
