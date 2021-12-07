@@ -28,30 +28,35 @@ const userReducer = (state = initialState, action) => {
         error: action.error
       }
     case FETCH_USER_REGISTER_SUCCESS:
+      Cookies.set('user', action.user)
       return {
         ...state,
         loading: false,
         user: action.user
       }
     case FETCH_USER_SIGN_IN_SUCCESS:
+      Cookies.set('user', action.user)
       return {
         ...state,
         loading: false,
         user: action.user
       }
     case FETCH_USER_SIGN_OUT_SUCCESS:
+      Cookies.set('user', "")
       return {
         ...state,
         loading: false,
         user: {}
       }
     case FETCH_USER_UPDATE_SUCCESS:
+      Cookies.set('user', action.user)
       return {
         ...state,
         loading: false,
         user: action.user
       }
     case FETCH_USER_PROFILE_SUCCESS:
+      Cookies.set('user', action.user)
       return {
         ...state,
         loading: false,

@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import { FETCH_USER_REQUEST } from 'store/users/types.js'
 import {
   FETCH_GAMES_REQUEST,
@@ -25,6 +26,7 @@ const gamesReducer = (state = initialState, action) => {
         error: action.error
       }
     case FETCH_GAMES_SUCCESS:
+      Cookies.set('games', action.games)
       return {
         ...state,
         loading: false,
