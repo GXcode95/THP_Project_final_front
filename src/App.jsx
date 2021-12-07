@@ -11,6 +11,7 @@ import NotFound from 'pages/NotFound'
 import {light} from 'style/palette'
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import NavBar from 'components/NavBar';
+import BottomBar from 'components/BottomBar'
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/abonnement" element={<Subscription />} exact />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <BottomBar/>
         </Router>
       </ThemeProvider>
     </div>
