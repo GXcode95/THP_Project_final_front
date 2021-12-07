@@ -1,7 +1,8 @@
+import { RepeatOneSharp } from '@mui/icons-material';
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-const API = axios.create({ baseURL: 'https://jsonplaceholder.typicode.com' });
+const API = axios.create({ baseURL: process.env.BASE_URL });
 
 API.interceptors.request.use(({ headers, ...config }) => ({
     ...config,
@@ -49,12 +50,14 @@ export default class APIManager {
   // /user or /user/:id ???
   static async getUserInfo(userId) {
     const response =  await API.get(`/user/${userId}`)
+    .catch(error => handleCatchError(error)) 
     console.log("APIManager # getUserInfo =>", response)
     return response.data
   }
     
   static async signUpUser(email, password) {
-    const response = await API.post('/users/sign_up', { email, password });
+    const response = await API.post('/users/sign_up', { email, password })
+    .catch(error => handleCatchError(error)) 
     console.log("APIManager # signUpUser =>", response)
     return response.data;
   }
@@ -62,12 +65,14 @@ export default class APIManager {
   
   static async signInUser(email, password) {
     const response = await API.post("/users/sign_in", { email, password })
+    .catch(error => handleCatchError(error)) 
     console.log("APIManager # signInUser =>", response)
     return response.data
   }
   
   static async signInUserJwt() {
     const response = await API.post('/users/sign_in')
+    .catch(error => handleCatchError(error))
     handleJwt(response)
     console.log("APIManager # signInUserJwt =>", response)
     return response.data
@@ -75,12 +80,14 @@ export default class APIManager {
   
   static async changePasswordRequest(email) {
     const response = await API.post("/users/password", { "user": { email }})
+    .catch(error => handleCatchError(error)) 
     console.log("APIManager # changePasswordRequest =>", response)
     return response.data
   }
   
   static async changePassword ( reset_password_token, password, password_confirmation ) {
     const response = await API.patch("/users/password", { "user": { reset_password_token, password, password_confirmation } })
+    .catch(error => handleCatchError(error)) 
     console.log("APIManager # changePassword =>", response)
     return response.data
   }
@@ -89,8 +96,77 @@ export default class APIManager {
   // /users/:id or /user ???
   static async updateUserInfo (userId, userInfoUpdated) {
     const response = await API.put(`/users/${userId}`, userInfoUpdated)
+    .catch(error => handleCatchError(error)) 
     console.log("APIManager # updateUserInfo =>", response)
     return response.data
   }
   
+  ///////////////////
+  ///    ADMIN    ///
+  ///////////////////
+
+  static async getRentsAdmin() {
+    const response = await API.get("/admin/rents/")
+    .catch(error => handleCatchError(error))  
+    console.log("APIManager # getRentsAdmin =>", response)
+    return response.data
+  }
+
+  static async getUserAdmin(id) {
+    const response = await API.get(`/admin/users/${id}`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # fetchUsersAdmin =>", response)
+    return response.data
+  }
+
+  static async getUsersAdmin() {
+    const response = await API.get(`/admin/users`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # getUserAdmin =>", response)
+    return response.data
+  }
+  
+  static async createGameAdmin (gameInfo) {
+    const response = await API.post("/admin/games", gameInfo)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # createGameAdmin =>", response)
+    return response.data
+  } 
+  
+  static async createGameImagesAdmin(gameId, image) {
+    const response = await API.post(`/admin/games/${gameId}/images`, image)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # createGameImagesAdmin =>", response)
+    return response.data
+  }
+
+  static async updateGamesAdmin (gameId, gameInfoUpdated) {
+    const response = await API.put(`/admin/games/${gameId}`, gameInfoUpdated)
+    .catch(error => handleCatchError(error)) 
+    console.log("APIManager # updateGamesAdmin =>", response)
+    return response.data
+  }
+
+  static async deleteGameAdmin (gameId) {
+    const response = await API.delete(`admin/games/${gameId}`)
+    .catch(error => handleCatchError(error)) 
+    console.log("APIManager # deleteGameAdmin =>", response)
+    return response.data
+  }
+
+  static async deleteGameImageAdmin (gameId, imageId) {
+    const response = await API.delete(`admin/games/${gameId}/images/${imageId}`)
+    .catch(error => handleCatchError(error)) 
+    console.log("APIManager # deleteGameAdmin =>", response)
+    return response.data
+  }
+
+  
+  
+
+  // static async fetchPosts(id) {
+  //   const response = await API.get(`/posts/${id}`)
+  //                             .catch(error => handleCatchError(error))
+  //   if(response) return response.data
+  // }
 }
