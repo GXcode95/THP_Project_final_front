@@ -32,6 +32,13 @@ const handleCatchError = (error) => {
   console.log(error.config);
 }
 
+const handleJwt = (response) => {
+  if (response.headers.authorization) {
+    const jwt = response.headers.authorization.split(" ")[1]
+    Cookies.set('token', jwt)
+  }
+}
+
 export default class APIManager {
     
   static async registerUser(email, password) {
