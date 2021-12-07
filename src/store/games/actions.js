@@ -1,25 +1,25 @@
 import {
-  FETCH_GAME_REQUEST,
-  FETCH_GAME_ERROR,
-  FETCH_ALL_GAME_SUCCESS
+  FETCH_GAMES_REQUEST,
+  FETCH_GAMES_ERROR,
+  FETCH_GAMES_SUCCESS
 } from './types.js'
 
-export const fetchGameRequest = () => {
+export const fetchGamesRequest = () => {
   return {
-    type: FETCH_GAME_REQUEST
+    type: FETCH_GAMES_REQUEST
   }
 }
 
-export const fetchGameRequest = () => {
+export const fetchGamesError = () => {
   return {
-    type: FETCH_GAME_ERROR,
+    type: FETCH_GAMES_ERROR,
     error
   }
 }
 
-export const fetchGameRequest = () => {
+export const fetchGamesSuccess = () => {
   return {
-    type: FETCH_ALL_GAME_SUCCESS,
+    type: FETCH_GAMES_SUCCESS,
     games
   }
 }

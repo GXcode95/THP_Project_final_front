@@ -1,8 +1,8 @@
 import { FETCH_USER_REQUEST } from 'store/users/types.js'
 import {
-  FETCH_GAME_REQUEST,
-  FETCH_GAME_ERROR,
-  FETCH_ALL_GAME_SUCCESS
+  FETCH_GAMES_REQUEST,
+  FETCH_GAMES_ERROR,
+  FETCH_GAMES_SUCCESS
 } from './types.js'
 
 const initialState = {
@@ -11,20 +11,20 @@ const initialState = {
   error: ''
 }
 
-const gameReducer = (state = initialState, action) => {
+const gamesReducer = (state = initialState, action) => {
   switch(action.types) {
-    case FETCH_GAME_REQUEST:
+    case FETCH_GAMES_REQUEST:
       return {
         ...state,
         loading: true
       }
-    case FETCH_GAME_ERROR:
+    case FETCH_GAMES_ERROR:
       return {
         ...state,
         loading: false,
         error: action.error
       }
-    case FETCH_ALL_GAME_SUCCESS:
+    case FETCH_GAMES_SUCCESS:
       return {
         ...state,
         loading: false,
