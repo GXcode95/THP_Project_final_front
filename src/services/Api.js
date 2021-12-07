@@ -239,4 +239,5 @@ export default class APIManager {
     console.log("APIManager # getCart =>", response)
     return response.data
   }
+  
 }
