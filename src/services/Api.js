@@ -177,6 +177,28 @@ export default class APIManager {
     console.log("APIManager # getGame =>", response)
   }
 
+  ///////////////////
+  ///    ORDER    ///
+  ///////////////////
+
+  static async creatOrder (orderInfo) {
+    const response = await API.post("/orders", orderInfo)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # creatOrder =>", response)
+  }
+
+  static async updateOrder (orderId, orderInfoUpdated) {
+    const response = await API.patch(`/orders/${orderId}`, orderInfoUpdated)
+    .catch(error => handleCatchError(error)) 
+    console.log("APIManager # updateOrder =>", response)
+  }
+
+  static async deleteOrder (orderId) {
+    const response = await API.delete(`/orders/${orderId}`)
+    .catch(error => handleCatchError(error)) 
+    console.log("APIManager # deleteOrder =>", response)
+  }
+
   // static async fetchPosts(id) {
   //   const response = await API.get(`/posts/${id}`)
   //                             .catch(error => handleCatchError(error))
