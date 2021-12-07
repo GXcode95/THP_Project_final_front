@@ -4,9 +4,12 @@ export const light = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#109eb3', // original from logo : #11bed8
+      main: '#283845', // original from logo : #11bed8
     },
     secondary: {
+      main: '#109eb3',
+    },
+    ternary: {
       main: '#ffb735',
     },
     error: {
@@ -26,7 +29,7 @@ export const light = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: "none"
+          textTransform: "none",
         },
       },
       defaultProps: {
@@ -37,6 +40,7 @@ export const light = createTheme({
     } 
   },
 });
+
 export const dark = createTheme({
   palette: {
     mode: 'dark',
