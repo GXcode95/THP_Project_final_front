@@ -40,17 +40,57 @@ const handleJwt = (response) => {
 }
 
 export default class APIManager {
+
+  ///////////////////
+  ///    USER     ///
+  ///////////////////
+
+
+  // /user or /user/:id ???
+  static async getUserInfo(userId) {
+    const response =  await API.get(`/user/${userId}`)
+    console.log("APIManager # getUserInfo =>", response)
+    return response.data
+  }
     
-  static async registerUser(email, password) {
-      const response = await API.post('/auth/register', { email, password });
-      return response.data;
+  static async signUpUser(email, password) {
+    const response = await API.post('/users/sign_up', { email, password });
+    console.log("APIManager # signUpUser =>", response)
+    return response.data;
   }
 
-  static async fetchPosts(id) {
-    const response = await API.get(`/posts/${id}`)
-                              .catch(error => handleCatchError(error))
-    if(response) return response.data
+  
+  static async signInUser(email, password) {
+    const response = await API.post("/users/sign_in", { email, password })
+    console.log("APIManager # signInUser =>", response)
+    return response.data
   }
-
- 
+  
+  static async signInUserJwt() {
+    const response = await API.post('/users/sign_in')
+    handleJwt(response)
+    console.log("APIManager # signInUserJwt =>", response)
+    return response.data
+  }
+  
+  static async changePasswordRequest(email) {
+    const response = await API.post("/users/password", { "user": { email }})
+    console.log("APIManager # changePasswordRequest =>", response)
+    return response.data
+  }
+  
+  static async changePassword ( reset_password_token, password, password_confirmation ) {
+    const response = await API.patch("/users/password", { "user": { reset_password_token, password, password_confirmation } })
+    console.log("APIManager # changePassword =>", response)
+    return response.data
+  }
+  
+  
+  // /users/:id or /user ???
+  static async updateUserInfo (userId, userInfoUpdated) {
+    const response = await API.put(`/users/${userId}`, userInfoUpdated)
+    console.log("APIManager # updateUserInfo =>", response)
+    return response.data
+  }
+  
 }
