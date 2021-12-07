@@ -5,12 +5,20 @@ import {
   FETCH_USER_SIGN_IN_SUCCESS,
   FETCH_USER_SIGN_OUT_SUCCESS, 
   FETCH_USER_UPDATE_SUCCESS,
-  FETCH_USER_PROFILE_SUCCESS
+  FETCH_POST_WISHLIST_SUCCESS,
+  FETCH_DELETE_WISHLIST_SUCCESS,
+  FETCH_UPDATE_CART_SUCCESS
 } from "./types";
 
 const initialState = {
   loading: false,
-  user: {},
+  userInfo: {},
+  favorite: {},
+  rentedGames: {},
+  rentGames: {},
+  wishList: {},
+  commandHistory: {},
+  cart: {},
   error: ''
 }
 
@@ -28,39 +36,49 @@ const userReducer = (state = initialState, action) => {
         error: action.error
       }
     case FETCH_USER_REGISTER_SUCCESS:
-      Cookies.set('user', action.user)
+      // Cookies.set('user', ...action)
       return {
         ...state,
+        ...action,
         loading: false,
-        user: action.user
       }
     case FETCH_USER_SIGN_IN_SUCCESS:
-      Cookies.set('user', action.user)
+      // Cookies.set('user', ...action)
       return {
         ...state,
-        loading: false,
-        user: action.user
+        ...action,
+        loading: false
       }
     case FETCH_USER_SIGN_OUT_SUCCESS:
-      Cookies.set('user', "")
+      // Cookies.set('user', "")
       return {
         ...state,
+        ...action,
         loading: false,
-        user: {}
       }
     case FETCH_USER_UPDATE_SUCCESS:
-      Cookies.set('user', action.user)
       return {
         ...state,
         loading: false,
-        user: action.user
+        userInfo: action.userInfo
       }
-    case FETCH_USER_PROFILE_SUCCESS:
-      Cookies.set('user', action.user)
+    case FETCH_POST_WISHLIST_SUCCESS:
       return {
         ...state,
         loading: false,
-        user: action.user
+        wishList: action.wishList
+      }
+    case FETCH_DELETE_WISHLIST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        wishList: action.wishList
+      }
+    case FETCH_UPDATE_CART_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        cart: action.cart
       }
   }
 }

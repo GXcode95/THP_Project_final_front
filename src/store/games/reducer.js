@@ -26,7 +26,7 @@ const gamesReducer = (state = initialState, action) => {
         error: action.error
       }
     case FETCH_GAMES_SUCCESS:
-      Cookies.set('games', action.games)
+      // Cookies.set('games', action.games)
       return {
         ...state,
         loading: false,
