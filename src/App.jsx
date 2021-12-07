@@ -8,11 +8,13 @@ import Login from 'pages/Login';
 import Profile from 'pages/Profile';
 import Subscription from 'pages/Subscription';
 import NotFound from 'pages/NotFound'
+import NavBar from 'components/NavBar';
 
 const App = () => {
   return (
     <div className='App'>
       <Router>
+      <NavBar />
         <Routes>
           <Route path="/" element={<Home />} exact />
           <Route path="/jeux/:gameID" element={<Game />} exact />
