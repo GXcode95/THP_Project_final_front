@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -13,22 +13,11 @@ import EmailInput from '../input/EmailInput';
 import EditInputGrid from './EditInput';
 
 const EditProfile = () => {
+  const [request, setRequest] = useState(true)
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-      passwor_confirmation: data.get('password_confirmation'),
-      last_name: data.get('last_name'),
-      first_name: data.get('first_name'),
-      phone: data.get('phone')
-    });
-  };
-
-
+  const showInfo = (e) => {
+    setRequest(false)
+  } 
 
   return (
     <Container component="main" maxWidth="xs">
@@ -43,18 +32,21 @@ const EditProfile = () => {
             emailInput={<EmailInput defaultValue={`john.doe@email.com`} />} 
             lastNameInput={<LastNameInput defaultValue={`Doe`} />}
             firstNameInput={<FirstNameInput defaultValue={`John`} />}
-            phoneInput={<PhoneInput defaultValue={"1234567890"} />}
-            addInput={<AddressInput defaultValue={"52 rue de paris 78570 Andrésy"} />}
+            phoneInput={<PhoneInput defaultValue={`1234567890`} />}
+            addInput={<AddressInput defaultValue={`52 rue de paris 78570 Andrésy`} />}
           />
           
+          {request ?
           <Button
-            type="submit"
             fullWidth
             variant="contained"
+            onClick={showInfo}
             sx={{ mt: 3, mb: 2 }}
           >
-            Valider
-          </Button>
+            Changer de mot de passe
+          </Button>:
+          <p>Un email de réinitialisation a été envoyé à {`john.doe@email.com`}</p>
+          }
         </Box>
       </Container>
   );
