@@ -8,6 +8,7 @@ const FirstNameInput = (props) => {
       fullWidth
       name="first_name"
       label="Prénom"
+      id="first_name"
       {...props}
     />
   );

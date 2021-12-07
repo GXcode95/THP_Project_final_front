@@ -8,6 +8,7 @@ const LastNameInput = (props) => {
       fullWidth
       name="last_name"
       label="Nom"
+      id="last_name"
       {...props}
     />
   );

@@ -10,6 +10,7 @@ const EmailInput = (props) => {
       name="email"
       label="Email"
       type="email"
+      id="email"
       autoFocus
       {...props}
     />

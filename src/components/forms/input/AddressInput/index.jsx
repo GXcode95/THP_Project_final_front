@@ -8,6 +8,7 @@ const AddressInput = (props) => {
     fullWidth
     name="address"
     label="Adresse"
+    id="address"
     {...props}
     />
   );

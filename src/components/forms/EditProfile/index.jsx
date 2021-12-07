@@ -10,6 +10,7 @@ import PhoneInput from '../input/PhoneInput';
 import FirstNameInput from '../input/FirstNameInput';
 import LastNameInput from '../input/LastNameInput';
 import EmailInput from '../input/EmailInput';
+import EditInputGrid from './EditInput';
 
 const EditProfile = () => {
 
@@ -38,47 +39,22 @@ const EditProfile = () => {
             alignItems: 'center',
           }}
         >
-          <Grid container >
-            <Typography variant="h2" color="primary" >
-              Mon profile
-            </Typography>
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-
-              <Grid item xs={12} sx={{display: 'flex', gap:"10px", alignItems: 'center'}}>
-                <EmailInput defaultValue={"email@email.com"} />
-                <Button variant="outlined">Edit</Button>
-              </Grid>
-
-              <Grid item xs={12} sx={{display: 'flex', gap:"10px", alignItems: 'center'}}>
-                <LastNameInput defaultValue={"Doe"} />
-                <Button variant="outlined">Edit</Button>
-              </Grid>
-
-              <Grid item xs={12} sx={{display: 'flex', gap:"10px", alignItems: 'center'}}>
-                <FirstNameInput defaultValue={"John"} />
-                <Button variant="outlined">Edit</Button>
-              </Grid>
-
-              <Grid item xs={12} sx={{display: 'flex', gap:"10px", alignItems: 'center'}}>
-                <PhoneInput defaultValue={"0605070908"}/>
-                <Button variant="outlined">Edit</Button>
-              </Grid>
-
-              <Grid item xs={12} sx={{display: 'flex', gap:"10px", alignItems: 'center'}}>
-                <AddressInput defaultValue={`52 rue de paris`}/>
-                <Button variant="outlined">Edit</Button>
-              </Grid>
-
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Valider
-              </Button>
-            </Box>
-          </Grid>
+          <EditInputGrid 
+            emailInput={<EmailInput defaultValue={`john.doe@email.com`} />} 
+            lastNameInput={<LastNameInput defaultValue={`Doe`} />}
+            firstNameInput={<FirstNameInput defaultValue={`John`} />}
+            phoneInput={<PhoneInput defaultValue={"1234567890"} />}
+            addInput={<AddressInput defaultValue={"52 rue de paris 78570 Andrésy"} />}
+          />
+          
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Valider
+          </Button>
         </Box>
       </Container>
   );

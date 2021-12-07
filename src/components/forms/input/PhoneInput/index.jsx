@@ -8,6 +8,7 @@ const PhoneInput = (props) => {
       fullWidth
       name="phone"
       label="Téléphone"
+      id="phone"
       {...props}
     />
   );
