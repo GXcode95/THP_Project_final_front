@@ -14,14 +14,14 @@ const NavBar = ()  => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar >
-        <Box sx={{display: "flex", justifyContent: "space-between",  width: "100vw"}}>
-          <img src={logo} alt="playbox logo" height="50px"/> 
-          {/* {
-            user && user.id ?
-            <AvatarDropdown /> : <LoginButton /> 
-          } */}
-          <LoginButton />
-        </Box>
+          <Box sx={{display: "flex", justifyContent: "space-between",  width: "100vw"}}>
+            <img src={logo} alt="playbox logo" height="50px"/> 
+            {/* {
+              user && user.id ?
+              <AvatarDropdown /> : <LoginButton /> 
+            } */}
+            <LoginButton />
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
