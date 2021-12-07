@@ -11,7 +11,7 @@ const themeReducer = (state = initialState, action) => {
     case TOGGLE_THEME:
       const newTheme = state.theme.palette.mode === 'light' ? dark : light
       const newThemeCookies = state.theme.palette.mode === 'light' ? 'dark' : 'light'
-      Cookies.set('theme', newThemeCookies)
+      // Cookies.set('theme', newThemeCookies)
       return {
         theme: newTheme
       }
