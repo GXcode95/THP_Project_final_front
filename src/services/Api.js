@@ -229,11 +229,14 @@ export default class APIManager {
     return response.data
   }
 
+  //////////////////
+  ///    CART    ///
+  //////////////////
 
-
-  // static async fetchPosts(id) {
-  //   const response = await API.get(`/posts/${id}`)
-  //                             .catch(error => handleCatchError(error))
-  //   if(response) return response.data
-  // }
+  static async getCart () {
+    const response = await API.get("/carts")
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # getCart =>", response)
+    return response.data
+  }
 }
