@@ -10,6 +10,7 @@ import Subscription from 'pages/Subscription';
 import NotFound from 'pages/NotFound'
 import {light} from 'style/palette'
 import { ThemeProvider, CssBaseline } from '@mui/material';
+import NavBar from 'components/NavBar';
 
 const App = () => {
   return (
