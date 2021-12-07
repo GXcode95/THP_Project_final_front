@@ -161,8 +161,21 @@ export default class APIManager {
     return response.data
   }
 
-  
-  
+  //////////////////
+  ///    GAME    ///
+  //////////////////
+
+  static async getAllGames () {
+    const response = await API.get("/games")
+    .catch(error => handleCatchError(error)) 
+    console.log("APIManager # getAllGames =>", response)
+  }
+
+  static async getGame (gameId) {
+    const response = await API.get(`/games/${gameId}`)
+    .catch(error => handleCatchError(error)) 
+    console.log("APIManager # getGame =>", response)
+  }
 
   // static async fetchPosts(id) {
   //   const response = await API.get(`/posts/${id}`)
