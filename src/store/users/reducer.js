@@ -50,6 +50,7 @@ const userReducer = (state = initialState, action) => {
       // Cookies.set('user', "")
       return {
         ...state,
+        ...action,
         loading: false,
       }
     case FETCH_USER_UPDATE_SUCCESS:
@@ -57,7 +58,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        user: action.user
+        userInfo: action.userInfo
       }
   }
 }
