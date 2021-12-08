@@ -1,5 +1,5 @@
 import { Container, Typography, Box, TextField, Button} from '@mui/material';
-import NumberField from './NumberField';
+import NumberField from '../GameInput/NumberField';
 
 const CreateGame = () => {
 
@@ -61,6 +61,7 @@ const CreateGame = () => {
 
             <TextField
               margin="normal"
+              required
               fullWidth
               name="editor"
               label="Éditeur"
@@ -72,7 +73,10 @@ const CreateGame = () => {
 
             <NumberField name={"max players"} />
 
+            <NumberField name={"price"} />
+            
             <TextField
+              margin="normal"
               name="released_date"
               label="Date de parution"
               type="date"
@@ -82,10 +86,7 @@ const CreateGame = () => {
                 shrink: true,
               }}
             />
-
-            <NumberField name={"price"} />
-
-
+            
             <Button
               type="submit"
               fullWidth
