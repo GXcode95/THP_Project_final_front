@@ -24,6 +24,12 @@ export const light = createTheme({
     success: {
       main: '#43a047',
     },
+    white: {
+      main: "#fff"
+    },
+    black: {
+      main: "#000"
+    }
   },
   components: {
     MuiButton: {
