@@ -1,8 +1,7 @@
-import { RepeatOneSharp } from '@mui/icons-material';
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-const API = axios.create({ baseURL: process.env.BASE_URL });
+const API = axios.create({ baseURL: process.env.REACT_APP_BASE_URL });
 
 API.interceptors.request.use(({ headers, ...config }) => ({
     ...config,
@@ -55,8 +54,8 @@ export default class APIManager {
     return response.data
   }
     
-  static async signUpUser(email, password) {
-    const response = await API.post('/users/sign_up', { email, password })
+  static async registerUser(user) {
+    const response = await API.post('/users', {"user": user})
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # signUpUser =>", response)
     return response.data;

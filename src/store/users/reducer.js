@@ -80,6 +80,10 @@ const userReducer = (state = initialState, action) => {
         loading: false,
         cart: action.cart
       }
+    default:
+      return {
+        state
+      }
   }
 }
 
