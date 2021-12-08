@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Box, TextField, Button} from '@mui/material';
 import { LocalizationProvider, MobileDatePicker } from '@mui/lab';
-import SelectNumber from './SelectNumber';
+
+import NumberField from './SelectNumber';
 
 const CreateGame = () => {
-
-  const [value, setValue] = useState()
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -30,6 +25,7 @@ const CreateGame = () => {
 
   return (
     <Container component="main" maxWidth="xs">
+
         <Box 
           display="flex" 
           flexDirection="column" 
@@ -51,6 +47,9 @@ const CreateGame = () => {
               margin="normal"
               required
               fullWidth
+              type="textarea"
+              multiline
+              minRows="3"
               name="description"
               label="Description"
             />
@@ -68,12 +67,12 @@ const CreateGame = () => {
               name="editor"
               label="Éditeur"
             />
+                
+            <NumberField name={"age"} />
 
-            <SelectNumber name={"age"} value={value} handleChange={handleChange} />
+            <NumberField name={"min players"} />
 
-            <SelectNumber name={"min players"} value={value} handleChange={handleChange} />
-
-            <SelectNumber name={"max players"} value={value} handleChange={handleChange} />
+            <NumberField name={"max players"} />
 
             <TextField
               name="released_date"
@@ -86,13 +85,7 @@ const CreateGame = () => {
               }}
             />
 
-            <TextField
-              margin="normal"
-              fullWidth
-              name="price"
-              label="Prix"
-              type="number"
-            />
+            <NumberField name={"price"} />
 
             <Button
               type="submit"
