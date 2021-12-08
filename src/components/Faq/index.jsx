@@ -25,7 +25,8 @@ export default function Faq() {
 					align="center"
 				>
 					<Typography sx={{ color: 'text.primary' }}>
-						Comment rendre les jeux que je ne souhaite plus ?</Typography>
+						Comment rendre les jeux que je ne souhaite plus ?
+					</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
 					<Typography>
