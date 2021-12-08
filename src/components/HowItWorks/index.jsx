@@ -46,7 +46,7 @@ export default function HowItWorks() {
 			<TimelineItem>
 				<TimelineSeparator>
 					<TimelineConnector />
-					<TimelineDot color="primary" variant="outlined">
+					<TimelineDot >
 						<LocalShippingIcon />
 					</TimelineDot>
 					<TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
