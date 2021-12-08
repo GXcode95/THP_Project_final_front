@@ -1,6 +1,6 @@
 import React from 'react'
 import {Image} from 'cloudinary-react'
-import { Box, Typography, Button, Stack } from '@mui/material'
+import { Container, Box, Typography, Button, Stack } from '@mui/material'
 import GameDescription from './GameDescription';
 import GameCredentials from './GameCredentials';
 import GameIconsInfos from './GameIconsInfos'
@@ -24,15 +24,18 @@ const GameCard = () => {
   }
 
   return (
-      <Box display="flex" width="70%" ml="15%" >
-        <Image
-          cloudName={process.env.REACT_APP_CLOUD_NAME}
-          publicId="default_game"
-          className="game-card-image"
-          crop="scale"
-          // didn't find how to use relative size here, so i put the image resize in the css
-        />
-
+    <Container>
+      <Box display="flex" justifyContent="center">
+        <Box>
+          <Image
+            cloudName={process.env.REACT_APP_CLOUD_NAME}
+            publicId="default_game"
+            className="game-card-image"
+            width={window.innerWidth / 4}
+            crop="crop"
+            // didn't find how to use relative size here, so i put the image resize in the css
+          />
+        </Box>
         <Box 
           width="50%" 
           px="2em" 
@@ -58,6 +61,7 @@ const GameCard = () => {
           </Stack>
         </Box>
       </Box>
+    </Container>
   )
 }
     
