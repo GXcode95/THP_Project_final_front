@@ -30,12 +30,10 @@ const CreateGame = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
+        <Box 
+          display="flex" 
+          flexDirection="column" 
+          alignItems="center",
         >
           <Typography variant="h2" color="primary" >
             Ajouter un jeu
@@ -82,7 +80,7 @@ const CreateGame = () => {
               label="Date de parution"
               type="date"
               defaultValue="jj/mm/aaaa"
-              sx={{ width: 220 }}
+              width={220}
               InputLabelProps={{
                 shrink: true,
               }}
