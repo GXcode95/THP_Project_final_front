@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Box, TextField, Button} from '@mui/material';
 import { LocalizationProvider, MobileDatePicker } from '@mui/lab';
+
 import NumberField from './SelectNumber';
 
 const CreateGame = () => {
@@ -24,12 +25,11 @@ const CreateGame = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
+
+        <Box 
+          display="flex" 
+          flexDirection="column" 
+          alignItems="center",
         >
           <Typography variant="h2" color="primary" >
             Ajouter un jeu
@@ -67,7 +67,7 @@ const CreateGame = () => {
               name="editor"
               label="Éditeur"
             />
-
+                
             <NumberField name={"age"} />
 
             <NumberField name={"min players"} />
@@ -79,14 +79,13 @@ const CreateGame = () => {
               label="Date de parution"
               type="date"
               defaultValue="jj/mm/aaaa"
-              width="220"
+              width={220}
               InputLabelProps={{
                 shrink: true,
               }}
             />
 
             <NumberField name={"price"} />
-
 
             <Button
               type="submit"
