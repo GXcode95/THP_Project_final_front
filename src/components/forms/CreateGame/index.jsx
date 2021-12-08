@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import { Container, Typography, Box, TextField, Button} from '@mui/material';
-import { LocalizationProvider, MobileDatePicker } from '@mui/lab';
-import NumberField from './SelectNumber';
+import NumberField from './NumberField';
 
 const CreateGame = () => {
 
