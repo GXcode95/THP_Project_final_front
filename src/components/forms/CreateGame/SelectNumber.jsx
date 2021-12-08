@@ -20,8 +20,8 @@ const SelectNumber = (props) => {
     >
       {numbers.map((number) => (
         <MenuItem
-        key={number}
-        value={number}
+          key={number}
+          value={number}
         >
           {number}
         </MenuItem>
