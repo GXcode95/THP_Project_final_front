@@ -1,15 +1,21 @@
 import React from 'react'
 import SignIn from 'components/forms/SignIn'
 import SignUp from 'components/forms/SignUp'
+import PasswordReset from 'components/forms/PasswordReset'
 import {Button, Box,Typography} from '@mui/material'
-import Cookies from 'js-cookie'
 
 const Login = () => {
   const [isRegistered, setIsRegistered] = React.useState(true)
+  const [passwordReset, setPasswordReset] = React.useState(false)
 
   const toggleIsRegistered = () => {
     setIsRegistered(!isRegistered)
   }
+
+  const togglePasswordReset = async() => {
+    setPasswordReset(!passwordReset)
+  }
+
   return (
     <Box 
       display="flex" 
@@ -30,11 +36,12 @@ const Login = () => {
           {isRegistered ? "S'inscrire" : "Deja inscrit ?"} 
         </Button>
         
-        <Button variant="text">
-            Mot de passe oublié? 
+        <Button variant="text" onClick={togglePasswordReset}>
+            Mot de passe oublié ?
         </Button>
       </Box>
-{console.log(Cookies.get('token'))}
+
+      {passwordReset && <PasswordReset togglePasswordReset={togglePasswordReset}/>}
     </Box>
   )
 }

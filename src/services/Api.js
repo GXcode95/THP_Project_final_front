@@ -60,7 +60,6 @@ export default class APIManager {
     console.log("APIManager # signUpUser =>", response)
     return response.data;
   }
-
   
   static async signInUser(email, password) {
     const response = await axios.post(`${BASE_URL}/users/sign_in`,
@@ -86,7 +85,7 @@ export default class APIManager {
     const response = await API.post("/users/password", { "user": { email }})
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # changePasswordRequest =>", response)
-    return response.data
+    // return response.data
   }
   
   static async changePassword ( reset_password_token, password, password_confirmation ) {
@@ -95,7 +94,6 @@ export default class APIManager {
     console.log("APIManager # changePassword =>", response)
     return response.data
   }
-  
   
   // /users/:id or /user ???
   static async updateUserInfo (userId, userInfoUpdated) {
