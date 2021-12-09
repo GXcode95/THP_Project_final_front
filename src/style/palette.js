@@ -43,7 +43,12 @@ export const light = createTheme({
         color: "primary",
         disableRipple: true
       }
-    } 
+    }, 
+    MuiCardActionArea: {
+      defaultProps: {
+        disableRipple: true
+      }
+    }
   },
 });
 
