@@ -32,6 +32,10 @@ const gamesReducer = (state = initialState, action) => {
         loading: false,
         games: action.games
       }
+    default: 
+      return {
+        state
+      }
   }
 }
 
