@@ -85,7 +85,7 @@ export default class APIManager {
     const response = await API.post("/users/password", { "user": { email }})
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # changePasswordRequest =>", response)
-    // return response.data
+    return response.data
   }
   
   static async changePassword ( reset_password_token, password, password_confirmation ) {
