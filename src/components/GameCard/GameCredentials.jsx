@@ -5,16 +5,15 @@ const GameCredentials = ({game}) => {
 
   return (
     <Box>
-      <Typography variant="body">
+      <Typography variant="body" > 
         Un jeu créer par 
-        <Typography component="span" color="secondary"> 
+        <Typography component="span" color="secondary" > 
           {` ${game.creator} `} 
         </Typography>
         et editer par 
-        <Typography component="span" color="secondary"> 
+        <Typography component="span" color="secondary" > 
           {` ${game.editor}`}
-        </Typography>
-        .
+        </Typography>    .
       </Typography>
     </Box>
   )

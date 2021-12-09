@@ -22,7 +22,7 @@ const GameCard = () => {
     rent_stock: "12",
     rank: "2"
   }
-
+  const cardHeight = window.screen.width / 4
   return (
     <Container>
       <Box  border="1px solid" borderColor="primary.main" p="0.3em" >
@@ -30,18 +30,17 @@ const GameCard = () => {
           {game.name}
         </Typography>
 
-
-        <Grid container height="400px">
-          <Grid item md={5} display="flex"justifyContent="center" alignItems="center" overflow="hidden">
+        <Grid container minHeight={`${cardHeight}px`}>
+          <Grid item md={5} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
             <Image
               cloudName={process.env.REACT_APP_CLOUD_NAME}
               publicId="default_game"
-              height={400}
-              crop="crop"            
+              height={cardHeight}
+              crop="scale"            
               // didn't find how to use relative size here, so i put the image resize in the css
             />
           </Grid>
-          <Grid item md={7} >
+          <Grid item md={7} xs={12} >
             <Box 
               display="flex" 
               flexDirection="column" 
@@ -49,15 +48,12 @@ const GameCard = () => {
               height="100%"
               pr="0.2em" pl="0.8em"
             >
-
-
-              
-              <GameDescription game={game}/>
-              <GameIconsInfos game={game} />
+              <GameDescription game={game} limit={cardHeight}/>
+              <GameIconsInfos game={game}/>
               <GameCredentials game={game} />
               <Stack direction="row" justifyContent="space-evenly">
-                <Button disabled>Acheter</Button>
-                <Button>Louer</Button>
+                <Button disabled >Acheter</Button>
+                <Button >Louer</Button>
               </Stack>
             </Box>
           </Grid>
