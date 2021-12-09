@@ -66,7 +66,7 @@ const CartItem = () => {
 									alignText:"center",
 									fontSize:"2rem",
 									backgroundColor: 'error.main',
-									fontSize:"2rem"
+									fontSize:"1.5rem"
 									}}
 								>
 									<DeleteRoundedIcon />
