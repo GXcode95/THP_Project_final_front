@@ -1,6 +1,6 @@
 import React from 'react'
 import {Image} from 'cloudinary-react'
-import { Container, Box, Typography, Button, Stack, Grid } from '@mui/material'
+import { Box, Typography, Button, Stack, Grid } from '@mui/material'
 import GameDescription from './GameDescription';
 import GameCredentials from './GameCredentials';
 import GameIconsInfos from './GameIconsInfos'
@@ -22,9 +22,9 @@ const GameCard = () => {
     rent_stock: "12",
     rank: "2"
   }
-  const cardHeight = window.screen.width / 4
+  const cardHeight = window.screen.width / 8
   return (
-    <Container>
+    <>
       <Box  border="1px solid" borderColor="primary.main" p="0.3em" >
         <Typography variant="h4" align="center" noWrap py="0.5em" >
           {game.name}
@@ -47,7 +47,7 @@ const GameCard = () => {
               height="100%"
               pr="0.2em" pl="0.8em"
             >
-              <GameDescription game={game} limit={cardHeight}/>
+              <GameDescription game={game} limit={cardHeight * 0.6}/>
               <GameIconsInfos game={game}/>
               <GameCredentials game={game} />
               <Stack direction="row" justifyContent="space-evenly">
@@ -58,7 +58,7 @@ const GameCard = () => {
           </Grid>
         </Grid>
       </Box>
-    </Container>
+    </>
   )
 }
     
