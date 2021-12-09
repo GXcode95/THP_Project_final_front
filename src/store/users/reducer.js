@@ -37,7 +37,6 @@ const userReducer = (state = initialState, action) => {
       }
     case FETCH_USER_REGISTER_SUCCESS:
       // Cookies.set('user', ...action)
-      console.log("ACTION:",action)
       return {
         ...state,
         userInfo: action.user.userInfo,

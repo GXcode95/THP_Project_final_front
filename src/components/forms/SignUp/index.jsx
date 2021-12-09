@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router';
 import APIManager from 'services/Api'
 import { fetchUserRequest, fetchUserRegisterSuccess, fetchUserError } from 'store/users/actions'
-import { Button,Box, Typography, Container } from '@mui/material';
+import { Button,Box, Container } from '@mui/material';
 import EmailInput from '../input/EmailInput';
 import PasswordInput from '../input/PasswordInput';
 import PasswordConfirmationInput from '../input/PasswordConfirmationInput';
@@ -48,57 +48,51 @@ const SignUp = () => {
   }
 
   return (
-      <Container component="main" maxWidth="xs">
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
+    <Container component="main" maxWidth="xs">
+      <Box 
+        component="form" 
+        onSubmit={handleSubmit} 
+        noValidate 
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
+        <EmailInput 
+          required
+          onChange={e => setEmail(e.target.value)} 
+        />
+        <PasswordInput 
+          onChange={e => setPassword(e.target.value)} 
+        />
+        <PasswordConfirmationInput
+          onChange={e => setPasswordConfirmation(e.target.value)}
+        />
+        <LastNameInput
+          required
+          onChange={e => setLastName(e.target.value)}
+        />
+        <FirstNameInput
+          required
+          onChange={e => setFirstName(e.target.value)}
+        />
+        <AddressInput
+          required
+          onChange={e => setAddress(e.target.value)}
+        />
+        <PhoneInput
+          required
+          onChange={e => setPhone(e.target.value)}
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
         >
-          <Typography variant="h2" color="primary" >
-            S'inscrire
-          </Typography>
-
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <EmailInput 
-              required
-              onChange={e => setEmail(e.target.value)} 
-            />
-            <PasswordInput 
-              onChange={e => setPassword(e.target.value)} 
-            />
-            <PasswordConfirmationInput
-              onChange={e => setPasswordConfirmation(e.target.value)}
-            />
-            <LastNameInput
-              required
-              onChange={e => setLastName(e.target.value)}
-            />
-            <FirstNameInput
-              required
-              onChange={e => setFirstName(e.target.value)}
-            />
-            <AddressInput
-              required
-              onChange={e => setAddress(e.target.value)}
-            />
-            <PhoneInput
-              required
-              onChange={e => setPhone(e.target.value)}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Valider
-            </Button>
-          </Box>
-
-        </Box>
-      </Container>
+          Valider
+        </Button>
+      </Box>
+    </Container>
   );
 }
 
