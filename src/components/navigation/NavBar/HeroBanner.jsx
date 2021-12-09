@@ -14,7 +14,7 @@ const HeroBanner = () => {
         justifyContent="center"
         alignItems="center"
         sx={{
-          background:"url(https://i.ibb.co/0YKj2d7/wepik-2021118-22224.jpg) no-repeat",
+          background:"url(https://i.ibb.co/ckVtKZF/wepik-2021118-22224-1.jpg) no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
           }}
