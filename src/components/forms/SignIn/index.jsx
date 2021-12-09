@@ -1,19 +1,29 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import {useDispatch, useSelector} from 'react-redux'
+import APIManager from 'services/Api'
+import { fetchUserRequest, fetchUserSignInSuccess, fetchUserError } from 'store/users/actions'
+import { Button,Box, Typography, Container } from '@mui/material';
+import EmailInput from '../input/EmailInput';
+import PasswordInput from '../input/PasswordInput';
 
 const SignIn = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const [email, setEmail] = React.useState()
+  const [password, setPassword] = React.useState()
+  const dispatch = useDispatch()
+  const store= useSelector(state => state)
+
+  const handleSubmit = async(event) => {
+    event.preventDefault()
+    dispatch(fetchUserRequest())
+    const response = await APIManager.signInUser(email, password)
+    if(response){
+      response.error ? 
+        dispatch(fetchUserError(response.error)) :
+        dispatch(fetchUserSignInSuccess(response))
+    }else {
+      alert("Un problème est survenue, merci de réessayer dans quelques instant")
+    }
+    console.log(store)
   };
 
   return (
@@ -29,21 +39,12 @@ const SignIn = () => {
             Se connecter
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
+            <EmailInput 
               required
-              fullWidth
-              name="email"
-              label="Email"
-              autoFocus
+              onChange={e => setEmail(e.target.value)} 
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="Mot de passe"
-              type="password"
-              name="password"
+            <PasswordInput 
+              onChange={e => setPassword(e.target.value)} 
             />
             <Button
               type="submit"
@@ -53,9 +54,6 @@ const SignIn = () => {
             >
               Valider
             </Button>
-
-
-
           </Box>
         </Box>
       </Container>

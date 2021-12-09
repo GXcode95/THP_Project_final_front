@@ -1,22 +1,29 @@
-import React, {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux'
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router';
 import APIManager from 'services/Api'
 import { fetchUserRequest, fetchUserRegisterSuccess, fetchUserError } from 'store/users/actions'
+import { Button,Box, Typography, Container } from '@mui/material';
+import EmailInput from '../input/EmailInput';
+import PasswordInput from '../input/PasswordInput';
+import PasswordConfirmationInput from '../input/PasswordConfirmationInput';
+import PhoneInput from '../input/PhoneInput';
+import FirstNameInput from '../input/FirstNameInput';
+import LastNameInput from '../input/LastNameInput';
+import AddressInput from '../input/AddressInput';
+
 const SignUp = () => {
   const [email,setEmail] = useState()
-  const [password,setPassword] = useState()
-  const [passwordConfirmation,setPasswordConfirmation] = useState()
-  const [firstName,setFirstName] = useState()
-  const [lastName,setLastName] = useState()
+  const [password, setPassword] = useState()
+  const [passwordConfirmation, setPasswordConfirmation] = useState()
+  const [firstName, setFirstName] = useState()
+  const [lastName, setLastName] = useState()
   const [phone, setPhone] = useState()
   const [address,setAddress] = useState()
+  
   const dispatch = useDispatch()
-  const store= useSelector(state => state)
+  const navigate = useNavigate()
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userInfo = {
@@ -32,13 +39,13 @@ const SignUp = () => {
     const response = await APIManager.registerUser(userInfo)
     if(response){
       response.error ? 
-      dispatch(fetchUserError(response.error)) :
-      dispatch(fetchUserRegisterSuccess(response))
+        dispatch(fetchUserError(response.error)) :
+        dispatch(fetchUserRegisterSuccess(response))
     }else {
       alert("Un problème est survenue, mercide réessayer dans quelques instant")
     }
-    console.log(store)
-  };
+    navigate('/') 
+  }
 
   return (
       <Container component="main" maxWidth="xs">
@@ -52,77 +59,34 @@ const SignUp = () => {
           <Typography variant="h2" color="primary" >
             S'inscrire
           </Typography>
+
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-              margin="normal"
+            <EmailInput 
               required
-              fullWidth
-              name="email"
-              label="Email"
-              type="email"
-              autoFocus
-              defaultValue="xavier@gmail.com"
-              onChange={e => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)} 
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="Mot de passe"
-              type="password"
-              name="password"
-              onChange={e => setPassword(e.target.value)}
+            <PasswordInput 
+              onChange={e => setPassword(e.target.value)} 
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="Confirmation mot de passe"
-              type="password"
-              name="password_confirmation"
+            <PasswordConfirmationInput
               onChange={e => setPasswordConfirmation(e.target.value)}
             />
-
-            <TextField
-              margin="normal"
-              fullWidth
-              name="last_name"
-              label="Nom"
+            <LastNameInput
               required
-              defaultValue="grenouillet"
               onChange={e => setLastName(e.target.value)}
             />
-
-            <TextField
-              margin="normal"
-              fullWidth
-              name="first_name"
-              label="Prénom"
+            <FirstNameInput
               required
-              defaultValue="xavier"
               onChange={e => setFirstName(e.target.value)}
             />
-            
-            <TextField
-              margin="normal"
-              fullWidth
-              name="address"
-              label="Adresse"
+            <AddressInput
               required
-              defaultValue="71 rue de Bruges"
               onChange={e => setAddress(e.target.value)}
             />
-
-            <TextField
-              margin="normal"
-              fullWidth
-              name="phone"
-              label="Téléphone"
+            <PhoneInput
               required
-              defaultValue="0622881718"
               onChange={e => setPhone(e.target.value)}
             />
-
             <Button
               type="submit"
               fullWidth
@@ -132,6 +96,7 @@ const SignUp = () => {
               Valider
             </Button>
           </Box>
+
         </Box>
       </Container>
   );
