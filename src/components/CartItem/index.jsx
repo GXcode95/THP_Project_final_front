@@ -1,7 +1,5 @@
 import React from 'react'
-import Typography from '@mui/material/Typography';
-import { Box, Button } from '@mui/material'
-import ButtonGroup from '@mui/material/ButtonGroup';
+import { Box, Button, ButtonGroup, Typography } from '@mui/material'
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
