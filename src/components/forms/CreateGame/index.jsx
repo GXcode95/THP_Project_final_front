@@ -26,7 +26,7 @@ const CreateGame = () => {
         <Box 
           display="flex" 
           flexDirection="column" 
-          alignItems="center",
+          alignItems="center"
         >
           <Typography variant="h2" color="primary" >
             Ajouter un jeu
