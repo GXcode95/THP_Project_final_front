@@ -37,7 +37,6 @@ const GameCard = () => {
               publicId="default_game"
               height={cardHeight}
               crop="scale"            
-              // didn't find how to use relative size here, so i put the image resize in the css
             />
           </Grid>
           <Grid item md={7} xs={12} >
