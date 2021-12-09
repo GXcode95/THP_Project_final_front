@@ -10,7 +10,7 @@ const GameDescription = ({game}) => {
   }
 
   return (
-    <Box>
+    <Box >
       <Typography 
         variant="subtitle1" 
         color="primary"

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Image} from 'cloudinary-react'
-import { Container, Box, Typography, Button, Stack } from '@mui/material'
+import { Container, Box, Typography, Button, Stack, Grid } from '@mui/material'
 import GameDescription from './GameDescription';
 import GameCredentials from './GameCredentials';
 import GameIconsInfos from './GameIconsInfos'
@@ -25,41 +25,43 @@ const GameCard = () => {
 
   return (
     <Container>
-      <Box display="flex" justifyContent="center">
-        <Box>
-          <Image
-            cloudName={process.env.REACT_APP_CLOUD_NAME}
-            publicId="default_game"
-            className="game-card-image"
-            width={window.innerWidth / 4}
-            crop="crop"
-            // didn't find how to use relative size here, so i put the image resize in the css
-          />
-        </Box>
-        <Box 
-          width="50%" 
-          px="2em" 
-          display="flex" 
-          flexDirection="column" 
-          justifyContent="space-evenly"
-          border="1px solid"
-          borderColor="primary.main"
-          borderLeft="5px"
-        >
+      <Box  border="1px solid" borderColor="primary.main" p="0.3em" >
+        <Typography variant="h4" align="center" noWrap py="0.5em" >
+          {game.name}
+        </Typography>
 
-          <Typography variant="h4" align="center" noWrap>
-            {game.name}
-          </Typography>
-          
-          <GameIconsInfos game={game} />
-          <GameDescription game={game}/>
-          <GameCredentials game={game} />
-          <Stack direction="row" justifyContent="space-evenly">
-            <Button disabled>Acheter</Button>
-            <Button>Louer</Button>
 
-          </Stack>
-        </Box>
+        <Grid container height="400px">
+          <Grid item md={5} display="flex"justifyContent="center" alignItems="center" overflow="hidden">
+            <Image
+              cloudName={process.env.REACT_APP_CLOUD_NAME}
+              publicId="default_game"
+              height={400}
+              crop="crop"            
+              // didn't find how to use relative size here, so i put the image resize in the css
+            />
+          </Grid>
+          <Grid item md={7} >
+            <Box 
+              display="flex" 
+              flexDirection="column" 
+              justifyContent="space-evenly"
+              height="100%"
+              pr="0.2em" pl="0.8em"
+            >
+
+
+              
+              <GameDescription game={game}/>
+              <GameIconsInfos game={game} />
+              <GameCredentials game={game} />
+              <Stack direction="row" justifyContent="space-evenly">
+                <Button disabled>Acheter</Button>
+                <Button>Louer</Button>
+              </Stack>
+            </Box>
+          </Grid>
+        </Grid>
       </Box>
     </Container>
   )
