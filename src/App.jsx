@@ -14,6 +14,7 @@ import NavBar from 'components/navigation/NavBar';
 import BottomBar from 'components/BottomBar'
 import HeroBanner from './components/navigation/NavBar/HeroBanner'
 import SearchContainer from './components/navigation/NavBar/SearchContainer'
+import CartItem from 'components/CartItem';
 
 const App = () => {
   return (
