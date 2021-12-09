@@ -10,10 +10,6 @@ const EditInputGrid = (props) => {
 
   return (
     <Grid container >
-      <Typography variant="h2" color="primary" >
-        Mon profile
-      </Typography>
-      
         {Object.values(props).map( component =>
             (
               <Box component="form" noValidate sx={{ mt: 1 }}>

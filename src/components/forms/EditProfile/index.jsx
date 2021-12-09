@@ -28,7 +28,11 @@ const EditProfile = () => {
             alignItems: 'center',
           }}
         >
-          <EditInputGrid 
+          <Typography variant="h2" color="primary" >
+            Mon profile
+          </Typography>
+          
+          <EditInputGrid
             emailInput={<EmailInput defaultValue={`john.doe@email.com`} />} 
             lastNameInput={<LastNameInput defaultValue={`Doe`} />}
             firstNameInput={<FirstNameInput defaultValue={`John`} />}
