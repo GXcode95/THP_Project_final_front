@@ -11,7 +11,7 @@ import RentButton from 'components/buttons/RentButton'
 import isSigned from 'helpers/isSigned'
 
 const NavBar = ()  => {
-  const user = useSelector(state => state.userReducer.user)
+  const user = useSelector(state => state.userReducer)
   
 
   return (
