@@ -20,7 +20,6 @@ const Login = () => {
       flexDirection="column" 
       justifyContent="space-evenly"
       minHeight="90vh"
-      pb="3em"
     >
       <Typography variant="h2" color="primary" align="center" >
         {isRegistered ? "Se connecter" : "S'inscrire"}
