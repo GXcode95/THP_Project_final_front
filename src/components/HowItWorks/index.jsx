@@ -16,12 +16,12 @@ export default function HowItWorks() {
 			<TimelineItem>
 				<TimelineSeparator>
 					<TimelineConnector />
-					<TimelineDot>
-						<TouchAppIcon />
+					<TimelineDot sx={{padding: "0.6em"}}>
+						<TouchAppIcon sx={{fontSize: "2em"}}/>
 					</TimelineDot>
 					<TimelineConnector />
 				</TimelineSeparator>
-				<TimelineContent sx={{ py: '25px', px: 2 }}>
+				<TimelineContent sx={{ py: '3em', px: 2 }}>
 					<Typography variant="h6" component="span">
 						Abonnez-vous
 					</Typography>
@@ -31,12 +31,12 @@ export default function HowItWorks() {
 			<TimelineItem>
 				<TimelineSeparator>
 					<TimelineConnector />
-					<TimelineDot color="primary">
-						<AddShoppingCartIcon />
+					<TimelineDot color="primary" sx={{padding: "0.8em"}}>
+						<AddShoppingCartIcon sx={{fontSize: "3em"}} />
 					</TimelineDot>
 					<TimelineConnector />
 				</TimelineSeparator>
-				<TimelineContent sx={{ py: '25px', px: 2 }}>
+				<TimelineContent sx={{ py: '3em', px: 2 }}>
 					<Typography variant="h6" component="span">
 						Ajoutez vos jeux de société
 					</Typography>
@@ -46,12 +46,12 @@ export default function HowItWorks() {
 			<TimelineItem>
 				<TimelineSeparator>
 					<TimelineConnector />
-					<TimelineDot >
-						<LocalShippingIcon />
+					<TimelineDot sx={{padding: "0.6em"}}>
+						<LocalShippingIcon sx={{fontSize: "2em"}}/>
 					</TimelineDot>
 					<TimelineConnector />
 				</TimelineSeparator>
-				<TimelineContent sx={{ py: '25px', px: 2 }}>
+				<TimelineContent sx={{ py: '3em', px: 2 }}>
 					<Typography variant="h6" component="span">
 						Recevez vos jeux
 					</Typography>
