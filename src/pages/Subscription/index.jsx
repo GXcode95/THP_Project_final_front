@@ -1,10 +1,15 @@
 import React from 'react'
-import Pricing from 'components/Pricing'
+import isSigned from 'helpers/isSigned'
+import { useSelector } from 'react-redux'
+import UserSubscription from 'components/UserSubscription'
+import VisitorSubscription from 'components/VisitorSubscription'
+
 const Subscription = () => {
+  const user = useSelector(state => state.userReducer)
 
   return (
-    <div className=''>
-      <Pricing />
+    <div className='Subscription'>
+      { isSigned(user) ? <UserSubscription /> : <VisitorSubscription /> }
     </div>
   )
 }
