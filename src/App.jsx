@@ -34,16 +34,8 @@ const App = () => {
             <Route path="/abonnement" element={<Subscription />} exact />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <BottomBar />
+          <Box py="3em" />
+          <BottomBar/>
         </Router>
       </ThemeProvider>
     </div>

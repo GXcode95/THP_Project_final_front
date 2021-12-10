@@ -1,10 +1,6 @@
 import * as React from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import {Container,Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'; 
 export default function Faq() {
 	const [expanded, setExpanded] = React.useState(false);
 
@@ -13,11 +9,12 @@ export default function Faq() {
 	};
 
 	return (
-		<div>
-			<Typography variant="h2" component="p" align="center">
-				F.A.Q.
-			</Typography>
-			<Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+		<Container>
+			<Accordion 
+				expanded={expanded === 'panel1'} 
+				sx={{ border: "1px solid", borderColor: "primary.main" }}
+				onChange={handleChange('panel1')} 
+			>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls="panel1bh-content"
@@ -36,7 +33,11 @@ export default function Faq() {
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+			<Accordion 
+				expanded={expanded === 'panel2'} 
+				sx={{ border: "1px solid", borderColor: "primary.main" }}
+				onChange={handleChange('panel2')} 
+			>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls="panel2bh-content"
@@ -54,7 +55,11 @@ export default function Faq() {
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+			<Accordion 
+				expanded={expanded === 'panel3'} 
+				onChange={handleChange('panel3')}
+				sx={{ border: "1px solid", borderColor: "primary.main" }}
+			>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls="panel3bh-content"
@@ -74,7 +79,11 @@ export default function Faq() {
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+			<Accordion 
+				expanded={expanded === 'panel4'} 
+				onChange={handleChange('panel4')}
+				sx={{ border: "1px solid", borderColor: "primary.main" }}
+			>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls="panel4bh-content"
@@ -91,6 +100,6 @@ export default function Faq() {
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
-		</div>
+		</Container>
 	);
 }
