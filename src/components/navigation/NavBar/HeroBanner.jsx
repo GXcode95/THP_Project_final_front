@@ -14,7 +14,7 @@ const HeroBanner = () => {
         justifyContent="center"
         alignItems="center"
         sx={{
-          background:"url(https://i.ibb.co/tmdRwGV/chess-g5a2513c32-1920-1-1.jpg) no-repeat",
+          background:"url(https://i.ibb.co/6myGXwV/chess-g5aae200df-1920-3.jpg) no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
           }}
@@ -29,7 +29,6 @@ const HeroBanner = () => {
           align="center"
           color="white.main"
           fontWeight="600"
-          className="subtitle-hero"
           >
           Parce qu'il n'y a pas que des échecs dans la vie
           
