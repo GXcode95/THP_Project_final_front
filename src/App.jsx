@@ -12,7 +12,9 @@ import {light} from 'style/palette'
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import NavBar from 'components/navigation/NavBar';
 import BottomBar from 'components/BottomBar'
-import  HeroBanner from './components/navigation/NavBar/HeroBanner'
+import HeroBanner from './components/navigation/NavBar/HeroBanner'
+import SearchContainer from './components/navigation/NavBar/SearchContainer'
+import CartItem from 'components/CartItem';
 
 const App = () => {
   return (
@@ -22,6 +24,7 @@ const App = () => {
         <Router>
           <NavBar />
           <HeroBanner />
+          <SearchContainer />
           <Routes>
             <Route path="/" element={<Home />} exact />
             <Route path="/jeux/:gameID" element={<Game />} exact />
