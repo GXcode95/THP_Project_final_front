@@ -1,5 +1,4 @@
-import Cookies from 'js-cookie'
-import { FETCH_USER_REQUEST } from 'store/users/types.js'
+// import Cookies from 'js-cookie'
 import {
   FETCH_GAMES_REQUEST,
   FETCH_GAMES_ERROR,
@@ -8,12 +7,12 @@ import {
 
 const initialState = {
   loading: false,
-  games: {},
+  games: [],
   error: ''
 }
 
 const gamesReducer = (state = initialState, action) => {
-  switch(action.types) {
+  switch(action.type) {
     case FETCH_GAMES_REQUEST:
       return {
         ...state,
@@ -33,9 +32,7 @@ const gamesReducer = (state = initialState, action) => {
         games: action.games
       }
     default: 
-      return {
-        state
-      }
+      return state
   }
 }
 
