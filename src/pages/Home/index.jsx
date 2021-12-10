@@ -9,7 +9,6 @@ import GameList from 'components/GameList'
 const Home = () => {
   const [games, setGames] = React.useState()
   const dispatch = useDispatch()
-  const gameStore = useSelector(state => state.gamesReducer)
 
   React.useEffect(
     () => {
@@ -27,19 +26,17 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]
   )
-  React.useEffect(
-    () => {
-      console.log("effect store",gameStore)
-    }, [gameStore]
-  )
+
 
   return (
     <div className=''>
       <HowItWorks />
       <button onClick={e => console.log("salut",games )}></button>
-      <GameList games={games}/>
+      {games ? 
+        <GameList games={games}/> :
+        <h2>Loading ...</h2>
+      }
       <Faq />
-      {/* {gameStore && console.log("gamesStore", gameStore)} */}
     </div>
   )
 }

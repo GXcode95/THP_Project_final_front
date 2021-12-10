@@ -12,7 +12,7 @@ const initialState = {
 }
 
 const gamesReducer = (state = initialState, action) => {
-  switch(action.types) {
+  switch(action.type) {
     case FETCH_GAMES_REQUEST:
       return {
         ...state,
@@ -26,7 +26,6 @@ const gamesReducer = (state = initialState, action) => {
       }
     case FETCH_GAMES_SUCCESS:
       // Cookies.set('games', action.games)
-      console.log("HERE",action.games)
       return {
         ...state,
         loading: false,
