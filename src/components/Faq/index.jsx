@@ -79,7 +79,11 @@ export default function Faq() {
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+			<Accordion 
+				expanded={expanded === 'panel4'} 
+				onChange={handleChange('panel4')}
+				sx={{ border: "1px solid", borderColor: "primary.main" }}
+			>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls="panel4bh-content"
