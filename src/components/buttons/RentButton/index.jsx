@@ -1,11 +1,11 @@
 import React from 'react'
 import {IconButton} from '@mui/material'
-import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import CasinoIcon from '@mui/icons-material/Casino';
 const RentButton = (props) => {
 
   return (
     <IconButton >
-      <LoyaltyIcon {...props}/>
+      <CasinoIcon {...props} className="icon-hover-effect"/>
     </IconButton>
   )
 }

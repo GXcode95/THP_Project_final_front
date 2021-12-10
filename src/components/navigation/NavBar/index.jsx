@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 // import AvatarDropdown from './AvatarDropdown'
 import LoginButton from 'components/buttons/LoginButton';
 import {Toolbar} from '@mui/material'
-import logo from 'assets/images/logo.png'
+import logo from 'assets/images/logo-playbox.svg'
 import CartButton from 'components/buttons/CartButton'
 import RentButton from 'components/buttons/RentButton'
 
