@@ -37,6 +37,7 @@ const Home = () => {
         <h2>Loading ...</h2>
       }
       <Faq />
+      {console.log("digjijg",process.env.REACT_APP_BASE_URL)}
     </div>
   )
 }
