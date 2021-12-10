@@ -1,3 +1,7 @@
+$primary: #283845;
+$secondary: #109eb3;
+$ternary: #ffb735;
+
 * {
   list-style: none;
 }
@@ -9,11 +13,15 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+.icon-hover-effect:hover {
+  color: $secondary;
+}
+
 a {
   color:inherit;
   text-decoration: none;
 }
-
 
 .HeroBanner {
 
