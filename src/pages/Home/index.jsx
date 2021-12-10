@@ -1,10 +1,12 @@
 import React from 'react'
 import APIManager from 'services/Api'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {fetchGamesRequest, fetchGamesError,fetchGamesSuccess} from 'store/games/actions'
 import Faq from 'components/Faq'
 import HowItWorks from 'components/HowItWorks'
 import GameList from 'components/GameList'
+import {Box, Button, Container} from '@mui/material'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   const [games, setGames] = React.useState()
@@ -31,11 +33,22 @@ const Home = () => {
   return (
     <div className=''>
       <HowItWorks />
-      <button onClick={e => console.log("salut",games )}></button>
-      {games ? 
-        <GameList games={games}/> :
+      {games ? (
+        <Container>
+          <GameList games={games.slice(0,4)}/> 
+          
+          <Box display="flex" justifyContent="center" py="2.5em">
+            <Button color="ternary" sx={{color: "primary.main"}}>
+              <Link to="/games">
+                Plus de jeux
+              </Link>
+            </Button>
+          </Box>
+        </Container>) 
+        : 
         <h2>Loading ...</h2>
       }
+      
       <Faq />
     </div>
   )
