@@ -14,7 +14,7 @@ const HeroBanner = () => {
         justifyContent="center"
         alignItems="center"
         sx={{
-          background:"url(https://i.ibb.co/6myGXwV/chess-g5aae200df-1920-3.jpg) no-repeat",
+          background:"url(https://i.ibb.co/k0DTPyw/ches-g5aae200df-1920-5.jpg) no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
           }}
