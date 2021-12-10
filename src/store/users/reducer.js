@@ -52,9 +52,15 @@ const userReducer = (state = initialState, action) => {
     case FETCH_USER_SIGN_OUT_SUCCESS:
       // Cookies.set('user', "")
       return {
-        ...state,
-        ...action,
         loading: false,
+        userInfo: {},
+        favorite: {},
+        rentedGames: {},
+        rentGames: {},
+        wishList: {},
+        commandHistory: {},
+        cart: {},
+        error: ''
       }
     case FETCH_USER_UPDATE_SUCCESS:
       return {

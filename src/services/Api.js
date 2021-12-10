@@ -35,6 +35,7 @@ const handleCatchError = (error) => {
 const handleJwt = (response) => {
   if (response.headers.authorization) {
     const jwt = response.headers.authorization.split(" ")[1]
+    console.log("jwt :", jwt)
     Cookies.set('token', jwt)
   }
 }
@@ -53,10 +54,18 @@ export default class APIManager {
     console.log("APIManager # getUserInfo =>", response)
     return response.data
   }
+
+  static async signOutUser() {
+    const response = await API.delete("/users/sign_out")
+    .catch(error => handleCatchError(error)) 
+    console.log("APIManager # signOutUser =>", response)
+    return response.data
+  }
     
   static async registerUser(user) {
     const response = await API.post('/users', {"user": user})
     .catch(error => handleCatchError(error)) 
+    handleJwt(response)
     console.log("APIManager # signUpUser =>", response)
     return response.data;
   }
@@ -69,6 +78,8 @@ export default class APIManager {
           password }
       })
       .catch(error => handleCatchError(error)) 
+    handleJwt(response)
+    console.log("jwtCookie: ", Cookies.get('token'))
     console.log("APIManager # signInUser =>", response)
     return response.data
   }

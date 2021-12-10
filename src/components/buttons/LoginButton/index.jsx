@@ -11,6 +11,7 @@ const LoginButton = () => {
       id="fade-button"
       className="login-button"
       onClick={e => navigate('/connexion')}
+      sx={{ml: "1.2em"}}
     >
         Login
     </Button>

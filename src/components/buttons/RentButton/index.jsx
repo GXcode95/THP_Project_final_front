@@ -5,7 +5,7 @@ const RentButton = (props) => {
 
   return (
     <IconButton >
-      <CasinoIcon {...props} className="icon-hover-effect"/>
+      <CasinoIcon {...props} className="icon-hover-effect" sx={{fontSize: "1.3em"}}/>
     </IconButton>
   )
 }

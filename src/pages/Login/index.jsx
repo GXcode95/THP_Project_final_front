@@ -3,7 +3,7 @@ import SignIn from 'components/forms/SignIn'
 import SignUp from 'components/forms/SignUp'
 import PasswordReset from 'components/forms/PasswordReset'
 import {Button, Box,Typography} from '@mui/material'
-
+import Cookies from 'js-cookie'
 const Login = () => {
   const [isRegistered, setIsRegistered] = React.useState(true)
   const [passwordReset, setPasswordReset] = React.useState(false)
@@ -40,7 +40,7 @@ const Login = () => {
             Mot de passe oublié ?
         </Button>
       </Box>
-
+    {console.log("cookies: ", Cookies.get('token'))}
       {passwordReset && <PasswordReset togglePasswordReset={togglePasswordReset}/>}
     </Box>
   )

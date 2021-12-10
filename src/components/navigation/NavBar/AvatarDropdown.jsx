@@ -1,16 +1,17 @@
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom';
-import { Fade, Avatar, MenuItem, Menu } from '@mui/material';
+import { Fade, MenuItem, Menu, IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
-// import { fetchUserRequest, fetchUserSignOutSuccess, fetchUserError } from 'store/user/actions';
-// import APIManager from 'services/Api'
-// import { useNavigate } from 'react-router';
+import { fetchUserRequest, fetchUserSignOutSuccess, fetchUserError } from 'store/users/actions';
+import APIManager from 'services/Api'
+import { useNavigate } from 'react-router';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const AvatarDropdown = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  // const dispatch = useDispatch()
-  // const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -19,23 +20,25 @@ const AvatarDropdown = () => {
   };
   
   const signOut = async() => {
-    // dispatch(fetchUserRequest())
-    // const response = await APIManager.signOutUser()
-    // response.error ? 
-    //   dispatch(fetchUserError) :
-    //   dispatch(fetchUserSignOutSuccess)
-    // navigate("/")
+    dispatch(fetchUserRequest())
+    const response = await APIManager.signOutUser()
+    response.error ? 
+      dispatch(fetchUserError) :
+      dispatch(fetchUserSignOutSuccess)
+    navigate(0)
   }
   return (
-    <div>
-      <Avatar
-      color="inherit"
-      id="fade-button"
-      onClick={handleClick}
-      sx={{ border: 1, BorderColor: 'error.success' }}
-      src='../../assets/images/img-avatar.jpg'
+    <>
+      <IconButton
+        id="fade-button"
+        onClick={handleClick}
       >
-      </Avatar>
+        <AccountCircleIcon 
+          color="ternary"
+          className="icon-hover-effect"
+          sx={{fontSize: "1.4em"}}
+        />
+      </IconButton>
       <Menu
         id="fade-menu"
         MenuListProps={{
@@ -55,7 +58,7 @@ const AvatarDropdown = () => {
           Logout
         </MenuItem>
       </Menu>
-  </div>
+  </>
   )
 }
     
