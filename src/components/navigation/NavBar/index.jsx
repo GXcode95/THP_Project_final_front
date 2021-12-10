@@ -28,7 +28,7 @@ const NavBar = ()  => {
           <img src={logo} alt="playbox logo" height="50px"/> 
           <Box>
             <CartButton color="white"/>
-            <RentButton color="white"/>
+            { isSigned(user) && <RentButton color="white"/> }
             {
               isSigned(user) ?
               <AvatarDropdown /> :
