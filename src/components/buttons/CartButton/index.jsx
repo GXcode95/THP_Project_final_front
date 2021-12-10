@@ -7,10 +7,8 @@ const CartButton = (props) => {
 
   return (
     <IconButton >
-      <ShoppingCartIcon {...props}/>
+      <ShoppingCartIcon {...props} className="icon-hover-effect" sx={{fontSize: "1.3em"}}/>
     </IconButton>
-
-
   )
 }
     

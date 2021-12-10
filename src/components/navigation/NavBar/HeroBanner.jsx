@@ -1,6 +1,7 @@
 import React from 'react'
 import {Card, Box, Typography} from '@mui/material'
 import { Button } from '@mui/material'
+import heroBanner  from 'assets/images/herobanner_version_1.jpg'
 
 const HeroBanner = () => {
 
@@ -14,7 +15,8 @@ const HeroBanner = () => {
         justifyContent="center"
         alignItems="center"
         sx={{
-          background:"url(https://i.ibb.co/tmdRwGV/chess-g5a2513c32-1920-1-1.jpg) no-repeat",
+          backgroundColor: "primary.main",
+          background: `url(${heroBanner}) no-repeat`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           }}
@@ -29,7 +31,6 @@ const HeroBanner = () => {
           align="center"
           color="white.main"
           fontWeight="600"
-          className="subtitle-hero"
           >
           Parce qu'il n'y a pas que des échecs dans la vie
           
