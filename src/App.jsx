@@ -12,7 +12,7 @@ import {light} from 'style/palette'
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import NavBar from 'components/navigation/NavBar';
 import BottomBar from 'components/BottomBar'
-import  HeroBanner from './components/navigation/NavBar/HeroBanner'
+import HeroBanner from './components/navigation/NavBar/HeroBanner'
 
 const App = () => {
   return (
@@ -39,4 +39,3 @@ const App = () => {
   );
 }
 export default App;
-    
