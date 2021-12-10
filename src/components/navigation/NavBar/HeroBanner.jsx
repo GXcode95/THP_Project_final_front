@@ -42,8 +42,7 @@ const HeroBanner = () => {
           align="center"
           color="secondary.main"
           fontWeight="600"
-          
-          >
+         >
           Louez, testez, achetez !
         </Typography>
         <Button
