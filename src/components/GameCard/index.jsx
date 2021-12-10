@@ -1,5 +1,5 @@
 import React from 'react'
-import {Image} from 'cloudinary-react'
+import { Image } from 'cloudinary-react'
 import { Card, Box, Typography, Button, Stack, Grid } from '@mui/material'
 import GameDescription from './GameDescription';
 import GameCredentials from './GameCredentials';
@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 
 
-const GameCard = ({game}) => {
+const GameCard = ({ game }) => {
   // const game = {
   //   name: "Super nom de jeu trop stylé",
   //   price: "25",
@@ -27,14 +27,14 @@ const GameCard = ({game}) => {
   const cardHeight = window.screen.width / 8
   return (
     <>
-      <Card  elevation={8}
-        sx={{ 
-          border:"1px solid",
+      <Card elevation={8}
+        sx={{
+          border: "1px solid",
           borderColor: "primary.main",
-          padding: "0.3em" 
+          padding: "0.3em"
         }}
       >
-        <Link to={`/game/${game.id}`}>
+        <Link to={`/jeux/${game.id}`}>
           <Typography variant="h4" align="center" noWrap py="0.5em" >
             {game.name}
           </Typography>
@@ -46,19 +46,19 @@ const GameCard = ({game}) => {
               cloudName={process.env.REACT_APP_CLOUD_NAME}
               publicId="default_game"
               height={cardHeight}
-              crop="scale"            
+              crop="scale"
             />
           </Grid>
           <Grid item md={7} xs={12} >
-            <Box 
-              display="flex" 
-              flexDirection="column" 
+            <Box
+              display="flex"
+              flexDirection="column"
               justifyContent="space-evenly"
               height="100%"
               pr="0.2em" pl="0.8em"
             >
-              <GameDescription game={game} limit={cardHeight * 0.6}/>
-              <GameIconsInfos game={game}/>
+              <GameDescription game={game} limit={cardHeight * 0.6} />
+              <GameIconsInfos game={game} />
               <GameCredentials game={game} />
               <Stack direction="row" justifyContent="space-evenly">
                 <Button disabled >Acheter</Button>
@@ -71,5 +71,5 @@ const GameCard = ({game}) => {
     </>
   )
 }
-    
+
 export default GameCard

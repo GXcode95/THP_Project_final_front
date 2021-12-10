@@ -1,12 +1,13 @@
 import React from 'react'
-       
-const Game = () => {
+import GameDetails from 'components/GameDetails/'
 
+
+const Game = () => {
   return (
     <div className=''>
-
+      <GameDetails />
     </div>
   )
 }
-    
+
 export default Game

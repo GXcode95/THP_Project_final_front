@@ -8,11 +8,12 @@ import Login from 'pages/Login';
 import Profile from 'pages/Profile';
 import Subscription from 'pages/Subscription';
 import NotFound from 'pages/NotFound'
-import {light} from 'style/palette'
+import { light } from 'style/palette'
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import NavBar from 'components/navigation/NavBar';
 import BottomBar from 'components/BottomBar'
 import HeroBanner from './components/navigation/NavBar/HeroBanner'
+import GameDetails from 'components/GameDetails';
 
 const App = () => {
   return (
@@ -24,7 +25,8 @@ const App = () => {
           <HeroBanner />
           <Routes>
             <Route path="/" element={<Home />} exact />
-            <Route path="/jeux/:gameID" element={<Game />} exact />
+            <Route path="/jeux/:gameID" element={<GameDetails />} exact />
+            <Route path="/jeux" element={<Game />} exact />
             <Route path="/panier" element={<Cart />} exact />
             <Route path="/dashboard" element={<Dashboard />} exact />
             <Route path="/connexion" element={<Login />} exact />
@@ -32,7 +34,16 @@ const App = () => {
             <Route path="/abonnement" element={<Subscription />} exact />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <BottomBar/>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <BottomBar />
         </Router>
       </ThemeProvider>
     </div>
