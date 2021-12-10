@@ -24,7 +24,7 @@ const GameCard = ({game}) => {
   //   rank: "2",
   //   id: "5"
   // }
-  const cardHeight = window.screen.width / 8
+  const cardHeight = window.screen.width / 16
   return (
     <>
       <Card  elevation={8}

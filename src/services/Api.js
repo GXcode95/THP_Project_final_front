@@ -246,11 +246,10 @@ export default class APIManager {
   ///    CART    ///
   //////////////////
 
-  static async getCart () {
-    const response = await API.get("/carts")
+  static async getCart (id) {
+    const response = await API.get(`/carts/${id}`)
     .catch(error => handleCatchError(error))
     console.log("APIManager # getCart =>", response)
     return response.data
   }
-  
 }
