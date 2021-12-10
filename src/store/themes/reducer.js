@@ -1,4 +1,4 @@
-import { TOGGLE_THEME } from "./style";
+import { TOGGLE_THEME } from "./types";
 import {light, dark} from 'style/palette'
 import Cookies from "js-cookie";
 

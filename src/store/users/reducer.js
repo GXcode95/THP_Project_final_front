@@ -39,7 +39,7 @@ const userReducer = (state = initialState, action) => {
       // Cookies.set('user', ...action)
       return {
         ...state,
-        ...action,
+        userInfo: action.user.userInfo,
         loading: false,
       }
     case FETCH_USER_SIGN_IN_SUCCESS:
@@ -79,6 +79,10 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         cart: action.cart
+      }
+    default:
+      return {
+        state
       }
   }
 }
