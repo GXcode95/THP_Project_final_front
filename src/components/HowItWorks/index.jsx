@@ -49,7 +49,7 @@ export default function HowItWorks() {
 					<TimelineDot >
 						<LocalShippingIcon />
 					</TimelineDot>
-					<TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+					<TimelineConnector />
 				</TimelineSeparator>
 				<TimelineContent sx={{ py: '25px', px: 2 }}>
 					<Typography variant="h6" component="span">
