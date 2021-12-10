@@ -16,13 +16,13 @@ export default function HowItWorks() {
 			<TimelineItem>
 				<TimelineSeparator>
 					<TimelineConnector />
-					<TimelineDot sx={{padding: "0.6em"}}>
-						<TouchAppIcon sx={{fontSize: "2em"}}/>
+					<TimelineDot color="secondary" sx={{padding: "0.6em"}}>
+						<TouchAppIcon color="white" sx={{fontSize: "2em"}}/>
 					</TimelineDot>
 					<TimelineConnector />
 				</TimelineSeparator>
 				<TimelineContent sx={{ py: '3em', px: 2 }}>
-					<Typography variant="h6" component="span">
+					<Typography variant="h5" component="span">
 						Abonnez-vous
 					</Typography>
 					<Typography>Choisissez votre abonnement</Typography>
@@ -37,7 +37,7 @@ export default function HowItWorks() {
 					<TimelineConnector />
 				</TimelineSeparator>
 				<TimelineContent sx={{ py: '3em', px: 2 }}>
-					<Typography variant="h6" component="span">
+					<Typography variant="h5" component="span">
 						Ajoutez vos jeux de société
 					</Typography>
 					<Typography>Ajoutez les jeux que vous emprunter à votre liste de jeux</Typography>
@@ -46,13 +46,13 @@ export default function HowItWorks() {
 			<TimelineItem>
 				<TimelineSeparator>
 					<TimelineConnector />
-					<TimelineDot sx={{padding: "0.6em"}}>
+					<TimelineDot color="secondary" sx={{padding: "0.6em"}}>
 						<LocalShippingIcon sx={{fontSize: "2em"}}/>
 					</TimelineDot>
 					<TimelineConnector />
 				</TimelineSeparator>
 				<TimelineContent sx={{ py: '3em', px: 2 }}>
-					<Typography variant="h6" component="span">
+					<Typography variant="h5" component="span">
 						Recevez vos jeux
 					</Typography>
 					<Typography>Chaque mois nous vous livrons votre sélection chez vous !</Typography>
