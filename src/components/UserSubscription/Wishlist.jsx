@@ -9,7 +9,7 @@ const Wishlist = (props) => {
 
   const handleAdd = async (rentId) => {
     const quantityElement = document.getElementById(rentId).lastChild
-    const quantity = parseInt(quantityElement.textContent.slice(-1))
+    const quantity = parseInt(quantityElement.textContent.split(' ')[1])
     dispatch(fetchUserRequest())
     const response = await APIManager.updateRent(rentId, {quantity: quantity + 1})
     if(response.error) {
@@ -22,7 +22,7 @@ const Wishlist = (props) => {
 
   const handleRemove = async (rentId) => {
     const quantityElement = document.getElementById(rentId).lastChild
-    const quantity = parseInt(quantityElement.textContent.slice(-1))
+    const quantity = parseInt(quantityElement.textContent.split(' ')[1]) > 1 ? parseInt(quantityElement.textContent.split(' ')[1]) : 2
     dispatch(fetchUserRequest())
     const response = await APIManager.updateRent(rentId, {quantity: quantity -1})
     if(response.error) {
@@ -34,12 +34,14 @@ const Wishlist = (props) => {
   }
 
   const handleDelete = async (rentId) => {
+    const quantityElement = document.getElementById(rentId).parentElement
     dispatch(fetchUserRequest())
     const response = await APIManager.deleteRent(rentId)
     if(response.error) {
       dispatch(fetchUserError(response.error))
     } else {
       dispatch(fetchUserSignInSuccess(response))
+      quantityElement.remove()
     }
   }
 
