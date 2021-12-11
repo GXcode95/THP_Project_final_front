@@ -12,7 +12,6 @@ import isSigned from 'helpers/isSigned'
 
 const NavBar = ()  => {
   const user = useSelector(state => state.userReducer)
-  
 
   return (
     <Box sx={{ flexGrow: 1 }}>

@@ -85,7 +85,9 @@ export default class APIManager {
   }
   
   static async signInUserJwt() {
-    const response = await API.post('/users/sign_in')
+    const response = await axios.post(`${BASE_URL}/users/sign_in`,null,{
+      headers: { 'Authorization': `Bearer ${Cookies.get('token')}` }
+    })
     .catch(error => handleCatchError(error))
     handleJwt(response)
     console.log("APIManager # signInUserJwt =>", response)
@@ -246,11 +248,10 @@ export default class APIManager {
   ///    CART    ///
   //////////////////
 
-  static async getCart () {
-    const response = await API.get("/carts")
+  static async getCart (id) {
+    const response = await API.get(`/carts/${id}`)
     .catch(error => handleCatchError(error))
     console.log("APIManager # getCart =>", response)
     return response.data
   }
-  
 }
