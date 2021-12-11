@@ -254,4 +254,16 @@ export default class APIManager {
     console.log("APIManager # getCart =>", response)
     return response.data
   }
+
+  //////////////////////
+  ///    PACKAGES    ///
+  //////////////////////
+
+  static async getCartsHistory (id) {
+    const response = await API.get(`/carts`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # getCartsHistory =>", response)
+    return response.data
+  }
+
 }

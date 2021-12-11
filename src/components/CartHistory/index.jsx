@@ -7,7 +7,7 @@ const CartHistory = ({cart}) => {
       <Typography variant="h2" color="primary" align="center">
         Historique d'achat
       </Typography>
-      {console.log(cart)}
+      
     </div>
   )
 }
