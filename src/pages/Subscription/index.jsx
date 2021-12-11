@@ -1,5 +1,5 @@
 import React from 'react'
-import isSigned from 'helpers/isSigned'
+import isSubscribed from 'helpers/isSubscribed'
 import { useSelector } from 'react-redux'
 import UserSubscription from 'components/UserSubscription'
 import VisitorSubscription from 'components/VisitorSubscription'
@@ -9,7 +9,7 @@ const Subscription = () => {
 
   return (
     <div className='Subscription'>
-      { isSigned(user) ?  <UserSubscription user={user}/> : <VisitorSubscription />  }
+      { isSubscribed(user) ?  <UserSubscription user={user}/> : <VisitorSubscription />  }
     </div>
   )
 }
