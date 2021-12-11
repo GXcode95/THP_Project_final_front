@@ -34,7 +34,7 @@ const packageName = (user) => {
 
 
   return (
-    <div>
+    <Box display="flex" flexDirection="column" alignItems="center">
 
       <Typography variant="h2" color="primary" align="center">Mon Abonnement</Typography>
 
@@ -44,17 +44,15 @@ const packageName = (user) => {
                                                        </Typography>
       </Typography>
 
-      <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-        <Tabs value={value} onChange={handleChange} centered>
-            <Tab label="Wishlist" />
-            <Tab label="En cours" />
-            <Tab label="Historique de location" />
-          </Tabs>
-
-          {TabPanel()}
-
+      <Box sx={{ bgcolor: 'background.paper', maxWidth:"28em", width:"100%" }} >
+        <Tabs value={value} onChange={handleChange} variant="scrollable" scollButtons="auto">
+          <Tab label="Wishlist" />
+          <Tab label="En cours" />
+          <Tab label="Historique de location" />
+        </Tabs>
+        {TabPanel()}
       </Box>
-    </div>
+    </Box>
   )
 }
     
