@@ -31,12 +31,12 @@ const CartItem = (props) => {
                 <ListItemText primary={gameObj.game.name} secondary={props.rent? `Quantité: ${gameObj.quantity}` : cartTotal(gameObj)} />
                 {props.quantityButton? 
                   <Grid container spacing={2} direction="row"  width='25%'>
-                    <ListItemButton component="button" onClick={props.handleAdd} sx={{display: "flex", justifyContent: "center"}}>
+                    <ListItemButton component="button" onClick={e => props.handleAdd(gameObj.id, {quantity: (gameObj.quantity + 1)})} sx={{display: "flex", justifyContent: "center"}}>
                       <ListItemIcon sx={{display: "flex", justifyContent: "center"}}>
                         <AddIcon />
                       </ListItemIcon>
                     </ListItemButton>
-                    <ListItemButton component="button" onClick={props.handleRemove} sx={{display: "flex", justifyContent: "center"}}>
+                    <ListItemButton component="button" onClick={e => props.handleRemove(gameObj.id, {quantity: (gameObj.quantity + 1)})} sx={{display: "flex", justifyContent: "center"}}>
                       <ListItemIcon sx={{display: "flex", justifyContent: "center"}}>
                         <RemoveIcon />
                       </ListItemIcon>
@@ -46,7 +46,7 @@ const CartItem = (props) => {
                   <></>
                 }
                 {props.deleteButton? 
-                  <ListItemButton component="button" onClick={props.handleDelete} sx={{display: "flex", justifyContent: "center"}}>
+                  <ListItemButton component="button" onClick={e => props.handleDelete(gameObj.id)} sx={{display: "flex", justifyContent: "center"}}>
                     <ListItemIcon >
                       <DeleteRoundedIcon />
                     </ListItemIcon>

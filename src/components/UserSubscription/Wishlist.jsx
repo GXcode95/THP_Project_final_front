@@ -7,7 +7,7 @@ import { fetchUserError, fetchUserRequest, fetchUserSignInSuccess } from 'store/
 const Wishlist = ({wishlist}) => {
   const dispatch = useDispatch()
 
-  const handleAdd = async (e, rentId, rentQuantity) => {
+  const handleAdd = async (rentId, rentQuantity) => {
     dispatch(fetchUserRequest())
     const response = await APIManager.updateRent(rentId, rentQuantity)
     if(response.error) {
@@ -17,16 +17,30 @@ const Wishlist = ({wishlist}) => {
     }
   }
 
-  const handleRemove = (e) => {
-
+  const handleRemove = async (rentId, rentQuantity) => {
+    dispatch(fetchUserRequest())
+    const response = await APIManager.updateRent(rentId, rentQuantity)
+    if(response.error) {
+      dispatch(fetchUserError(response.error))
+    } else {
+      dispatch(fetchUserSignInSuccess(response))
+    }
   }
 
-  const handleDelete = (e) => {
+  const handleDelete = async (rentId) => {
 
   }
 
   return (
-    <CartItem games={wishlist} rent={true} quantityButton={true} deleteButton={true} handleAdd={handleAdd}/>
+    <CartItem 
+      games={wishlist} 
+      rent={true} 
+      quantityButton={true} 
+      deleteButton={true} 
+      handleAdd={handleAdd} 
+      handleRemove={handleRemove} 
+      handleDelete={handleDelete}
+    />
   )
 }
 
