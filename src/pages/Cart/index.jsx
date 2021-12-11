@@ -8,9 +8,9 @@ import gamesReducer from 'store/games/reducer'
 import { fetchUserRequest, fetchUserError, fetchUpdateCartSuccess } from 'store/users/actions'
        
 const Cart = () => {
-  const [cart, setCart] = useState("")
   const dispatch = useDispatch()
   const storedCart = useSelector(state => state.userReducer.cart)
+  const [cart, setCart] = useState(storedCart)
 
   useEffect (
     () => {
@@ -31,7 +31,7 @@ const Cart = () => {
 
   return (
     <>
-      <CartItem />
+      <CartItem cart={cart}/>
     </>
   )
 }

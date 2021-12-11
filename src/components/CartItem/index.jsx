@@ -1,13 +1,14 @@
 import React from 'react'
-import { Box, Button, ButtonGroup, Typography} from '@mui/material'
+import { Box, Button, ButtonGroup, Typography, CardContent, CardMedia} from '@mui/material'
 import { Image } from 'cloudinary-react'
-import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 
-const CartItem = () => {
+const CartItem = (props) => {
 
-  const cardHeight = window.screen.width / 8
+  const subscribeImg = "https://image.api.playstation.com/vulcan/img/cfn/11307-b0qM2qOKxV25opi9wwWhSDvhwrn6AwqYMl0MoJOj6IGxa-cfbnPH22AZQ8a2w9QqCds0Vdqn_1GtJaJMjCrxw61GZG.png?w=780&thumb=false"
   return (
     <div>
         <Typography
@@ -22,63 +23,33 @@ const CartItem = () => {
             display: 'flex',
             justifyContent: 'center',
             textAlign: 'center',
-            p: 1,
+            border: 1,
             m: 1
           }}
           className="box-cart"
+          backgroundColor='primary'
         >
-          <Image
-            cloudName={process.env.REACT_APP_CLOUD_NAME}
-            publicId="default_game"
-            height={cardHeight}
-            crop="scale"            
+          <CardMedia
+            component="img"
+            alt="green iguana"
+            height="140"
+            maxWidth="140"
+            image={subscribeImg}
           />
-          <Button 
-            sx={{
-              paddingLeft:"25%",
-              paddingTop:"2rem",
-              height:"10%",
-              textAlign:"center",
-              alignItems: "center",
-              fontSize:"2rem",
-            }}
-          >
-          Produits
-          </Button>
-          <ButtonGroup disableElevation variant="contained">
-            <Button
-              sx={{
-                paddingLeft:"25%",
-                alignText:"center",
-                fontSize:"2rem"
-              }}
-            >
-            +
-            </Button>
-            <Button
-              sx={{
-                paddingLeft:"25%",
-                alignText:"center",
-                fontSize:"2rem"
-              }}
-            >
-            -
-            </Button>
-            <Button
-              sx={{
-              paddingLeft:"25%",
-              alignText:"center",
-              fontSize:"2rem",
-              backgroundColor: 'error.main',
-              fontSize:"1.5rem"
-              }}
-            >
-              <DeleteRoundedIcon />
-            </Button>
-          </ButtonGroup>
+          <CardContent >
+            <Typography component="div" variant="h5">
+              Live From Space
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary" component="div">
+              Mac Miller
+            </Typography>
+          </CardContent>
+
         </Box>
     </div>
   )
 }
 
 export default CartItem
+
+
