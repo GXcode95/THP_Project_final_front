@@ -34,7 +34,7 @@ const Profile = () => {
             <EditProfile user={user.user_info} /> 
           </Grid>
           <Grid item xs={12} md={6} >
-            <CartHistory cart={cartsHistory} />
+            <CartHistory carts={cartsHistory} />
           </Grid>
         </Grid>  
       }
