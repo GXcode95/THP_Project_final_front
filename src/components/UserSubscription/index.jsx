@@ -14,7 +14,6 @@ const UserSubscription = ({user}) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  console.log("useeeeer", user)
 
   const wishlist = user.wishlist
   const rents = user.rent_games

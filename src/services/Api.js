@@ -237,6 +237,13 @@ export default class APIManager {
     return response.data
   }
 
+  static async updateRent (rentId, rentInfo) {
+    const response = await API.put(`/rents/${rentId}`, rentInfo)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # updateRent =>", response)
+    return response.data
+  }
+
   static async deleteRent (rentId) {
     const response = await API.delete(`/rents/${rentId}`)
     .catch(error => handleCatchError(error))
