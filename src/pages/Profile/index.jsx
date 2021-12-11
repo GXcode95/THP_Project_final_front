@@ -13,12 +13,12 @@ const Profile = () => {
       {console.log("USERSIGN :", isSigned(user))}
 
       { isSigned(user) && 
-        <Grid container>
+        <Grid container spacing={8}>
 
-          <Grid item xs={12} md={6} spacing={8}>
+          <Grid item xs={12} md={6} >
             <EditProfile user={user.user_info} /> 
           </Grid>
-          <Grid item xs={12} md={6} spacing={8}>
+          <Grid item xs={12} md={6} >
             <CartHistory cart={user.cart} /> 
           </Grid>
         </Grid>  
