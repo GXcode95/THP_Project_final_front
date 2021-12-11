@@ -13,7 +13,6 @@ const Cart = () => {
   const storedCart = useSelector(state => state.userReducer.cart)
   const [cart, setCart] = useState(storedCart)
 
-
   useEffect (
     () => {
       const fetchCart = async () => {
@@ -33,7 +32,7 @@ const Cart = () => {
 
   return (
     <Container>
-      <CartItem cartGames={cart.cart_games} quantityButton={true} deleteButton={true}/>
+      <CartItem games={cart.cart_games} quantityButton={true} deleteButton={true}/>
     </Container>
   )
 }

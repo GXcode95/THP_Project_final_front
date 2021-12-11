@@ -1,9 +1,10 @@
+import CartItem from 'components/CartItem'
 import React from 'react'
 
-const RentHistory = () => {
+const RentHistory = ({rentsHistory}) => {
 
     return (
-      
+      <CartItem games={rentsHistory} rent={true}/>
     )
 }
 
