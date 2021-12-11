@@ -6,11 +6,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import userReducer from 'store/users/reducer'
 import gamesReducer from 'store/games/reducer'
 import { fetchUserRequest, fetchUserError, fetchUpdateCartSuccess } from 'store/users/actions'
+import { Container } from '@mui/material'
        
 const Cart = () => {
   const dispatch = useDispatch()
   const storedCart = useSelector(state => state.userReducer.cart)
   const [cart, setCart] = useState(storedCart)
+
 
   useEffect (
     () => {
@@ -30,9 +32,9 @@ const Cart = () => {
   )
 
   return (
-    <>
-      <CartItem cart={cart}/>
-    </>
+    <Container>
+      <CartItem cartGames={cart.cart_games} quantityButton={true} deleteButton={true}/>
+    </Container>
   )
 }
     
