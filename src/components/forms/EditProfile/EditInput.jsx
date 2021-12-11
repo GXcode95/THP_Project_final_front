@@ -9,11 +9,11 @@ const EditInputGrid = (props) => {
   };
 
   return (
-    <Grid container >
+    <Grid container display="flex" justifyContent="center">
         {Object.values(props).map( (component,i) =>
             (
-              <Box component="form" noValidate sx={{ mt: 1 }}>
-                <Grid item key={i} xs={12} sx={{display: 'flex', gap:"10px", alignItems: 'center'}}>
+              <Box key={i} component="form" noValidate sx={{ mt: 1 }} >
+                <Grid item xs={12} sx={{display: 'flex', gap:"10px", alignItems: 'center'}}>
                   {component}
                   <Button type="submit" onClick={handleSubmit} variant="outlined">Edit</Button>
                 </Grid>
