@@ -70,17 +70,3 @@ const CartItem = (props) => {
 }
 
 export default CartItem
-
-
-
-{/* <Box 
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            textAlign: 'center',
-            p: 1,
-            m: 1
-          }}
-          className="box-cart"
-          >
-          </Box> */}
