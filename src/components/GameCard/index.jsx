@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 
 const GameCard = ({game}) => {
-  
+
   const cardHeight = window.screen.width / 8
 
   return (
@@ -31,7 +31,7 @@ const GameCard = ({game}) => {
           <Grid item md={5} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
             <Image
               cloudName={process.env.REACT_APP_CLOUD_NAME}
-              publicId="default_game"
+              publicId={game.images ? game.images[0] : "default_game"}
               height={cardHeight}
               crop="scale"            
             />

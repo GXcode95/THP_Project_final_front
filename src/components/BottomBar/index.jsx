@@ -21,7 +21,7 @@ export default function BottomBar() {
    ) 
 
   return (
-    <Box sx={{ width: 500 }}>
+    <Box sx={{ width: 500 , zIndex: 10}}>
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
       <BottomNavigation
         showLabels
