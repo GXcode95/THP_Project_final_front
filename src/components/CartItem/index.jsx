@@ -28,12 +28,12 @@ const CartItem = (props) => {
                     />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={gameObj.game.name} secondary={props.rent? `Quantité: ${gameObj.quantity}` : cartTotal(gameObj)} />
+                <ListItemText id={gameObj.rent_id} primary={gameObj.game.name} secondary={props.rent? `Quantité: ${gameObj.quantity}` : cartTotal(gameObj)} />
                 {props.quantityButton? 
                   <Grid container spacing={2} direction="row"  width='25%'>
                     <ListItemButton 
                       component="button" 
-                      onClick={e => props.handleAdd(gameObj.rent_id, {quantity: (gameObj.quantity + 1)})} 
+                      onClick={e => props.handleAdd(gameObj.rent_id)} 
                       sx={{display: "flex", justifyContent: "center"}}
                     >
                       <ListItemIcon sx={{display: "flex", justifyContent: "center"}}>
@@ -42,7 +42,7 @@ const CartItem = (props) => {
                     </ListItemButton>
                     <ListItemButton 
                       component="button" 
-                      onClick={e => props.handleRemove(gameObj.rent_id, {quantity: (gameObj.quantity - 1)})} 
+                      onClick={e => props.handleRemove(gameObj.rent_id)} 
                       sx={{display: "flex", justifyContent: "center"}}
                     >
                       <ListItemIcon sx={{display: "flex", justifyContent: "center"}}>

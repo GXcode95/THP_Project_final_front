@@ -7,23 +7,29 @@ import { fetchUserError, fetchUserRequest, fetchUserSignInSuccess } from 'store/
 const Wishlist = (props) => {
   const dispatch = useDispatch()
 
-  const handleAdd = async (rentId, rentQuantity) => {
+  const handleAdd = async (rentId) => {
+    const quantityElement = document.getElementById(rentId).lastChild
+    const quantity = parseInt(quantityElement.textContent.slice(-1))
     dispatch(fetchUserRequest())
-    const response = await APIManager.updateRent(rentId, rentQuantity)
+    const response = await APIManager.updateRent(rentId, {quantity: quantity + 1})
     if(response.error) {
       dispatch(fetchUserError(response.error))
     } else {
       dispatch(fetchUserSignInSuccess(response))
+      quantityElement.textContent = `Quantité: ${quantity + 1}`
     }
   }
 
-  const handleRemove = async (rentId, rentQuantity) => {
+  const handleRemove = async (rentId) => {
+    const quantityElement = document.getElementById(rentId).lastChild
+    const quantity = parseInt(quantityElement.textContent.slice(-1))
     dispatch(fetchUserRequest())
-    const response = await APIManager.updateRent(rentId, rentQuantity)
+    const response = await APIManager.updateRent(rentId, {quantity: quantity -1})
     if(response.error) {
       dispatch(fetchUserError(response.error))
     } else {
       dispatch(fetchUserSignInSuccess(response))
+      quantityElement.textContent = `Quantité: ${quantity - 1}`
     }
   }
 

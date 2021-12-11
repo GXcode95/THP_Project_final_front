@@ -15,8 +15,6 @@ const UserSubscription = ({user}) => {
     setValue(newValue);
   };
 
-  console.log("USEEEEEER", user)
-
   const wishlist = user.wishlist
   const rents = user.rent_games
   const rentsHistory = user.rented_games
