@@ -13,8 +13,31 @@ import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import NavBar from 'components/navigation/NavBar';
 import BottomBar from 'components/BottomBar'
 import HeroBanner from './components/navigation/NavBar/HeroBanner'
+import Cookies from 'js-cookie'
+import { fetchUserSignInSuccess, fetchUserRequest, fetchUserError } from 'store/users/actions';
+import APIManager from 'services/Api';
+import { useDispatch } from 'react-redux';
 
 const App = () => {
+  const dispatch = useDispatch()
+
+  React.useEffect( // sign in user if he have a valid jwt
+    () => {
+      const signInWithJwt = async () => {
+        const jwt = Cookies.get('token')
+        console.log('jwt =', jwt)
+        if (jwt) {
+          dispatch(fetchUserRequest)
+          const response = await APIManager.signInUserJwt()
+          response.error ?
+            dispatch(fetchUserError(response.error)) :
+            dispatch(fetchUserSignInSuccess(response))
+        }
+      }
+      signInWithJwt()
+    }, [dispatch]
+  )
+
   return (
     <div className='App'>
       <ThemeProvider theme={light}>
