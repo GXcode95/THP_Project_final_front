@@ -15,6 +15,8 @@ const UserSubscription = ({user}) => {
     setValue(newValue);
   };
 
+  console.log("USEEEEEER", user)
+
   const wishlist = user.wishlist
   const rents = user.rent_games
   const rentsHistory = user.rented_games
@@ -22,7 +24,7 @@ const UserSubscription = ({user}) => {
   const TabPanel = () => {
     switch (value) {
       case 0:
-        return <Wishlist wishlist={wishlist}/>
+        return <Wishlist wishlist={wishlist} user={user}/>
       case 1:
         return <CurrentRent rents={rents} />
       case 2:

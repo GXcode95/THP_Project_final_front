@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import APIManager from 'services/Api'
 import { fetchUserError, fetchUserRequest, fetchUserSignInSuccess } from 'store/users/actions'
 
-const Wishlist = ({wishlist}) => {
+const Wishlist = (props) => {
   const dispatch = useDispatch()
 
   const handleAdd = async (rentId, rentQuantity) => {
@@ -39,7 +39,8 @@ const Wishlist = ({wishlist}) => {
 
   return (
     <CartItem 
-      games={wishlist} 
+      games={props.wishlist}
+      user={props.user} 
       rent={true} 
       quantityButton={true} 
       deleteButton={true} 
