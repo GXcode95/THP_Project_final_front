@@ -9,8 +9,9 @@ import { Link } from 'react-router-dom';
 
 
 const GameCard = ({game}) => {
-  const cardHeight = window.screen.width / 8
   
+  const cardHeight = window.screen.width / 8
+
   return (
     <>
       <Card  elevation={8}
