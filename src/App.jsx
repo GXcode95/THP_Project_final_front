@@ -4,6 +4,7 @@ import Home from 'pages/Home';
 import Cart from 'pages/Cart'
 import Dashboard from 'pages/Dashboard';
 import Game from 'pages/Game';
+import Games from 'pages/Games'
 import Login from 'pages/Login';
 import Profile from 'pages/Profile';
 import Subscription from 'pages/Subscription';
@@ -47,7 +48,8 @@ const App = () => {
           <HeroBanner />
           <Routes>
             <Route path="/" element={<Home />} exact />
-            <Route path="/jeux/:gameID" element={<Game />} exact />
+            <Route path="/jeux" element={<Games /> } exact />
+            <Route path="/jeu/:gameID" element={<Game />} exact />
             <Route path="/panier" element={<Cart />} exact />
             <Route path="/dashboard" element={<Dashboard />} exact />
             <Route path="/connexion" element={<Login />} exact />
