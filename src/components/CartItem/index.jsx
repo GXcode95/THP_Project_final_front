@@ -29,7 +29,7 @@ const CartItem = (props) => {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText id={gameObj.rent_id} primary={gameObj.game.name} secondary={props.rent? `Quantité: ${gameObj.quantity}` : cartTotal(gameObj)} />
-                {props.quantityButton? 
+                {props.quantityButton &&
                   <Grid container spacing={2} direction="row"  width='25%'>
                     <ListItemButton 
                       component="button" 
@@ -50,17 +50,13 @@ const CartItem = (props) => {
                       </ListItemIcon>
                     </ListItemButton>
                   </Grid>
-                  :
-                  <></>
                 }
-                {props.deleteButton? 
+                {props.deleteButton && 
                   <ListItemButton component="button" onClick={e => props.handleDelete(gameObj.rent_id)} sx={{display: "flex", justifyContent: "center"}}>
                     <ListItemIcon >
                       <DeleteRoundedIcon />
                     </ListItemIcon>
                   </ListItemButton>
-                  :
-                  <></>
                 }
               </ListItem>
             </>
