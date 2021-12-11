@@ -33,7 +33,7 @@ const Cart = () => {
 
   return (
     <Container>
-      <CartItem cartGames={cart.cart_games} quantityButton={true} deleteButton={true}/>
+      <CartItem games={cart.cart_games} quantityButton={true} deleteButton={true}/>
     </Container>
   )
 }

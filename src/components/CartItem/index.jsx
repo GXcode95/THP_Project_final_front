@@ -9,7 +9,8 @@ import RemoveIcon from '@mui/icons-material/Remove';
 const CartItem = (props) => {
 
   const cardHeight = window.screen.width / 5
-  const games = props.cartGames
+  const games = props.games
+  const cartTotal = (gameObj) => `${gameObj.game.price}€ x ${gameObj.quantity} = ${gameObj.game.price * gameObj.quantity}€ `
 
   return (
     <div>
@@ -34,7 +35,7 @@ const CartItem = (props) => {
                     />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={gameObj.game.name} secondary={`${gameObj.game.price}€ x ${gameObj.quantity} = ${gameObj.game.price * gameObj.quantity}€ `} />
+                <ListItemText primary={gameObj.game.name} secondary={props.rent? gameObj.quantity : cartTotal(gameObj)} />
                 {props.quantityButton? 
                   <Grid container spacing={2} direction="row"  width='25%'>
                     <ListItemButton component="button" onClick={props.handleAdd} sx={{display: "flex", justifyContent: "center"}}>
