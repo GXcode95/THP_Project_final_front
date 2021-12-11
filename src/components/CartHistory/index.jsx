@@ -1,5 +1,7 @@
 import React from 'react'
-import {Typography} from '@mui/material'
+import { Container, Typography } from '@mui/material'
+import CartItem from 'components/CartItem'
+
 const CartHistory = ({cart}) => {
 
   return (
@@ -7,6 +9,10 @@ const CartHistory = ({cart}) => {
       <Typography variant="h2" color="primary" align="center">
         Historique d'achat
       </Typography>
+
+      <Container>
+        <CartItem games={cart} quantityButton={false} deleteButton={false}/>
+      </Container>
       
     </div>
   )

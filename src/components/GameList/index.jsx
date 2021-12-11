@@ -6,8 +6,8 @@ const GameList = ({games}) => {
   
   return (
       <Grid container spacing={3}>
-        {games && games.map(game => (
-          <Grid key={game.id} item xs={12} md={6}>
+        {games && games.map((game,i) => (
+          <Grid key={i} item xs={12} md={6}>
             <GameCard game={game}/>
           </Grid>
         ))}
