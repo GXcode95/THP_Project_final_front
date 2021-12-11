@@ -184,14 +184,27 @@ export default class APIManager {
     const response = await API.get("/games")
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # getAllGames =>", response)
-    return response.data
+    
+    // render a games array of object with and images props,
+    // wich is an array of string containing the images public_id on cloudinary
+    const formatedResponse = []
+      if (response.data.error){
+        formatedResponse = response.data.error
+      } else {
+        response.data.forEach( game => formatedResponse.push({...game.info, images: response.images}) )
+      }        
+
+    return formatedResponse
   }
 
   static async getGame (gameId) {
     const response = await API.get(`/games/${gameId}`)
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # getGame =>", response)
-    return response.data
+
+    const formatedResponse = response.data.error ? response.data.error : {...response.data.info, images: response.data.images}
+    
+    return formatedResponse
   }
 
   ///////////////////
