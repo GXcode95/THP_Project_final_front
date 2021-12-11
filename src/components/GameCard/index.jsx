@@ -8,22 +8,9 @@ import { Link } from 'react-router-dom';
 
 
 
-const GameCard = ({ game }) => {
-  // const game = {
-  //   name: "Super nom de jeu trop stylé",
-  //   price: "25",
-  //   creator: "petitCochon",
-  //   editor: "La Loutre Edition",
-  //   description: "Sed convallis ex ac consectetur dapibus. Pellentesque fermentum sapien justo, et lacinia purus molestie ornare. Pellentesque eu pretium arcu. Pellentesque nunc diam, blandit et turpis quis, consectetur imperdiet massa. Suspendisse potenti. Vestibulum eget felis at odio mollis pulvinar nec et turpis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum pharetra, urna in fringilla sodales, tortor erat pellentesque mauris, non hendrerit ex urna vitae libero. Cras mauris lectus, vulputate a ullamcorper vel, vehicula sit amet ipsum. Duis commodo erat nunc, eget vestibulum nulla varius sit amet. Phasellus in nunc nulla. Curabitur rutrum, libero id imperdiet dictum, enim magna sollicitudin lacus, eu pulvinar ex justo vel ligula. Donec fringilla, augue eu auctor egestas, turpis odio pharetra purus, rutrum tincidunt ligula metus in est. In eget tempor tortor. Cras varius dolor eget porttitor euismod. Quisque venenatis feugiat nulla, eget porttitor libero ornare et.",
-  //   min_player: "2",
-  //   max_player: "6",
-  //   min_age: "12",
-  //   release_date: "ça sort le 12",
-  //   sell_stock: "8",
-  //   rent_stock: "12",
-  //   rank: "2",
-  //   id: "5"
-  // }
+
+const GameCard = ({game}) => {
+
   const cardHeight = window.screen.width / 8
   return (
     <>
@@ -44,7 +31,7 @@ const GameCard = ({ game }) => {
           <Grid item md={5} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
             <Image
               cloudName={process.env.REACT_APP_CLOUD_NAME}
-              publicId="default_game"
+              publicId={game.images ? game.images[0] : "default_game"}
               height={cardHeight}
               crop="scale"
             />
