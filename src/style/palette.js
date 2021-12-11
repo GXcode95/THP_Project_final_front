@@ -48,6 +48,11 @@ export const light = createTheme({
       defaultProps: {
         disableRipple: true
       }
+    },
+    MuiListItemButton: {
+      defaultProps: {
+        disableRipple: true
+      }
     }
   },
 });

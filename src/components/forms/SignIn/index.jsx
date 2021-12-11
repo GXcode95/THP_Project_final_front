@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
+import { useNavigate } from 'react-router';
 import APIManager from 'services/Api'
 import { fetchUserRequest, fetchUserSignInSuccess, fetchUserError } from 'store/users/actions'
 import { Button,Box, Container } from '@mui/material';
@@ -10,20 +11,16 @@ const SignIn = () => {
   const [email, setEmail] = React.useState()
   const [password, setPassword] = React.useState()
   const dispatch = useDispatch()
-  const store= useSelector(state => state)
+  const navigate = useNavigate()
 
   const handleSubmit = async(event) => {
     event.preventDefault()
     dispatch(fetchUserRequest())
     const response = await APIManager.signInUser(email, password)
-    if(response){
-      response.error ? 
-        dispatch(fetchUserError(response.error)) :
-        dispatch(fetchUserSignInSuccess(response))
-    }else {
-      alert("Un problème est survenue, merci de réessayer dans quelques instant")
-    }
-    console.log(store)
+    response.error ? 
+      dispatch(fetchUserError(response.error)) :
+      dispatch(fetchUserSignInSuccess(response))
+    navigate('/')
   };
 
   return (

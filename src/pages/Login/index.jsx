@@ -3,11 +3,9 @@ import SignIn from 'components/forms/SignIn'
 import SignUp from 'components/forms/SignUp'
 import PasswordReset from 'components/forms/PasswordReset'
 import {Button, Box,Typography} from '@mui/material'
-
 const Login = () => {
   const [isRegistered, setIsRegistered] = React.useState(true)
   const [passwordReset, setPasswordReset] = React.useState(false)
-
   const toggleIsRegistered = () => {
     setIsRegistered(!isRegistered)
   }
@@ -22,7 +20,6 @@ const Login = () => {
       flexDirection="column" 
       justifyContent="space-evenly"
       minHeight="90vh"
-      pb="3em"
     >
       <Typography variant="h2" color="primary" align="center" >
         {isRegistered ? "Se connecter" : "S'inscrire"}
@@ -40,7 +37,6 @@ const Login = () => {
             Mot de passe oublié ?
         </Button>
       </Box>
-
       {passwordReset && <PasswordReset togglePasswordReset={togglePasswordReset}/>}
     </Box>
   )

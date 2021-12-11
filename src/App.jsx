@@ -9,7 +9,7 @@ import Profile from 'pages/Profile';
 import Subscription from 'pages/Subscription';
 import NotFound from 'pages/NotFound'
 import {light} from 'style/palette'
-import { ThemeProvider, CssBaseline } from '@mui/material';
+import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import NavBar from 'components/navigation/NavBar';
 import BottomBar from 'components/BottomBar'
 import HeroBanner from './components/navigation/NavBar/HeroBanner'
@@ -32,6 +32,7 @@ const App = () => {
             <Route path="/abonnement" element={<Subscription />} exact />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <Box py="3em" />
           <BottomBar/>
         </Router>
       </ThemeProvider>
