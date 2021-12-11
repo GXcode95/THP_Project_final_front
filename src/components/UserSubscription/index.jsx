@@ -14,10 +14,11 @@ const UserSubscription = ({user}) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  console.log("useeeeer", user)
 
   const wishlist = user.wishlist
-  const rents = user.rents
-  const rentsHistory = user.rents_history
+  const rents = user.rent_games
+  const rentsHistory = user.rented_games
 
   const TabPanel = () => {
     switch (value) {

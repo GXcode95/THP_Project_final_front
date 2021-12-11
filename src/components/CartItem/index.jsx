@@ -14,13 +14,6 @@ const CartItem = (props) => {
 
   return (
     <div>
-      <Typography
-          variant="h2"
-          color="primary"
-          sx={{textAlign:"center"}}
-      >
-          Mon panier
-      </Typography>
         <List sx={{ width: '100%', bgcolor: 'background.primary' }}>
           {games.map( gameObj => (
             <>
@@ -35,7 +28,7 @@ const CartItem = (props) => {
                     />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={gameObj.game.name} secondary={props.rent? gameObj.quantity : cartTotal(gameObj)} />
+                <ListItemText primary={gameObj.game.name} secondary={props.rent? `Quantité: ${gameObj.quantity}` : cartTotal(gameObj)} />
                 {props.quantityButton? 
                   <Grid container spacing={2} direction="row"  width='25%'>
                     <ListItemButton component="button" onClick={props.handleAdd} sx={{display: "flex", justifyContent: "center"}}>
