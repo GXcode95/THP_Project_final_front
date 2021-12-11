@@ -40,7 +40,7 @@ const NavBar = ()  => {
           </Box>
           <Box>
             
-            { isSigned(user)? <CartButton color="white"/> : <></>}
+            { isSigned(user) && <CartButton color="white"/> }
             { isSigned(user) && <RentButton color="white"/> }
             {
               isSigned(user) ?
