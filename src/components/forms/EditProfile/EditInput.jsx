@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Box, Button } from '@mui/material';
+import { Grid, Box, Button } from '@mui/material';
 
 const EditInputGrid = (props) => {
   const handleSubmit = (event) => {
@@ -10,10 +10,10 @@ const EditInputGrid = (props) => {
 
   return (
     <Grid container >
-        {Object.values(props).map( component =>
+        {Object.values(props).map( (component,i) =>
             (
               <Box component="form" noValidate sx={{ mt: 1 }}>
-                <Grid item xs={12} sx={{display: 'flex', gap:"10px", alignItems: 'center'}}>
+                <Grid item key={i} xs={12} sx={{display: 'flex', gap:"10px", alignItems: 'center'}}>
                   {component}
                   <Button type="submit" onClick={handleSubmit} variant="outlined">Edit</Button>
                 </Grid>
