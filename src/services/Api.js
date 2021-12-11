@@ -85,7 +85,9 @@ export default class APIManager {
   }
   
   static async signInUserJwt() {
-    const response = await API.post('/users/sign_in')
+    const response = await axios.post(`${BASE_URL}/users/sign_in`,null,{
+      headers: { 'Authorization': `Bearer ${Cookies.get('token')}` }
+    })
     .catch(error => handleCatchError(error))
     handleJwt(response)
     console.log("APIManager # signInUserJwt =>", response)

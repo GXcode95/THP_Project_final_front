@@ -40,7 +40,7 @@ const Home = () => {
           
           <Box display="flex" justifyContent="center" pt="3em">
             <Button color="ternary" sx={{color: "primary.main"}}>
-              <Link to="/games">
+              <Link to="/jeux">
                 Plus de jeux
               </Link>
             </Button>
