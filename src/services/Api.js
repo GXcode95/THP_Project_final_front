@@ -49,7 +49,7 @@ export default class APIManager {
 
   // /user or /user/:id ???
   static async getUserInfo(userId) {
-    const response =  await API.get(`/user/${userId}`)
+    const response =  await API.get(`/users/${userId}`)
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # getUserInfo =>", response)
     return response.data
