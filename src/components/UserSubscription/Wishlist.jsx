@@ -28,7 +28,13 @@ const Wishlist = ({wishlist}) => {
   }
 
   const handleDelete = async (rentId) => {
-
+    dispatch(fetchUserRequest())
+    const response = await APIManager.deleteRent(rentId)
+    if(response.error) {
+      dispatch(fetchUserError(response.error))
+    } else {
+      dispatch(fetchUserSignInSuccess(response))
+    }
   }
 
   return (
