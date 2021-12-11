@@ -43,7 +43,6 @@ const EditProfile = ({user}) => {
             variant="contained"
             onClick={showInfo}
             sx={{ mt: 3, mb: 2,maxWidth:"80%" }}
-            
           >
             Changer de mot de passe
           </Button>:

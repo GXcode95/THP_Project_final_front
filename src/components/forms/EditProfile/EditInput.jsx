@@ -1,11 +1,24 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserUpdateSuccess, fetchUserRequest, fetchUserError } from 'store/users/actions';
+import APIManager from 'services/Api';
 import { Grid, Box, Button } from '@mui/material';
 
 const EditInputGrid = (props) => {
-  const handleSubmit = (event) => {
+  const dispatch = useDispatch()
+  const user = useSelector( state => state.userReducer.user_info )
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const inputValue = event.target.parentElement.querySelector(".MuiInputBase-input").value
-    console.log(inputValue);
+    const targetInput =  event.target.parentElement.querySelector(".MuiInputBase-input")
+    const infoToUpdate = {}
+    infoToUpdate[targetInput.name] = targetInput.value
+    dispatch(fetchUserRequest())
+    const response = await APIManager.updateUserInfo(user.id, infoToUpdate)
+    if (response.error) {
+      dispatch(fetchUserError(response.error))
+    } else {
+      dispatch(fetchUserUpdateSuccess(response.user_info))
+    }
   };
 
   return (
