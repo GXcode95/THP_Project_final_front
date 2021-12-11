@@ -49,7 +49,7 @@ export default class APIManager {
 
   // /user or /user/:id ???
   static async getUserInfo(userId) {
-    const response =  await API.get(`/user/${userId}`)
+    const response =  await API.get(`/users/${userId}`)
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # getUserInfo =>", response)
     return response.data
@@ -247,6 +247,13 @@ export default class APIManager {
     const response = await API.post("/rents", rentInfo)
     .catch(error => handleCatchError(error))
     console.log("APIManager # createRent =>", response)
+    return response.data
+  }
+
+  static async updateRent (rentId, rentQuantity) {
+    const response = await API.put(`/rents/${rentId}`, rentQuantity)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # updateRent =>", response)
     return response.data
   }
 
