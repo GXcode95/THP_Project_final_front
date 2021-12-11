@@ -12,12 +12,12 @@ import {
 
 const initialState = {
   loading: false,
-  userInfo: {},
+  user_info: {},
   favorite: {},
-  rentedGames: {},
-  rentGames: {},
-  wishList: {},
-  commandHistory: {},
+  rented_games: {},
+  rent_games: {},
+  wishlist: {},
+  command_history: {},
   cart: {},
   error: ''
 }
@@ -53,12 +53,12 @@ const userReducer = (state = initialState, action) => {
       // Cookies.set('user', "")
       return {
         loading: false,
-        userInfo: {},
+        user_info: {},
         favorite: {},
-        rentedGames: {},
-        rentGames: {},
-        wishList: {},
-        commandHistory: {},
+        rented_games: {},
+        rent_games: {},
+        wishlist: {},
+        command_history: {},
         cart: {},
         error: ''
       }

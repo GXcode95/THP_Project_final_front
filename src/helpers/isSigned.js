@@ -1,4 +1,4 @@
 const isSigned = (user) => {
-  return (user && user.userInfo && user.userInfo.id)
+  return (user && user.user_info && user.user_info.id)
 }
 export default isSigned

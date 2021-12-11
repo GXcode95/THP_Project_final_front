@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box, Tabs, Tab, Typography} from '@mui/material';
-const UserSubscription = () => {
+const UserSubscription = ({user}) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -22,18 +22,23 @@ const UserSubscription = () => {
 
   return (
     <div>
-     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+
+      <Typography variant="h2" color="primary" mb="1em" align="center">Mon Abonnement</Typography>
+
+      <Typography>
+        Abonnement MACHIN Valide jusqu'au
+      </Typography>
+
+      <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
         <Tabs value={value} onChange={handleChange} centered>
-          <Tab label="Item One" />
-          <Tab label="Item Two" />
-          <Tab label="Item Three" />
-        </Tabs>
+            <Tab label="Wishlist" />
+            <Tab label="En cours" />
+            <Tab label="Historique de location" />
+          </Tabs>
 
-        {TabPanel()}
-        
-      
+          {TabPanel()}
 
-     </Box>
+      </Box>
     </div>
   )
 }
