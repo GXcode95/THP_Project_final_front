@@ -237,8 +237,8 @@ export default class APIManager {
     return response.data
   }
 
-  static async updateRent (rentId, rentInfo) {
-    const response = await API.put(`/rents/${rentId}`, rentInfo)
+  static async updateRent (rentId, rentQuantity) {
+    const response = await API.put(`/rents/${rentId}`, rentQuantity)
     .catch(error => handleCatchError(error))
     console.log("APIManager # updateRent =>", response)
     return response.data

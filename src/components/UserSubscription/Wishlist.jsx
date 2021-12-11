@@ -1,9 +1,20 @@
 import CartItem from 'components/CartItem'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import APIManager from 'services/Api'
+import { fetchUserError, fetchUserRequest, fetchUserSignInSuccess } from 'store/users/actions'
 
 const Wishlist = ({wishlist}) => {
-  const handleAdd = (e) => {
-    
+  const dispatch = useDispatch()
+
+  const handleAdd = async (e, rentId, rentQuantity) => {
+    dispatch(fetchUserRequest())
+    const response = await APIManager.updateRent(rentId, rentQuantity)
+    if(response.error) {
+      dispatch(fetchUserError(response.error))
+    } else {
+      dispatch(fetchUserSignInSuccess(response))
+    }
   }
 
   const handleRemove = (e) => {

@@ -13,7 +13,6 @@ const Cart = () => {
   const storedCart = useSelector(state => state.userReducer.cart)
   const [cart, setCart] = useState(storedCart)
 
-
   useEffect (
     () => {
       const fetchCart = async () => {
