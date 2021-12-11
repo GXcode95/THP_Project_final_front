@@ -1,36 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState} from 'react'
 import {Box, Tabs, Tab, Typography} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useStore } from 'react-redux';
+import { fetchUserRequest, fetchUserError, fetchUserSignInSuccess } from 'store/users/actions';
+import APIManager from 'services/Api';
+import Wishlist from './Wishlist';
+import CurrentRent from './CurrentRents';
+import RentHistory from './RentHistory';
+
+
 const UserSubscription = ({user}) => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const wishlist = user.wishlist
+  const rents = user.rent_games
+  const rentsHistory = user.rented_games
+
   const TabPanel = () => {
     switch (value) {
       case 0:
-        return "wishlist"
+        return <Wishlist wishlist={wishlist} user={user}/>
       case 1:
-        return "rents"
+        return <CurrentRent rents={rents} />
       case 2:
-        return "rents_history"
+        return <RentHistory rentsHistory={rentsHistory}/>
       default:
-        return "wishlist"
+        return <Wishlist wishlist={wishlist}/>
     }
   }
 
-const packageName = (user) => {
-  switch (user.user_info.package_id) {
-    case 1: 
-      return "Débutant"
-    case 2:
-      return "Habitué"
-    case 3:
-      return ("Confirmé")
-    default:
-      return ("")
+  const packageName = (user) => {
+    switch (user.user_info.package_id) {
+      case 1: 
+        return "Débutant"
+      case 2:
+        return "Habitué"
+      case 3:
+        return ("Confirmé")
+      default:
+        return ("")
+    }
   }
-}
 
 
   return (
