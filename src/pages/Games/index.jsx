@@ -4,7 +4,7 @@ import GameList from 'components/GameList'
 import APIManager from 'services/Api'
 import { useDispatch } from 'react-redux'
 import  {Container} from '@mui/material'
-import {fetchGamesRequest, fetchGamesError,fetchGamesSuccess} from 'store/games/actions'
+import {fetchGamesRequest, fetchGamesError, fetchGamesSuccess} from 'store/games/actions'
 
 const Games = () => {
   const [filteredGames, setFilteredGames] = React.useState()
