@@ -9,7 +9,7 @@ const Subscription = () => {
 
   return (
     <div className='Subscription'>
-      { isSigned(user) ?  <VisitorSubscription /> : <UserSubscription user={user}/> }
+      { isSigned(user) ?  <UserSubscription user={user}/> : <VisitorSubscription />  }
     </div>
   )
 }

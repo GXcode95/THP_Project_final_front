@@ -2,7 +2,6 @@ import React from 'react'
 import {Box, Tabs, Tab, Typography} from '@mui/material';
 const UserSubscription = ({user}) => {
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -20,13 +19,29 @@ const UserSubscription = ({user}) => {
     }
   }
 
+const packageName = (user) => {
+  switch (user.user_info.package_id) {
+    case 1: 
+      return "Débutant"
+    case 2:
+      return "Habitué"
+    case 3:
+      return ("Confirmé")
+    default:
+      return ("")
+  }
+}
+
+
   return (
     <div>
 
-      <Typography variant="h2" color="primary" mb="1em" align="center">Mon Abonnement</Typography>
+      <Typography variant="h2" color="primary" align="center">Mon Abonnement</Typography>
 
-      <Typography>
-        Abonnement MACHIN Valide jusqu'au
+      <Typography align="center" my="1em">
+        Abonnement {packageName(user)} valide jusqu'au <Typography component="span" color="error">
+                                                         {` ${user.user_info.subscription_ending}`}.
+                                                       </Typography>
       </Typography>
 
       <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
