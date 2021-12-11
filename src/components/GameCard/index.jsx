@@ -9,9 +9,10 @@ import { Link } from 'react-router-dom';
 
 
 
-const GameCard = ({game}) => {
+const GameCard = ({ game }) => {
 
   const cardHeight = window.screen.width / 8
+
   return (
     <>
       <Card elevation={8}
@@ -21,7 +22,7 @@ const GameCard = ({game}) => {
           padding: "0.3em"
         }}
       >
-        <Link to={`/jeux/${game.id}`}>
+        <Link to={`/jeu/${game.id}`}>
           <Typography variant="h4" align="center" noWrap py="0.5em" >
             {game.name}
           </Typography>
