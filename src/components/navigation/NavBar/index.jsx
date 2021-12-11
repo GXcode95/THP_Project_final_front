@@ -12,7 +12,7 @@ import isSigned from 'helpers/isSigned'
 
 const NavBar = ()  => {
   const user = useSelector(state => state.userReducer)
-  
+  const store= useSelector(state => state)
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -37,6 +37,7 @@ const NavBar = ()  => {
           </Box>
         </Toolbar>
       </AppBar>
+      {console.log("store",store)}
     </Box>
   );
 }
