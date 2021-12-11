@@ -18,6 +18,7 @@ import Cookies from 'js-cookie'
 import { fetchUserSignInSuccess, fetchUserRequest, fetchUserError } from 'store/users/actions';
 import APIManager from 'services/Api';
 import { useDispatch } from 'react-redux';
+import { MobileView } from 'react-device-detect';
 
 const App = () => {
   const dispatch = useDispatch()
@@ -58,7 +59,9 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Box py="3em" />
-          <BottomBar />
+          <MobileView>
+            <BottomBar />
+          </MobileView>
         </Router>
       </ThemeProvider>
     </div>

@@ -1,10 +1,60 @@
+import CartItem from 'components/CartItem'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import APIManager from 'services/Api'
+import { fetchUserError, fetchUserRequest, fetchUserSignInSuccess } from 'store/users/actions'
 
-const Wishlist = () => {
+const Wishlist = (props) => {
+  const dispatch = useDispatch()
 
-    return (
-      
-    )
+  const handleAdd = async (rentId) => {
+    const quantityElement = document.getElementById(rentId).lastChild
+    const quantity = parseInt(quantityElement.textContent.slice(-1))
+    dispatch(fetchUserRequest())
+    const response = await APIManager.updateRent(rentId, {quantity: quantity + 1})
+    if(response.error) {
+      dispatch(fetchUserError(response.error))
+    } else {
+      dispatch(fetchUserSignInSuccess(response))
+      quantityElement.textContent = `Quantité: ${quantity + 1}`
+    }
+  }
+
+  const handleRemove = async (rentId) => {
+    const quantityElement = document.getElementById(rentId).lastChild
+    const quantity = parseInt(quantityElement.textContent.slice(-1))
+    dispatch(fetchUserRequest())
+    const response = await APIManager.updateRent(rentId, {quantity: quantity -1})
+    if(response.error) {
+      dispatch(fetchUserError(response.error))
+    } else {
+      dispatch(fetchUserSignInSuccess(response))
+      quantityElement.textContent = `Quantité: ${quantity - 1}`
+    }
+  }
+
+  const handleDelete = async (rentId) => {
+    dispatch(fetchUserRequest())
+    const response = await APIManager.deleteRent(rentId)
+    if(response.error) {
+      dispatch(fetchUserError(response.error))
+    } else {
+      dispatch(fetchUserSignInSuccess(response))
+    }
+  }
+
+  return (
+    <CartItem 
+      games={props.wishlist}
+      user={props.user} 
+      rent={true} 
+      quantityButton={true} 
+      deleteButton={true} 
+      handleAdd={handleAdd} 
+      handleRemove={handleRemove} 
+      handleDelete={handleDelete}
+    />
+  )
 }
 
 export default Wishlist
