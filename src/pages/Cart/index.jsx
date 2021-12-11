@@ -12,8 +12,6 @@ const Cart = () => {
   const dispatch = useDispatch()
   const storedCart = useSelector(state => state.userReducer.cart)
   const [cart, setCart] = useState(storedCart)
-  console.log("storedCarts", storedCart)
-  console.log("CART", cart)
 
 
   useEffect (
@@ -26,7 +24,6 @@ const Cart = () => {
         } else {
           dispatch(fetchUpdateCartSuccess(response.cart))
           setCart(response.cart)
-          console.log('CART', cart)
         }
       }
       fetchCart()
