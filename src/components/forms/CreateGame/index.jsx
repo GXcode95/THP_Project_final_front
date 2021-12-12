@@ -46,19 +46,20 @@ const CreateGame = () => {
   }
 
   const uploadGame = async (imagesId) => {
-    const formData = new FormData()
-
-    formData.append('name', name)
-    formData.append('description', description)
-    formData.append('creator', creator)
-    formData.append('editor', editor)
-    formData.append('max_player', maxPlayer)
-    formData.append('min_player', minPlayer)
-    formData.append('age', age)
-    formData.append('price', price)
+    const gameInfo = {
+      name: name,
+      description: description,
+      creator: creator,
+      editor: editor,
+      max_player: maxPlayer,
+      min_player: minPlayer,
+      min_age: age,
+      price: price,
+      sell_stock: 100,
+      rent_stock:100
+    }
     
-    console.log("game:",formData,"images:", imagesId )
-    const response = await APIManager.createGameAdmin(formData, imagesId)
+    const response = await APIManager.createGameAdmin(gameInfo, imagesId)
     response.error ? alert(`une erreur est survenue :"${response.error}"`) : alert("jeu créer avec succès")
   }
 
