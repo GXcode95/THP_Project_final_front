@@ -141,8 +141,8 @@ export default class APIManager {
     return response.data
   }
   
-  static async createGameAdmin (gameInfo) {
-    const response = await API.post("/admin/games", gameInfo)
+  static async createGameAdmin (gameInfo, gameImages) {
+    const response = await API.post("/admin/games", {game: gameInfo, images: gameImages })
     .catch(error => handleCatchError(error))
     console.log("APIManager # createGameAdmin =>", response)
     return response.data
@@ -279,6 +279,13 @@ export default class APIManager {
   ///    PACKAGES    ///
   //////////////////////
 
+  static async getAllPackages () {
+    const response = await API.get(`/packages`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # getAllPackages =>", response)
+    return response.data
+  }
+
   static async getCartsHistory (id) {
     const response = await API.get(`/carts`)
     .catch(error => handleCatchError(error))
@@ -286,4 +293,15 @@ export default class APIManager {
     return response.data
   }
 
+  static async buyPackage (token, id, quantity) {
+    const response = await API.post('/charges', {token, package: {
+      presence: true,
+      package_id: id,
+      quantity: quantity
+    }}).catch(error => handleCatchError(error))
+    
+    console.log("APIManager # BuyPackages =>", response)
+    return response.data
+  }
+  
 }

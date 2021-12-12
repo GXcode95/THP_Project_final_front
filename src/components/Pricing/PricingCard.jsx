@@ -1,12 +1,16 @@
 import React from 'react'
 import {Card, Button,Box, Typography, CardContent, CardActions, CardHeader } from '@mui/material'
+import StripeButton from 'components/buttons/StripeButton'
+const PricingCard = ({tier, variant, description}) => {
 
-const PricingCard = ({tier}) => {
+  const priceInEuro = (priceInCent) => {
+    return priceInCent / 100
+  }
+
   return(
     <Card elevation={4} sx={{borderRadius: "2px"}}>
       <CardHeader
-        title={tier.title}
-        subheader={tier.subheader}
+        title={tier.name}
         titleTypographyProps={{ align: 'center' }}
         subheaderTypographyProps={{ align: 'center' }}
         sx={{ backgroundColor: 'secondary.main', color: 'white.main'}}
@@ -19,33 +23,24 @@ const PricingCard = ({tier}) => {
             sx={{ mb: 2}}
         >
           <Typography component="h2" variant="h3" color="text.primary">
-            {tier.price}€
+            {priceInEuro(tier.price)}€
           </Typography>
           <Typography variant="h6" color="text.secondary">
-            /mo
+            /mois
           </Typography>
         </Box>
         <ul>
-          {tier.description.map((line) => (
             <Typography
               component="li"
               variant="subtitle1"
               align="center"
-              key={line}
             >
-              {line}
+              {description}
             </Typography>
-          ))}
         </ul>
       </CardContent>
       <CardActions>
-        <Button 
-          fullWidth
-          variant={tier.buttonVariant}
-          color="secondary"
-        >
-          {tier.buttonText}
-        </Button>
+          <StripeButton item={tier} quantity={1} variant={variant}/>
       </CardActions>
     </Card>
   )
