@@ -3,7 +3,7 @@ import React from 'react';
 import APIManager from 'services/Api'
 import GameTabs from './GameTabs';
 import GameInfo from './GameInfo'
-import { Grid } from '@mui/material'
+import { Button,Grid } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchGamesRequest, fetchGamesError, fetchGamesSuccess } from 'store/games/actions'
 import { useParams } from 'react-router-dom'
@@ -11,9 +11,15 @@ import { useParams } from 'react-router-dom'
 const GameDetails = () => {
   const { gameID } = useParams();
   const [game, setGame] = React.useState();
-
-
   const dispatch = useDispatch()
+  const user = useSelector(state => state.userReducer.user_info)
+  
+  const handleRent = () => {
+    
+    const response = APIManager.createRent({quantity: 1, user_id: user.id , game_id: game.id})
+    if(!response.error) alert("jeu ajouter au favoris")
+
+  }
 
   React.useEffect(
     () => {
@@ -90,6 +96,7 @@ const GameDetails = () => {
         </Grid>
         <Grid item xs={6}>
           <GameInfo game={game} />
+          <Button onClick={handleRent}>Louer</Button>
         </Grid>
       </Grid>
       <br />
