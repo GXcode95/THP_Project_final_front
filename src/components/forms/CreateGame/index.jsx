@@ -31,8 +31,6 @@ const CreateGame = () => {
         })
         const data = await response.json()
 
-        
-        console.log("JE PUSH LE PUBLIC ID => ", data.public_id)
         publicIdList.push(data.public_id)
         console.log(publicIdList)
         if (i === files.length -1) uploadGame(publicIdList)
@@ -54,7 +52,6 @@ const CreateGame = () => {
       rent_stock:100
     }
     
-    console.log("INFO", gameInfo)
     const response = await APIManager.createGameAdmin(gameInfo, imagesId)
     response.error ? alert(`une erreur est survenue :"${response.error}"`) : alert("jeu créer avec succès")
   }
