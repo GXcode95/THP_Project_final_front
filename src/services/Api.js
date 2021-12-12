@@ -37,6 +37,7 @@ const handleCatchError = (error) => {
 const handleJwt = (response) => {
   if (response.headers.authorization) {
     const jwt = response.headers.authorization.split(" ")[1]
+    Cookies.set('token', jwt)
   }
 }
 

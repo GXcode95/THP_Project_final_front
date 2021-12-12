@@ -1,12 +1,18 @@
 import React from 'react'
-import { Card, Button, Box, Typography, CardContent, CardActions, CardHeader } from '@mui/material'
+import { Card, Button, Box, Typography, CardContent, CardHeader } from '@mui/material'
 import StripeButton from 'components/buttons/StripeButton'
+import { useSelector } from 'react-redux'
+import isSigned from 'helpers/isSigned'
+import {Link} from 'react-router-dom'
 const PricingCard = ({ tier, variant, description }) => {
-
+  const user = useSelector(state => state.userReducer)
+  
   const priceInEuro = (priceInCent) => {
     return priceInCent / 100
   }
 
+  
+  
   return (
     <Card elevation={4} sx={{ borderRadius: "2px" }}>
       <CardHeader
@@ -39,7 +45,15 @@ const PricingCard = ({ tier, variant, description }) => {
           </Typography>
         </ul>
       </CardContent>
-      <StripeButton item={tier} quantity={1} variant={variant} />
+      {user && isSigned(user) ? 
+        <StripeButton item={tier} quantity={1} variant={variant} /> :
+        <Button className="stripe" sx={{fontWeight: 600, mb: "0.5em"}}>
+          <Link to='/connexion'>
+            J'en profite
+          </Link>    
+        </Button>
+      }
+
     </Card>
   )
 }
