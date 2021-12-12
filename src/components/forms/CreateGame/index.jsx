@@ -2,14 +2,29 @@ import React, {useState} from 'react'
 import { Container, Typography, Box, TextField, Button} from '@mui/material';
 import NumberField from '../GameInput/NumberField';
 import ImagesDropzone from 'components/ImagesDropzone';
+import APIManager from 'services/Api'
+
 const CreateGame = () => {
   const [files, setFiles] = useState([])
+  const [name, setName] = useState()
+  const [description, setDescription] = useState()
+  const [creator, setCreator] = useState()
+  const [editor, setEditor] = useState()
+  const [maxPlayer, setMaxPlayer] = useState()
+  const [minPlayer, setMinPlayer] = useState()
+  const [age, setAge] = useState()
+  const [price, setPrice] = useState()
 
-  const handleUpload = () => {
+
+
+
+
+
+  const handleClick = async () => {
     const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`
-
-    files.forEach(
-      async (acceptedFile) => {
+    let publicIdList=[]
+    files.map(
+      async (acceptedFile, i) => {
         console.log("accept", acceptedFile)
         const formData = new FormData();
         formData.append("file", acceptedFile);
@@ -20,16 +35,32 @@ const CreateGame = () => {
           body: formData,
         })
         const data = await response.json()
-        console.log(data)
+
+        
+        console.log("JE PUSH LE PUBLIC ID => ", data.public_id)
+        publicIdList.push(data.public_id)
+        console.log(publicIdList)
+        if (i === files.length -1) uploadGame(publicIdList)
       }
     )
   }
 
+  const uploadGame = async (imagesId) => {
+    const formData = new FormData()
 
-  const handleClick = (event) => {
-    handleUpload()
-
-  };
+    formData.append('name', name)
+    formData.append('description', description)
+    formData.append('creator', creator)
+    formData.append('editor', editor)
+    formData.append('max_player', maxPlayer)
+    formData.append('min_player', minPlayer)
+    formData.append('age', age)
+    formData.append('price', price)
+    
+    console.log("game:",formData,"images:", imagesId )
+    const response = await APIManager.createGameAdmin(formData, imagesId)
+    response.error ? alert(`une erreur est survenue :"${response.error}"`) : alert("jeu créer avec succès")
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -79,9 +110,9 @@ const CreateGame = () => {
                 
             <NumberField name={"age"} />
 
-            <NumberField name={"min players"} />
+            <NumberField name={"min_players"} />
 
-            <NumberField name={"max players"} />
+            <NumberField name={"max_players"} />
 
             <NumberField name={"price"} />
             
@@ -97,6 +128,7 @@ const CreateGame = () => {
               }}
             />
             
+            <ImagesDropzone files={files} setFiles={setFiles} />
 
             <Button
               onClick={handleClick}
