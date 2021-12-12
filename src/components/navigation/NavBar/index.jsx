@@ -1,17 +1,19 @@
 import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-// import { useSelector } from 'react-redux';
-// import AvatarDropdown from './AvatarDropdown'
+import { AppBar, Toolbar, Box, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
+import AvatarDropdown from './AvatarDropdown'
 import LoginButton from 'components/buttons/LoginButton';
-import {Toolbar} from '@mui/material'
-import logo from 'assets/images/logo.png'
+import logo from 'assets/images/logo-playbox.svg'
+import logoSmall from 'assets/images/logoSmall.svg'
 import CartButton from 'components/buttons/CartButton'
 import RentButton from 'components/buttons/RentButton'
+import isSigned from 'helpers/isSigned'
+import { Link } from 'react-router-dom'
+import { MobileView, BrowserView } from 'react-device-detect';
 
 
 const NavBar = ()  => {
-  // const user = useSelector(state => state.userReducer.user)
+  const user = useSelector(state => state.userReducer)
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -23,15 +25,28 @@ const NavBar = ()  => {
             width: "100%"
           }} 
         >
-          <img src={logo} alt="playbox logo" height="50px"/> 
+          <Box display="flex" alignItems="center" gap={2}>
+            <Link to='/'>
+              <MobileView>
+                <img src={logoSmall} alt="playbox logo" height="50px"/>
+              </MobileView>
+              <BrowserView>         
+                <img src={logo} alt="playbox logo" height="50px"/>
+              </BrowserView>
+            </Link>
+            <Link to='/jeux'>
+              <Typography variant="h6" component="span">Nos jeux</Typography>
+            </Link>
+          </Box>
           <Box>
-            {/* {
-              user && user.id ?
-              <AvatarDropdown /> : <LoginButton /> 
-            } */}
-            <CartButton color="white"/>
-            <RentButton color="white"/>
-            <LoginButton />
+            
+            { isSigned(user) && <CartButton color="white"/> }
+            { isSigned(user) && <RentButton color="white"/> }
+            {
+              isSigned(user) ?
+              <AvatarDropdown /> :
+              <LoginButton />
+            }
           </Box>
         </Toolbar>
       </AppBar>

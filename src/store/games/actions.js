@@ -10,14 +10,15 @@ export const fetchGamesRequest = () => {
   }
 }
 
-export const fetchGamesError = () => {
+export const fetchGamesError = (error) => {
   return {
     type: FETCH_GAMES_ERROR,
     error
   }
 }
 
-export const fetchGamesSuccess = () => {
+export const fetchGamesSuccess = (games) => {
+  console.log('ezkjfguihzea', games)
   return {
     type: FETCH_GAMES_SUCCESS,
     games

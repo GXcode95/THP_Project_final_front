@@ -12,12 +12,12 @@ import {
 
 const initialState = {
   loading: false,
-  userInfo: {},
+  user_info: {},
   favorite: {},
-  rentedGames: {},
-  rentGames: {},
-  wishList: {},
-  commandHistory: {},
+  rented_games: {},
+  rent_games: {},
+  wishlist: {},
+  command_history: {},
   cart: {},
   error: ''
 }
@@ -39,22 +39,28 @@ const userReducer = (state = initialState, action) => {
       // Cookies.set('user', ...action)
       return {
         ...state,
-        ...action,
-        loading: false,
+        ...action.user,
+        loading: false
       }
     case FETCH_USER_SIGN_IN_SUCCESS:
       // Cookies.set('user', ...action)
       return {
         ...state,
-        ...action,
+        ...action.user,
         loading: false
       }
     case FETCH_USER_SIGN_OUT_SUCCESS:
       // Cookies.set('user', "")
       return {
-        ...state,
-        ...action,
         loading: false,
+        user_info: {},
+        favorite: {},
+        rented_games: {},
+        rent_games: {},
+        wishlist: {},
+        command_history: {},
+        cart: {},
+        error: ''
       }
     case FETCH_USER_UPDATE_SUCCESS:
       return {
@@ -80,6 +86,8 @@ const userReducer = (state = initialState, action) => {
         loading: false,
         cart: action.cart
       }
+    default:
+      return state
   }
 }
 
