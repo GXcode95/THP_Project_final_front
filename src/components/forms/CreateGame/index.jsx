@@ -1,23 +1,34 @@
+import React, {useState} from 'react'
 import { Container, Typography, Box, TextField, Button} from '@mui/material';
 import NumberField from '../GameInput/NumberField';
-
+import ImagesDropzone from 'components/ImagesDropzone';
 const CreateGame = () => {
+  const [files, setFiles] = useState([])
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      name: data.get('name'),
-      description: data.get('description'),
-      creator: data.get('creator'),
-      editor: data.get('editor'),
-      age: data.get('age'),
-      min_players: data.get('min players'),
-      max_players: data.get('max players'),
-      released_date: data.get('released_date'),
-      price: data.get('price')
-    });
+  const handleUpload = () => {
+    const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`
+
+    files.forEach(
+      async (acceptedFile) => {
+        console.log("accept", acceptedFile)
+        const formData = new FormData();
+        formData.append("file", acceptedFile);
+        formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET)
+  
+        const response = await fetch(url, {
+          method: "post",
+          body: formData,
+        })
+        const data = await response.json()
+        console.log(data)
+      }
+    )
+  }
+
+
+  const handleClick = (event) => {
+    handleUpload()
+
   };
 
   return (
@@ -32,7 +43,7 @@ const CreateGame = () => {
             Ajouter un jeu
           </Typography>
           
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box  noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -85,9 +96,10 @@ const CreateGame = () => {
                 shrink: true,
               }}
             />
+            
 
             <Button
-              type="submit"
+              onClick={handleClick}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}

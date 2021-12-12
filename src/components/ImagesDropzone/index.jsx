@@ -2,8 +2,7 @@ import React from 'react'
 import {Box, Button} from '@mui/material'
 import {useDropzone} from "react-dropzone"
 import ImagesList from './ImagesList'
-const ImagesDropzone = () => {
-  const [files,setFiles] = React.useState([])
+const ImagesDropzone = ({validate, files, setFiles}) => {
 
   const onDrop = React.useCallback(async (acceptedFiles) => {
     acceptedFiles.forEach(async (acceptedFile) => {
@@ -16,25 +15,7 @@ const ImagesDropzone = () => {
     accepts: "images/*"
   })
 
-  const handleUpload = () => {
-    const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`
 
-    files.forEach(
-      async (acceptedFile) => {
-        console.log("accpet", acceptedFile)
-        const formData = new FormData();
-        formData.append("file", acceptedFile);
-        formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET)
-  
-        const response = await fetch(url, {
-          method: "post",
-          body: formData,
-        })
-        const data = await response.json()
-        console.log(data)
-      }
-    )
-  }
 
 
   return (
@@ -53,7 +34,6 @@ const ImagesDropzone = () => {
         }
       </Box>
       <ImagesList files={files} setFiles={setFiles} />
-      <Button onClick={handleUpload}>Valider</Button>
     </Box>
   )
 }
