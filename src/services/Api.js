@@ -2,6 +2,8 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
+
+console.log("BASEURL", BASE_URL)
 const API = axios.create({ baseURL: BASE_URL});
 API.interceptors.request.use(({ headers, ...config }) => ({
     ...config,
