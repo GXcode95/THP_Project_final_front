@@ -1,9 +1,7 @@
 import React from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import APIManager from 'services/Api'
-import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import Box from '@mui/material/Box';
 
 
 const StripeButton = ({ item, quantity, variant }) => {
