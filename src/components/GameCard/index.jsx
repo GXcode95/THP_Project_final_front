@@ -5,14 +5,21 @@ import GameDescription from './GameDescription';
 import GameCredentials from './GameCredentials';
 import GameIconsInfos from './GameIconsInfos'
 import { Link } from 'react-router-dom';
-
+import APIManager from 'services/Api'
+import { useSelector } from 'react-redux';
 
 
 
 const GameCard = ({ game }) => {
-
+  const user = useSelector(state => state.userReducer.user_info)
   const cardHeight = window.screen.width / 8
 
+  const handleRent = () => {
+    
+    const response = APIManager.createRent({quantity: 1, user_id: user.id , game_id: game.id})
+    if(!response.error) alert("jeu ajouter au favoris")
+
+  }
   return (
     <>
       <Card elevation={8}
@@ -49,8 +56,8 @@ const GameCard = ({ game }) => {
               <GameIconsInfos game={game} />
               <GameCredentials game={game} />
               <Stack direction="row" justifyContent="space-evenly">
-                <Button disabled >Acheter</Button>
-                <Button >Louer</Button>
+                <Button disabled>Acheter</Button>
+                <Button onClick={handleRent}> Louer</Button>
               </Stack>
             </Box>
           </Grid>
