@@ -37,8 +37,6 @@ const handleCatchError = (error) => {
 const handleJwt = (response) => {
   if (response.headers.authorization) {
     const jwt = response.headers.authorization.split(" ")[1]
-    console.log("jwt :", jwt)
-    Cookies.set('token', jwt)
   }
 }
 
@@ -81,7 +79,6 @@ export default class APIManager {
       })
       .catch(error => handleCatchError(error)) 
     handleJwt(response)
-    console.log("jwtCookie: ", Cookies.get('token'))
     console.log("APIManager # signInUser =>", response)
     return response.data
   }
