@@ -2,6 +2,8 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
+
+console.log("BASEURL", BASE_URL)
 const API = axios.create({ baseURL: BASE_URL});
 API.interceptors.request.use(({ headers, ...config }) => ({
     ...config,
@@ -35,8 +37,6 @@ const handleCatchError = (error) => {
 const handleJwt = (response) => {
   if (response.headers.authorization) {
     const jwt = response.headers.authorization.split(" ")[1]
-    console.log("jwt :", jwt)
-    Cookies.set('token', jwt)
   }
 }
 
@@ -79,7 +79,6 @@ export default class APIManager {
       })
       .catch(error => handleCatchError(error)) 
     handleJwt(response)
-    console.log("jwtCookie: ", Cookies.get('token'))
     console.log("APIManager # signInUser =>", response)
     return response.data
   }
