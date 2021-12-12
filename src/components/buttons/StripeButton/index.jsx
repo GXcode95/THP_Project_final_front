@@ -2,14 +2,15 @@ import React from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import APIManager from 'services/Api'
 import {Button} from '@mui/material'
+import {useNavigate} from 'react-router-dom'
 
 const StripeButton = ({item, quantity, variant}) => {
+  const navigate = useNavigate()
 
   const handleToken = async (token) => {
-    console.log({token})
     const response = await APIManager.buyPackage(token, item.id, quantity)
-  
-    console.log("Paiement: ",response)
+    if(!response.error)
+      navigate(0)
   }
 
   return (
@@ -20,7 +21,7 @@ const StripeButton = ({item, quantity, variant}) => {
     >
       J'en profite
       <StripeCheckout 
-        stripeKey={process.env.REACT_APP_PUBLIC_KEY}
+        stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
         token={handleToken}
         className='stripe'
       />
