@@ -4,9 +4,7 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeIcon from '@mui/icons-material/Home';
 import CasinoIcon from '@mui/icons-material/Casino';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import { useNavigate } from 'react-router';
 
 export default function BottomBar() {

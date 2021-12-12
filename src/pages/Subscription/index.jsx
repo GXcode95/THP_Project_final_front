@@ -18,7 +18,7 @@ const Subscription = () => {
     () => {
       const fetchUser = async () => {
         dispatch(fetchUserRequest())
-        const response = await APIManager.getUserInfo(user.user_info.id)
+        const response = await APIManager.getUserInfo(userStored.user_info.id)
         if(response.error){
           dispatch(fetchUserError(response.error))
         }else{
@@ -27,7 +27,7 @@ const Subscription = () => {
         }
       };
     
-      if (isSigned(user)) 
+      if (userStored && isSigned(user)) 
         fetchUser()
     
   // eslint-disable-next-line react-hooks/exhaustive-deps
