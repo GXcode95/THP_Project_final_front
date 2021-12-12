@@ -7,19 +7,26 @@ import GameIconsInfos from './GameIconsInfos'
 import { Link } from 'react-router-dom';
 import APIManager from 'services/Api'
 import { useSelector } from 'react-redux';
-
-
+import isSigned from 'helpers/isSigned'
+import isSubscribed from 'helpers/isSubscribed'
+import { useNavigate } from 'react-router';
 
 const GameCard = ({ game }) => {
-  const user = useSelector(state => state.userReducer.user_info)
+  const user = useSelector(state => state.userReducer)
   const cardHeight = window.screen.width / 8
+  const navigate = useNavigate()
 
-  const handleRent = () => {
-    
-    const response = APIManager.createRent({quantity: 1, user_id: user.id , game_id: game.id})
-    if(!response.error) alert("jeu ajouter au favoris")
-
+  const handleRent = async () => {
+    if (!isSigned(user)){
+      navigate('/connexion')
+    } else if (!isSubscribed(user)) {
+      navigate('/abonnement')
+    } else {
+      const response = await APIManager.createRent({quantity: 1, user_id: user.user_info.id , game_id: game.id})
+      if(!response.error) alert("jeu ajouter au favoris")
+    }
   }
+  
   return (
     <>
       <Card elevation={8}
