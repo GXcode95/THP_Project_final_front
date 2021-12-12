@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField} from '@mui/material';
 
-const NumberField= ({name}) => {
+const NumberField= ({name, handleChange}) => {
   function handleLabel(string) {
     string = string.split('_').join(' ') // replace underscore with space
 
@@ -15,6 +15,8 @@ const NumberField= ({name}) => {
       label={handleLabel(name)}
       fullWidth
       type="number"
+      onChange={e => handleChange(e.target.value)}
+
     >
     </ TextField>
   );
