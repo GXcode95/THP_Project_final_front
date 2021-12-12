@@ -15,11 +15,6 @@ const CreateGame = () => {
   const [age, setAge] = useState()
   const [price, setPrice] = useState()
 
-
-
-
-
-
   const handleClick = async () => {
     const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`
     let publicIdList=[]
@@ -59,6 +54,7 @@ const CreateGame = () => {
       rent_stock:100
     }
     
+    console.log("INFO", gameInfo)
     const response = await APIManager.createGameAdmin(gameInfo, imagesId)
     response.error ? alert(`une erreur est survenue :"${response.error}"`) : alert("jeu créer avec succès")
   }
@@ -82,6 +78,7 @@ const CreateGame = () => {
               fullWidth
               name="name"
               label="Nom du jeu"
+              onChange={e => setName(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -92,6 +89,7 @@ const CreateGame = () => {
               minRows="3"
               name="description"
               label="Description"
+              onChange={e => setDescription(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -99,6 +97,7 @@ const CreateGame = () => {
               fullWidth
               name="creator"
               label="Créateurs"
+              onChange={e => setCreator(e.target.value)}
             />
 
             <TextField
@@ -107,16 +106,17 @@ const CreateGame = () => {
               fullWidth
               name="editor"
               label="Éditeur"
+              onChange={e => setEditor(e.target.value)}
             />
                 
-            <NumberField name={"age"} />
+            <NumberField name={"age"} handleChange={setAge} />
 
-            <NumberField name={"min_players"} />
+            <NumberField name={"min_players"} handleChange={setMinPlayer} />
 
-            <NumberField name={"max_players"} />
+            <NumberField name={"max_players"} handleChange={setMaxPlayer} />
 
-            <NumberField name={"price"} />
-            
+            <NumberField name={"price"} handleChange={setPrice} />
+
             <TextField
               margin="normal"
               name="released_date"
