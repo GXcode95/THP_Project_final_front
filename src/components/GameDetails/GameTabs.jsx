@@ -5,6 +5,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Box from '@mui/material/Box';
 import { Typography, Grid } from '@mui/material'
+import Comments from 'components/Comments'
 
 const GameTabs = ({ game }) => {
 
@@ -24,7 +25,7 @@ const GameTabs = ({ game }) => {
             </TabList>
           </Box>
           <TabPanel value="1">{game && game.description}</TabPanel>
-          <TabPanel value="2">Pas encore de commentaires</TabPanel>
+          <TabPanel value="2"><Comments /></TabPanel>
         </TabContext>
       </Box>
     </Grid>
