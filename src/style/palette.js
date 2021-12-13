@@ -4,9 +4,12 @@ export const light = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#109eb3', // original from logo : #11bed8
+      main: '#283845', // original from logo : #11bed8
     },
     secondary: {
+      main: '#109eb3',
+    },
+    ternary: {
       main: '#ffb735',
     },
     error: {
@@ -21,12 +24,18 @@ export const light = createTheme({
     success: {
       main: '#43a047',
     },
+    white: {
+      main: "#fff"
+    },
+    black: {
+      main: "#000"
+    }
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: "none"
+          textTransform: "none",
         },
       },
       defaultProps: {
@@ -34,9 +43,15 @@ export const light = createTheme({
         color: "primary",
         disableRipple: true
       }
-    } 
+    }, 
+    MuiCardActionArea: {
+      defaultProps: {
+        disableRipple: true
+      }
+    }
   },
 });
+
 export const dark = createTheme({
   palette: {
     mode: 'dark',

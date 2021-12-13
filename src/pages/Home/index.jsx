@@ -1,13 +1,13 @@
 import React from 'react'
-import { Button } from '@mui/material' 
-
+import Faq from 'components/Faq'
+import HowItWorks from 'components/HowItWorks'
 const Home = () => {
-
   return (
     <div className=''>
-      <Button>Salut</Button>      
+      <HowItWorks />
+      <Faq />
     </div>
   )
 }
-    
+
 export default Home

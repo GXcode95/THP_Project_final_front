@@ -6,12 +6,12 @@ const LoginButton = () => {
 
   return (
     <Button 
-      variant="contained"
-        color="secondary"
-        id="fade-button"
-        className="login-button"
-        onClick={e => navigate('/connexion')}
-      >
+      variant="outlined"
+      color="secondary"
+      id="fade-button"
+      className="login-button"
+      onClick={e => navigate('/connexion')}
+    >
         Login
     </Button>
   )

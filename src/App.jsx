@@ -10,8 +10,9 @@ import Subscription from 'pages/Subscription';
 import NotFound from 'pages/NotFound'
 import {light} from 'style/palette'
 import { ThemeProvider, CssBaseline } from '@mui/material';
-import NavBar from 'components/NavBar';
+import NavBar from 'components/navigation/NavBar';
 import BottomBar from 'components/BottomBar'
+import HeroBanner from './components/navigation/NavBar/HeroBanner'
 
 const App = () => {
   return (
@@ -19,6 +20,8 @@ const App = () => {
       <ThemeProvider theme={light}>
         <CssBaseline />
         <Router>
+          <NavBar />
+          <HeroBanner />
           <Routes>
             <Route path="/" element={<Home />} exact />
             <Route path="/jeux/:gameID" element={<Game />} exact />
@@ -36,4 +39,3 @@ const App = () => {
   );
 }
 export default App;
-    
