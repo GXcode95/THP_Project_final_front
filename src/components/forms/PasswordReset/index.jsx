@@ -1,8 +1,8 @@
 import React from 'react'
 import EmailInput from '../input/EmailInput'
 import APIManager from 'services/Api'
-import {Button, Box,IconButton, Typography, Card} from '@mui/material' 
-import CloseIcon from '@mui/icons-material/Close'
+import {Button, Box, Typography, Card} from '@mui/material' 
+import CloseButton from 'components/buttons/CloseButton'
 
 const PasswordReset = ({togglePasswordReset}) => {
   const [email, setEmail] = React.useState()
@@ -34,9 +34,8 @@ const PasswordReset = ({togglePasswordReset}) => {
           borderColor: "primary.main"
         }}
       >
-        <IconButton onClick={togglePasswordReset}>
-          <CloseIcon />
-        </IconButton>
+
+        <CloseButton onClick={togglePasswordReset} />
       
         <Typography variant="body" component="p" maxWidth='400px' align="center" >
           Veuillez renseignez votre email, si il est valide nous 

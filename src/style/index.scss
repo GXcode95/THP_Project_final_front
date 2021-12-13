@@ -61,7 +61,14 @@ a {
 }
 
 .HeroBanner {
-    @media screen and (max-width: 500px) {
-        display: none;
-    }
+
+  @media screen and (max-width: 500px) {
+     display: none;
+    
+  }
+    
+}
+
+.fixed {
+  position: fixed;
 }
