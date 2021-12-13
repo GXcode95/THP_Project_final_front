@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import  {Container} from '@mui/material'
 import {fetchGamesRequest, fetchGamesError, fetchGamesSuccess} from 'store/games/actions'
 
-const Games = () => {
+const Games = ({edit}) => {
   const [filteredGames, setFilteredGames] = React.useState()
 
   const [games, setGames] = React.useState()
@@ -33,7 +33,7 @@ const Games = () => {
     <div>
       <SearchBar games={games} setGames={setFilteredGames} />
       <Container>
-        <GameList games={filteredGames ? filteredGames : games} />
+        <GameList games={filteredGames ? filteredGames : games} edit={edit}/>
       </Container>
     </div>
   )

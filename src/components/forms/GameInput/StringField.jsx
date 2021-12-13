@@ -4,7 +4,7 @@ import { TextField } from '@mui/material';
 const StringField = (props) => {
   return (
     <TextField
-      margin="normal"
+      margin="normal"on
       required
       fullWidth
       {...props}

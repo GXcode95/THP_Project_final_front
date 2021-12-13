@@ -1,18 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Image } from 'cloudinary-react'
 import { Card, Box, Typography, Button, Stack, Grid } from '@mui/material'
 import GameDescription from './GameDescription';
 import GameCredentials from './GameCredentials';
 import GameIconsInfos from './GameIconsInfos'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import APIManager from 'services/Api'
 import { useSelector } from 'react-redux';
+import EditGameForm from 'components/forms/EditGame/EditGameForm';
 
 
 
-const GameCard = ({ game }) => {
+const GameCard = ({ game, edit }) => {
+  const [editMode, setEditMode] = useState(false)
   const user = useSelector(state => state.userReducer.user_info)
   const cardHeight = window.screen.width / 8
+  const navigate = useNavigate()
 
   const handleRent = () => {
     
@@ -20,6 +23,11 @@ const GameCard = ({ game }) => {
     if(!response.error) alert("jeu ajouter au favoris")
 
   }
+
+  const toggleEditMode = () => {
+    setEditMode(!editMode)
+  }
+
   return (
     <>
       <Card elevation={8}
@@ -58,11 +66,13 @@ const GameCard = ({ game }) => {
               <Stack direction="row" justifyContent="space-evenly">
                 <Button disabled>Acheter</Button>
                 <Button onClick={handleRent}> Louer</Button>
+                {edit && <Button onClick={toggleEditMode}> Éditer</Button>}
               </Stack>
             </Box>
           </Grid>
         </Grid>
       </Card>
+      {editMode && <EditGameForm toggleEditMode={toggleEditMode} game={game}/>}
     </>
   )
 }
