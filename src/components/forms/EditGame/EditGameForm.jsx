@@ -36,7 +36,7 @@ const EditGameForm = ({ game, toggleEditMode }) => {
       min_player: minPlayer,
       min_age: age,
       price: price,
-      releade_date: releaseDate,
+      release_date: releaseDate,
       sell_stock: 100,
       rent_stock:100
     } 
@@ -45,7 +45,7 @@ const EditGameForm = ({ game, toggleEditMode }) => {
     const response = await APIManager.updateGamesAdmin(gameId, gameInfoUpdated)
     response.error ? 
       dispatch(fetchUserError(response.error)) :
-      dispatch(fetchUserSignInSuccess(response))
+      dispatch(fetchUserSignInSuccess(response))  
   }
 
 
