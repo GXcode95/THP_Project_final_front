@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import EditInputGrid from '../EditProfile/EditInput';
+import EditGameFormList from './EditGameFormList';
 import NumberField from '../GameInput/NumberField';
 import StringField from '../GameInput/StringField';
-import { Container, Box, Typography, TextField} from '@mui/material';
+import { Container, Box, Typography, TextField, Button} from '@mui/material';
 import CloseButton from 'components/buttons/CloseButton';
+import APIManager from 'services/Api';
+import { useDispatch } from 'react-redux';
+import { fetchUserRequest, fetchUserError, fetchUserSignInSuccess } from 'store/users/actions';
 
 const EditGameForm = ({ game, toggleEditMode }) => {
-  console.log("GAMEMEMEMEMEM",game)
+  const dispatch = useDispatch()
   const [name, setName] = useState(game.name)
   const [description, setDescription] = useState(game.description)
   const [creator, setCreator] = useState(game.creator)
@@ -19,9 +22,30 @@ const EditGameForm = ({ game, toggleEditMode }) => {
 
   const handleChange = (e, setValue) => {
     const targetValue = e.target.parentElement.querySelector(".MuiInputBase-input").value
-    const targetedElement = e.target.parentElement.querySelector(".MuiInputBase-input")
-    console.log("INPUTVALUE", targetedElement)
     setValue(targetValue)
+  }
+
+  const handleSubmit = async (e, gameId) => {
+    e.preventDefault()
+    const gameInfoUpdated = {
+      name: name,
+      description: description,
+      creator: creator,
+      editor: editor,
+      max_player: maxPlayer,
+      min_player: minPlayer,
+      min_age: age,
+      price: price,
+      releade_date: releaseDate,
+      sell_stock: 100,
+      rent_stock:100
+    } 
+    console.log("gameInfoUpdated", gameInfoUpdated)
+    dispatch(fetchUserRequest())
+    const response = await APIManager.updateGamesAdmin(gameId, gameInfoUpdated)
+    response.error ? 
+      dispatch(fetchUserError(response.error)) :
+      dispatch(fetchUserSignInSuccess(response))
   }
 
 
@@ -52,7 +76,7 @@ const EditGameForm = ({ game, toggleEditMode }) => {
           Editer un jeu
         </Typography>
         
-        <EditInputGrid
+        <EditGameFormList
           nameInput={<StringField name="name" label="Nom du jeu" defaultValue={name} onChange={e =>handleChange(e, setName)}  />}
           descriptionInput={<StringField name="description" label="Description" type="textarea" multiline minRows="3" defaultValue={description} onChange={e => handleChange(e, setDescription)}/>}
           creatorInput={<StringField name="creator" label="Créateur" defaultValue={creator} onChange={e => handleChange(e, setCreator)}/>}
@@ -71,8 +95,10 @@ const EditGameForm = ({ game, toggleEditMode }) => {
             InputLabelProps={{
               shrink: true,
             }}
+            onChange={e => handleChange(e, setReleaseDate)}
             />}
-        />
+        />      
+        <Button type="submit" onClick={e => handleSubmit(e, game.id)} variant="outlined">Edit</Button>
       </Box>
     </Container>
   )

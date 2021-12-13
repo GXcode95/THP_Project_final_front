@@ -26,6 +26,7 @@ const GameCard = ({ game, edit }) => {
 
   const toggleEditMode = () => {
     setEditMode(!editMode)
+    document.querySelector("body").classList.toggle("fixed")
   }
 
   return (
