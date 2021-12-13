@@ -9,7 +9,6 @@ import APIManager from 'services/Api'
 import { useSelector } from 'react-redux';
 import isSigned from 'helpers/isSigned'
 import isSubscribed from 'helpers/isSubscribed'
-import { useNavigate } from 'react-router';
 import EditGameForm from 'components/forms/EditGame/EditGameForm';
 
 const GameCard = ({ game, edit }) => {
