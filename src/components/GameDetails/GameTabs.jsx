@@ -13,7 +13,6 @@ const GameTabs = ({ game }) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
     <Grid container spacing={2} px={6} >
       <Box sx={{ width: '100%', typography: 'body1'}}>
@@ -27,7 +26,7 @@ const GameTabs = ({ game }) => {
           <TabPanel value="1">{game && game.description}</TabPanel>
           <TabPanel value="2" >
             <Container>
-              <Comments />
+              <Comments comments={game && game.comments}/>
             </Container>
           </TabPanel>
         </TabContext>

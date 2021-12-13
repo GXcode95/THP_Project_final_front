@@ -5,7 +5,7 @@ const CommentForm = ({ comment, minRows, handleSubmit }) => {
 
   return (
     <Box component="form" display="flex" alignItems="end" flexDirection="column" gap={2} onSubmit={handleSubmit}>
-      <TextField multiline name="comment" fullWidth defaultValue={comment && comment.content} minRows={minRows} />
+      <TextField multiline name="content" fullWidth defaultValue={comment && comment.content} minRows={minRows} />
       <Button type="submit" >Valider</Button>
     </Box>
   )

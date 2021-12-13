@@ -1,8 +1,9 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { registerNavigationRoute } from 'workbox-routing';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
-
+const ERROR_MESSAGE = "Opération impossible, il semble y avoir un problème de connection."
 console.log("BASEURL", BASE_URL)
 const API = axios.create({ baseURL: BASE_URL});
 API.interceptors.request.use(({ headers, ...config }) => ({
@@ -202,7 +203,14 @@ export default class APIManager {
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # getGame =>", response)
 
-    const formatedResponse = response.data.error ? response.data.error : {...response.data.info, images: response.data.images}
+    const formatedResponse = response.data.error ? 
+      response.data.error : { 
+                              ...response.data.info,
+                              images: response.data.images,
+                              comments: response.data.comments,
+                              rank: response.data.rank,
+                              tags: response.data.tags
+                            }
     
     return formatedResponse
   }
@@ -303,5 +311,14 @@ export default class APIManager {
     console.log("APIManager # BuyPackages =>", response)
     return response.data
   }
-  
+  /////////////////////
+
+  static async updateComment (id, content ) {
+    const response = await API.put(`/comments/${id}`, {content: content})
+    
+    if (!response) return ERROR_MESSAGE
+    console.log("APIManager # updateComment => ", response)
+    return response.data
+
+  }
 }

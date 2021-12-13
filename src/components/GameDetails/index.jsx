@@ -5,12 +5,15 @@ import GameTabs from './GameTabs';
 import GameInfo from './GameInfo'
 import { Button,Grid } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchGamesRequest, fetchGamesError, fetchGamesSuccess } from 'store/games/actions'
+import { fetchGamesRequest, fetchGamesError, fetchOneGameSuccess } from 'store/games/actions'
 import { useParams } from 'react-router-dom'
 
 const GameDetails = () => {
   const { gameID } = useParams();
   const [game, setGame] = React.useState();
+  const gamesReducer = useSelector(state => state.gamesReducer)
+  const store= useSelector(state => state)
+
   const dispatch = useDispatch()
   const user = useSelector(state => state.userReducer.user_info)
   
@@ -29,13 +32,41 @@ const GameDetails = () => {
         if (response.error) {
           dispatch(fetchGamesError(response.error))
         } else {
-          dispatch(fetchGamesSuccess(response))
-          setGame(response)
+          dispatch(fetchOneGameSuccess(response))
+          
         }
       }
       getGame(gameID)
     }, []
   )
+  React.useEffect(
+    () => {
+      if(gamesReducer && gamesReducer.games){
+        console.log("------------------------")
+        console.log("------------------------")
+        console.log("------------------------")
+        console.log("------------------------")
+        console.log("------------------------")
+        console.log("------------------------")
+        console.log("gamereducer", gamesReducer.games)
+        console.log("------------------------")
+        console.log("------------------------")
+        console.log("------------------------")
+        console.log("------------------------")
+        console.log("------------------------")
+        console.log("------------------------")
+        const current = gamesReducer.games.find(game => game.id === parseInt(gameID))
+        console.log("current", current)
+        console.log("currentgameid", gameID)
+        
+        
+        setGame(current)
+      }
+    }, [gamesReducer, gameID]
+  )
+
+
+
   const imageFromCloudinary = [
     {
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GoldenGateBridge-001.jpg/1200px-GoldenGateBridge-001.jpg",
@@ -95,14 +126,15 @@ const GameDetails = () => {
 
         </Grid>
         <Grid item xs={6}>
-          <GameInfo game={game} />
+          <GameInfo game={game && game} />
           <Button onClick={handleRent}>Louer</Button>
         </Grid>
       </Grid>
       <br />
       <br />
       <br />
-      <GameTabs game={game} />
+      <GameTabs game={game && game} />
+      {console.log("store",store)}
     </div>
   );
 }
