@@ -12,23 +12,21 @@ import { useState } from 'react'
 const Subscription = () => {
   const dispatch = useDispatch()
   const userStored = useSelector(state => state.userReducer)
-  const [user, setUser] = useState(userStored)
 
   useEffect (
     () => {
-      const fetchUser = async () => {
+      const fetchUserInfo = async () => {
         dispatch(fetchUserRequest())
         const response = await APIManager.getUserInfo(userStored.user_info.id)
         if(response.error){
           dispatch(fetchUserError(response.error))
         }else{
           dispatch(fetchUserSignInSuccess(response))
-          setUser(response)
         }
       };
     
-      if (userStored && isSigned(user)) 
-        fetchUser()
+      if (userStored && isSigned(userStored)) 
+        fetchUserInfo()
     
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]
@@ -37,7 +35,7 @@ const Subscription = () => {
 
   return (
     <Box mx="1em">
-      { isSubscribed(user) ?  <UserSubscription user={user}/> : <VisitorSubscription />  }
+      { isSubscribed(userStored) ?  <UserSubscription user={userStored}/> : <VisitorSubscription />  }
     </Box>
   )
 }
