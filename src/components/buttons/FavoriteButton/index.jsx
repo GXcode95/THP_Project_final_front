@@ -28,10 +28,10 @@ const FavoriteButton = ({ gameID, userReducer }) => {
 
   React.useEffect(
     () => {
-      if (userReducer.favorites && userReducer.favorites.find(game => game.id === gameID))
+      console.log("READUCER => ",userReducer)
+      if (isSigned(userReducer) && userReducer.favorites && userReducer.favorites.find(game => game.id === gameID))
         setIsFav(true)
-      return;
-    }, [userReducer]
+    }, [userReducer, gameID]
   )
 
   return (

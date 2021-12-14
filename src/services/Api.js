@@ -208,7 +208,6 @@ export default class APIManager {
         rank: response.data.rank,
         tags: response.data.tags
       }
-
     return formatedResponse
   }
 

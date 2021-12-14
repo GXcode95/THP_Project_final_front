@@ -63,7 +63,7 @@ const GameCard = ({ game, edit }) => {
 
             <Image
               cloudName={process.env.REACT_APP_CLOUD_NAME}
-              publicId={game.images.length > 0 ? "/seed/" + game.images[0] : "default_game"}
+              publicId={game.images && game.images.length > 0 ? "/seed/" + game.images[0] : "default_game"}
               height={handleCardHeight()}
               crop="crop"
             />
