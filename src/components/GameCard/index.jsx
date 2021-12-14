@@ -18,8 +18,8 @@ const GameCard = ({ game, edit }) => {
   const handleCardHeight = () => {
     const screen = window.screen.width
     if (screen > 1500) {
-       return 350
-    } else if(screen > 1900) {
+      return 350
+    } else if (screen > 1900) {
       return 200
     } else {
       return 300
@@ -52,14 +52,8 @@ const GameCard = ({ game, edit }) => {
 
         }}
       >
-        <Link to={`/jeu/${game.id}`}>
-          <Typography variant="h4" align="center" noWrap py="0.5em" >
-            {game.name}
-          </Typography>
-        </Link>
-        {console.log("GAME", game)}
         <Grid container minHeight={`${handleCardHeight()}px`}>
-            <Grid item lg={5} md={4} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
+          <Grid item lg={5} md={4} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
 
             <Image
               cloudName={process.env.REACT_APP_CLOUD_NAME}
