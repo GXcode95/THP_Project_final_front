@@ -107,3 +107,21 @@ a {
 .fixed {
     position: fixed;
 }
+
+@media screen and (max-width:500px) {
+    .login-image {
+        display: none
+    }
+}
+
+@media screen and(min-width:900px) and (max-width:1207px) {
+    .login-image {
+        height: 386px !important
+    }
+}
+
+@media screen and(min-width:1208px) and (max-width:4000px) {
+    .login-image {
+        height: 361px !important;
+    }
+}
