@@ -18,9 +18,9 @@ const GameCard = ({ game, edit }) => {
 
   const handleCardHeight = () => {
     const screen = window.screen.width
-    if (screen > 1500) {
-      return 350
-    } else if (screen > 1900) {
+    if (screen >= 1500) {
+       return 350
+    } else if(screen >= 1900) {
       return 200
     } else {
       return 300
