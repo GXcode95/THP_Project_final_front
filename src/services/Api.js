@@ -351,4 +351,22 @@ export default class APIManager {
     return response.data
   }
 
+
+  ///////////////////////
+  ///    FAVORTITES   ///
+  ///////////////////////
+
+  static async createFavorite (gameID) {
+    const response = await API.get(`/games/${gameID}/favorites`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # createFavorite =>", response)
+    return response.data
+  }
+
+  static async deleteFavorite (gameID) {
+    const response = await API.get(`/games/${gameID}/favorites`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # deleteFavorite =>", response)
+    return response.data
+  }
 }
