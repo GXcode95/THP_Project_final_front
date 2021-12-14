@@ -215,7 +215,7 @@ export default class APIManager {
   ///    ORDER    ///
   ///////////////////
 
-  static async creatOrder(orderInfo) {
+  static async createOrder(orderInfo) {
     const response = await API.post("/orders", orderInfo)
       .catch(error => handleCatchError(error))
     console.log("APIManager # creatOrder =>", response)
