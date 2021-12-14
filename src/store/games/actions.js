@@ -3,6 +3,7 @@ import {
   FETCH_GAMES_ERROR,
   FETCH_GAMES_SUCCESS,
   FETCH_ONE_GAME_SUCCESS,
+  FETCH_TAGS_SUCCESS,
 } from './types.js'
 
 export const fetchGamesRequest = () => {
@@ -32,6 +33,11 @@ export const fetchOneGameSuccess = (game) => {
   }
 }
 
-
+export const fetchTagsSuccess = (tags) => {
+  return {
+    type: FETCH_TAGS_SUCCESS,
+    tags
+  }
+}
 
 
