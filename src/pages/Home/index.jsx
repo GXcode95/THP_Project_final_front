@@ -7,6 +7,7 @@ import Faq from 'components/Faq'
 import HowItWorks from 'components/HowItWorks'
 import GameList from 'components/GameList'
 import BannerTitle from 'components/BannerTitle'
+import HeroBanner from 'components/navigation/NavBar/HeroBanner'
 import { Box, Button, Container } from '@mui/material'
 const Home = () => {
   const [games, setGames] = React.useState()
@@ -32,6 +33,7 @@ const Home = () => {
 
   return (
     <div className=''>
+      <HeroBanner />
       <HowItWorks />
       <BannerTitle textColor="white.main" text="Nos Jeux" />
       {games ? (
