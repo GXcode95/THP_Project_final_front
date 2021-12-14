@@ -74,6 +74,7 @@ const GameCard = ({ game, edit }) => {
               <Stack direction="row" justifyContent="space-evenly">
                 <Button disabled>Acheter</Button>
                 <Button onClick={handleRent} color="secondary"> Louer</Button>
+                {edit && <Button onClick={toggleEditMode}> Éditer</Button>}
               </Stack>
             </Box>
           </Grid>
