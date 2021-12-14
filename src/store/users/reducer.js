@@ -18,7 +18,7 @@ import {
 const initialState = {
   loading: false,
   user_info: {},
-  favorites: {},
+  favorites: [],
   rent: {},
   command_history: {},
   cart: {},
@@ -49,7 +49,7 @@ const userReducer = (state = initialState, action) => {
       return {
         loading: false,
         user_info: {},
-        favorites: {},
+        favorites: [],
         rent: {},
         command_history: {},
         cart: {},

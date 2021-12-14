@@ -7,10 +7,12 @@ import CartHistory from 'components/CartHistory'
 import { Grid, Typography } from '@mui/material'
 import GameList from 'components/GameList';
 
-
 const Profile = () => {
   const [cartsHistory, setCartsHistory] = React.useState()
   const user = useSelector(state => state.userReducer)
+  const [favGames, setFavGames] = React.useState()
+  
+  
 
   React.useEffect(
     () => {
@@ -22,6 +24,23 @@ const Profile = () => {
       }
       fetchCartsHistory()
     }, []
+  )
+
+  React.useEffect(
+    () => {
+      const getFavoritesGames = async () => {
+        if (user.favorites.length > 0) {
+          return user.favorites.map( async (game) => {
+            const response = await APIManager.getGame(game.id)
+            favGames ? 
+              setFavGames([...favGames, response]) :
+              setFavGames([response])
+          })
+        }
+      }
+      getFavoritesGames()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user]
   )
   return (
     <div className=''>
@@ -38,7 +57,7 @@ const Profile = () => {
             <Typography variant="h2" align="center" color="primary">
               Mes Favoris
             </Typography>
-            <GameList games={user.favorites} />
+            {favGames && <GameList games={favGames} /> }
           </Grid>
 
         </Grid>
