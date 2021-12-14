@@ -22,6 +22,8 @@ const GameCard = ({ game, edit }) => {
       return 150
     } else if (screen < 1900) {
       return 250
+    } else if (580 < screen < 900) {
+      return 200
     } else {
       return 200
     }
@@ -55,7 +57,7 @@ const GameCard = ({ game, edit }) => {
 
   return (
     <>
-      <Card elevation={8}
+      <Card elevation={6}
         sx={{
           padding: "0em",
           borderRadius: '6px'
