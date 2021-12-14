@@ -8,10 +8,12 @@ import { useSelector } from 'react-redux';
 import isSigned from 'helpers/isSigned'
 import isSubscribed from 'helpers/isSubscribed'
 import EditGameForm from 'components/forms/EditGame/EditGameForm';
+import FavoriteButton from 'components/buttons/FavoriteButton';
 
 const GameCard = ({ game, edit }) => {
   const [editMode, setEditMode] = useState(false)
   const user = useSelector(state => state.userReducer.user_info)
+  const userReducer = useSelector(state => state.userReducer)
 
   const cardHeight = window.screen.width / 8
   const navigate = useNavigate()
@@ -72,6 +74,7 @@ const GameCard = ({ game, edit }) => {
                 <sup>    <span className="badge">{game.sell_stock > 0 && `${game.sell_stock} en stock`}</span></sup>
               </Typography>
               <Stack direction="row" justifyContent="space-evenly">
+                <FavoriteButton gameID={game.id} userReducer={userReducer} />
                 <Button disabled>Acheter</Button>
                 <Button onClick={handleRent} color="secondary"> Louer</Button>
                 {edit && <Button onClick={toggleEditMode}> Éditer</Button>}
