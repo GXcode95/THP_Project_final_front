@@ -79,7 +79,7 @@ const GameCard = ({ game, edit }) => {
               flexDirection="column"
               justifyContent="space-evenly"
               height="100%"
-
+              className='card-game-list'
             >
               <Link to={`/jeu/${game.id}`}>
                 <Typography variant="h5" align="left" noWrap className="game-title-card">
@@ -95,8 +95,8 @@ const GameCard = ({ game, edit }) => {
               </Typography>
               <Stack direction="row" justifyContent="space-evenly" sx={{ marginBottom: "1em" }}>
                 <FavoriteButton gameID={game.id} userReducer={userReducer} />
-                <Button onClick={handleBuy} color="primary">Acheter</Button>
-                <Button onClick={handleRent} color="secondary"> Louer</Button>
+                <Button onClick={handleBuy} color="primary" className="buttons-card">Acheter</Button>
+                <Button onClick={handleRent} color="secondary" className="buttons-card"> Louer</Button>
                 {edit && <Button onClick={toggleEditMode}> Éditer</Button>}
               </Stack>
             </Box>
