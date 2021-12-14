@@ -2,7 +2,8 @@
 import {
   FETCH_GAMES_REQUEST,
   FETCH_GAMES_ERROR,
-  FETCH_GAMES_SUCCESS
+  FETCH_GAMES_SUCCESS,
+  FETCH_ONE_GAME_SUCCESS,
 } from './types.js'
 
 const initialState = {
@@ -30,6 +31,18 @@ const gamesReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         games: action.games
+      }
+
+    case FETCH_ONE_GAME_SUCCESS:
+      // DOIS METTRE A JOUR LES COMMENTAIRE D'UN JEU
+      const games_copy = []
+      state.games.forEach(game => games_copy.push(game))
+      const gameIndex = games_copy.indexOf(games_copy.find(game => game.id === 2))
+      games_copy[gameIndex] = action.game
+      return {
+        ...state,
+        loading: false,
+        games: games_copy
       }
     default: 
       return state
