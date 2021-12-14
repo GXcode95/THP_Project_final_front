@@ -15,7 +15,7 @@ const CartItem = (props) => {
   return (
     <div>
         <List sx={{ width: '100%', bgcolor: 'background.primary' }}>
-          {games.map( gameObj => (
+          {games && games.map( gameObj => (
             <>
               <ListItem>
                 <ListItemAvatar>
