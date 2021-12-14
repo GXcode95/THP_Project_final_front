@@ -18,12 +18,12 @@ const GameCard = ({ game, edit }) => {
 
   const handleCardHeight = () => {
     const screen = window.screen.width
-    if (screen >= 1500) {
-       return 350
-    } else if(screen >= 1900) {
-      return 200
+    if (screen < 1500) {
+      return 150
+    } else if (screen < 1900) {
+      return 250
     } else {
-      return 300
+      return 200
     }
   }
   const navigate = useNavigate()
@@ -63,16 +63,17 @@ const GameCard = ({ game, edit }) => {
         }}
       >
         <Grid container minHeight={`${handleCardHeight()}px`}>
-          <Grid item lg={5} md={4} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
-
-            <Image
-              cloudName={process.env.REACT_APP_CLOUD_NAME}
-              publicId={game.images && game.images.length > 0 ? "/seed/" + game.images[0] : "default_game"}
-              height={handleCardHeight()}
-              crop="crop"
-            />
+          <Grid item lg={6} md={5} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
+            <Box sx={{ padding: '10px' }}>
+              <Image
+                cloudName={process.env.REACT_APP_CLOUD_NAME}
+                publicId={game.images && game.images.length > 0 ? "/seed/" + game.images[0] : "default_game"}
+                height={handleCardHeight()}
+                crop="crop"
+              />
+            </Box>
           </Grid>
-          <Grid item md={7} xs={12} >
+          <Grid item lg={6} md={7} xs={12} >
             <Box
               display="flex"
               flexDirection="column"
@@ -92,7 +93,7 @@ const GameCard = ({ game, edit }) => {
                 </strong>
                 <sup>    <span className="badge">{game.sell_stock > 0 && `${game.sell_stock} en stock`}</span></sup>
               </Typography>
-              <Stack direction="row" justifyContent="space-evenly">
+              <Stack direction="row" justifyContent="space-evenly" sx={{ marginBottom: "1em" }}>
                 <FavoriteButton gameID={game.id} userReducer={userReducer} />
                 <Button onClick={handleBuy} color="primary">Acheter</Button>
                 <Button onClick={handleRent} color="secondary"> Louer</Button>
