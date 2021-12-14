@@ -5,8 +5,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import EditOffIcon from '@mui/icons-material/EditOff';
 import CommentForm from './CommentForm'
 import APIManager from 'services/Api'
+import isAdmin from 'helpers/isAdmin'
+import isAuthor from 'helpers/isAuthor';
 
-const CommentCard = ({comment, setGame}) => {
+const CommentCard = ({comment, setGame, user}) => {
   const [editMode, setEditMode] = React.useState(false)
 
   const toggleEditMode = () => {
@@ -26,7 +28,7 @@ const CommentCard = ({comment, setGame}) => {
       toggleEditMode()
     }
   }
-  const CommentUpdateDate = () => {
+  const CommentUpdateDate = () => { // return edit date only if comment was edited
     if (comment.created_at !== comment.updated_at) {
       return (
         <Typography variant="span">
@@ -35,7 +37,7 @@ const CommentCard = ({comment, setGame}) => {
       )
     }
   }
-
+  
   return (
     <Card sx={{position:"relative"}}>
       <Grid container sx={{py:"2.5em", px:"0.5em", bgcolor:"grey.300"}}>
@@ -48,13 +50,16 @@ const CommentCard = ({comment, setGame}) => {
 
         <Grid item md={11}>
           <Box sx={{position: "absolute", top: 0, right: 0}} display="flex" gap={2}>
-            <IconButton  onClick={toggleEditMode}>
-              { editMode ? <EditOffIcon/> :<EditIcon/> }
-            </IconButton> 
-            
-            <IconButton onClick={handleDelete}>
-              <DeleteForeverIcon/>
-            </IconButton> 
+            {isAuthor(user, comment) &&
+              <IconButton  onClick={toggleEditMode}>
+                { editMode ? <EditOffIcon/> :<EditIcon/> }
+              </IconButton> 
+            }
+            {( isAuthor(user,comment) || isAdmin(user) ) &&
+                <IconButton onClick={handleDelete}>
+                  <DeleteForeverIcon/>
+                </IconButton> 
+            }
           </Box>
           
           <Typography variant="p" color="grey.500" display="block" fontSize="0.9rem">
@@ -69,6 +74,7 @@ const CommentCard = ({comment, setGame}) => {
             </Typography> 
           }
         </Grid>
+        
       </Grid>
     </Card>
   )
