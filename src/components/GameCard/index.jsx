@@ -79,7 +79,7 @@ const GameCard = ({ game, edit }) => {
               flexDirection="column"
               justifyContent="space-evenly"
               height="100%"
-              pr="0.2em" pl="0.8em"
+
             >
               <Link to={`/jeu/${game.id}`}>
                 <Typography variant="h5" align="left" noWrap className="game-title-card">
