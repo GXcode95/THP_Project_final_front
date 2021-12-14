@@ -7,33 +7,42 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 const CartItem = (props) => {
-
-  const cardHeight = window.screen.width / 5
   const games = props.games
   const cartTotal = (gameObj) => `${gameObj.game.price}€ x ${gameObj.quantity} = ${gameObj.game.price * gameObj.quantity}€ `
+
+  const handleCardHeight = () => {
+    const screen = window.screen.width
+    if (screen > 1500) {
+       return 350
+    } else if(screen > 1900) {
+      return 200
+    } else {
+      return 300
+    }
+  }
 
   return (
     <div>
         <List sx={{ width: '100%', bgcolor: 'background.primary' }}>
-          {games.map( gameObj => (
+          {games && games.map( gameObj => (
             <>
               <ListItem>
                 <ListItemAvatar>
                   <Avatar>
                     <Image
                       cloudName={process.env.REACT_APP_CLOUD_NAME}
-                      publicId="default_game"
-                      height={cardHeight}
+                      publicId={gameObj.images && gameObj.images.length > 0 ? "/seed/" + gameObj.images[0] : "default_game"}
+                      height={handleCardHeight()}
                       crop="scale"            
                     />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText id={gameObj.rent_id} primary={gameObj.game.name} secondary={props.rent? `Quantité: ${gameObj.quantity}` : cartTotal(gameObj)} />
+                <ListItemText id={gameObj.rent_id || gameObj.order_id} primary={gameObj.game.name} secondary={props.rent? `Quantité: ${gameObj.quantity}` : cartTotal(gameObj)} />
                 {props.quantityButton &&
                   <Grid container spacing={2} direction="row"  width='25%'>
                     <ListItemButton 
                       component="button" 
-                      onClick={e => props.handleAdd(gameObj.rent_id)} 
+                      onClick={e => props.handleAdd(gameObj.rent_id || gameObj.order_id)} 
                       sx={{display: "flex", justifyContent: "center"}}
                     >
                       <ListItemIcon sx={{display: "flex", justifyContent: "center"}}>
@@ -42,7 +51,7 @@ const CartItem = (props) => {
                     </ListItemButton>
                     <ListItemButton 
                       component="button" 
-                      onClick={e => props.handleRemove(gameObj.rent_id)} 
+                      onClick={e => props.handleRemove(gameObj.rent_id || gameObj.order_id)} 
                       sx={{display: "flex", justifyContent: "center"}}
                     >
                       <ListItemIcon sx={{display: "flex", justifyContent: "center"}}>
@@ -52,7 +61,7 @@ const CartItem = (props) => {
                   </Grid>
                 }
                 {props.deleteButton && 
-                  <ListItemButton component="button" onClick={e => props.handleDelete(gameObj.rent_id)} sx={{display: "flex", justifyContent: "center"}}>
+                  <ListItemButton component="button" onClick={e => props.handleDelete(gameObj.rent_id || gameObj.order_id)} sx={{display: "flex", justifyContent: "center"}}>
                     <ListItemIcon >
                       <DeleteRoundedIcon />
                     </ListItemIcon>

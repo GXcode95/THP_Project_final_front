@@ -21,11 +21,11 @@ import { useDispatch } from 'react-redux';
 import { MobileView } from 'react-device-detect';
 import isSigned from 'helpers/isSigned';
 import isAdmin from 'helpers/isAdmin';
-
+import {useSelector} from 'react-redux'
 const App = () => {
   const dispatch = useDispatch()
-  const [user, setUser] = React.useState()
-
+  const user = useSelector(state => state.userReducer)
+  const store = useSelector(state => state)
   const userRoutes = () => {
     if(user && isSigned(user)){
       return (
@@ -55,10 +55,8 @@ const App = () => {
           const response = await APIManager.signInUserJwt()
           if(response.error ){
             dispatch(fetchUserError(response.error))
-
           }else {
             dispatch(fetchUserSignInSuccess(response))
-            setUser(response)
           }
         }
       }
@@ -72,7 +70,6 @@ const App = () => {
         <CssBaseline />
         <Router>
           <NavBar />
-          <HeroBanner />
           <Routes>
             <Route path="/" element={<Home />} exact />
             <Route path="/jeux" element={<Games />} exact />
@@ -91,6 +88,8 @@ const App = () => {
           </MobileView>
         </Router>
       </ThemeProvider>
+      {console.log("cookies => ", Cookies.get('token'))}
+      {console.log("store => ", store)}
     </div>
   );
 }
