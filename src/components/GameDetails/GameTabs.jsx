@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import { Container, Grid } from '@mui/material'
 import Comments from 'components/Comments'
 
-const GameTabs = ({ game }) => {
+const GameTabs = ({ game, setGame }) => {
 
   const [value, setValue] = React.useState('1');
   const handleChange = (event, newValue) => {
@@ -26,7 +26,7 @@ const GameTabs = ({ game }) => {
           <TabPanel value="1">{game && game.description}</TabPanel>
           <TabPanel value="2" >
             <Container>
-              <Comments comments={game && game.comments}/>
+              <Comments comments={game && game.comments} game={game} setGame={setGame}/>
             </Container>
           </TabPanel>
         </TabContext>

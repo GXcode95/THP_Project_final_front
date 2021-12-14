@@ -4,68 +4,33 @@ import APIManager from 'services/Api'
 import GameTabs from './GameTabs';
 import GameInfo from './GameInfo'
 import { Button,Grid } from '@mui/material'
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchGamesRequest, fetchGamesError, fetchOneGameSuccess } from 'store/games/actions'
+import { useSelector} from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 const GameDetails = () => {
   const { gameID } = useParams();
   const [game, setGame] = React.useState();
-  const gamesReducer = useSelector(state => state.gamesReducer)
-  const store= useSelector(state => state)
-
-  const dispatch = useDispatch()
   const user = useSelector(state => state.userReducer.user_info)
   
-  const handleRent = () => {
-    
-    const response = APIManager.createRent({quantity: 1, user_id: user.id , game_id: game.id})
+  const handleRent = async () =>  {
+    const response = await APIManager.createRent({quantity: 1, user_id: user.id , game_id: game.id})
     if(!response.error) alert("jeu ajouter au favoris")
-
   }
 
   React.useEffect(
     () => {
       const getGame = async (gameID) => {
-        dispatch(fetchGamesRequest())
         const response = await APIManager.getGame(gameID)
         if (response.error) {
-          dispatch(fetchGamesError(response.error))
+          alert(response.error)
         } else {
-          dispatch(fetchOneGameSuccess(response))
-          
+          setGame(response)
         }
       }
       getGame(gameID)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []
   )
-  React.useEffect(
-    () => {
-      if(gamesReducer && gamesReducer.games){
-        console.log("------------------------")
-        console.log("------------------------")
-        console.log("------------------------")
-        console.log("------------------------")
-        console.log("------------------------")
-        console.log("------------------------")
-        console.log("gamereducer", gamesReducer.games)
-        console.log("------------------------")
-        console.log("------------------------")
-        console.log("------------------------")
-        console.log("------------------------")
-        console.log("------------------------")
-        console.log("------------------------")
-        const current = gamesReducer.games.find(game => game.id === parseInt(gameID))
-        console.log("current", current)
-        console.log("currentgameid", gameID)
-        
-        
-        setGame(current)
-      }
-    }, [gamesReducer, gameID]
-  )
-
-
 
   const imageFromCloudinary = [
     {
@@ -133,8 +98,7 @@ const GameDetails = () => {
       <br />
       <br />
       <br />
-      <GameTabs game={game && game} />
-      {console.log("store",store)}
+      <GameTabs game={game && game} setGame={setGame} />
     </div>
   );
 }

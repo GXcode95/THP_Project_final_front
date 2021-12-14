@@ -312,13 +312,32 @@ export default class APIManager {
     return response.data
   }
   /////////////////////
-
-  static async updateComment (id, content ) {
-    const response = await API.put(`/comments/${id}`, {content: content})
+  ///    PACKAGES   ///
+  /////////////////////
+   
+  static async createComment (gameID, content, userID) {
+    const response = await API.post(`/comments`, {game_id: gameID, content: content, user_id: userID})
     
-    if (!response) return ERROR_MESSAGE
-    console.log("APIManager # updateComment => ", response)
+    if (!response) return {error: ERROR_MESSAGE}
+    console.log("APIManager # createComment => ", response)
     return response.data
 
   }
+
+  static async updateComment (commentID, content ) {
+    const response = await API.put(`/comments/${commentID}`, {content: content})
+    
+    if (!response) return {error: ERROR_MESSAGE}
+    console.log("APIManager # updateComment => ", response)
+    return response.data
+  }
+
+  static async deleteComment (commentID ) {
+    const response = await API.delete(`/comments/${commentID}`,)
+    
+    if (!response) return {error: ERROR_MESSAGE}
+    console.log("APIManager # deleteComment => ", response)
+    return response.data
+  }
+  
 }

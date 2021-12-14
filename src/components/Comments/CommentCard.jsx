@@ -1,21 +1,20 @@
 import React from 'react'
-import { Avatar, Box, Button, Card, Grid, Typography, IconButton, TextField } from '@mui/material'
+import { Avatar, Box,Card, Grid, Typography, IconButton} from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import EditOffIcon from '@mui/icons-material/EditOff';
 import CommentForm from './CommentForm'
 import APIManager from 'services/Api'
-import { useDispatch } from 'react-redux';
-import { fetchGamesRequest, fetchGamesError, fetchGameCommentsSuccess } from 'store/games/actions';
 
-const CommentCard = ({comment}) => {
+const CommentCard = ({comment, setGame}) => {
   const [editMode, setEditMode] = React.useState(false)
-  const dispatch = useDispatch()
+
   const toggleEditMode = () => {
     setEditMode(!editMode)
   }
-  const handleDelete = () => {
-    console.log("handleDelete:", comment.id)
+  const handleDelete = async () => {
+    const response = await APIManager.deleteComment(comment.id)
+    response.error ? alert(response.error) : setGame(response)
   }
   const handleSubmit = async(e) => {
     e.preventDefault()
@@ -23,12 +22,10 @@ const CommentCard = ({comment}) => {
     if(response.error){
       alert(response.error)
     } else {
-      alert("commentaire édité")
+      setGame(response)
+      toggleEditMode()
     }
-
-
   }
-
   const CommentUpdateDate = () => {
     if (comment.created_at !== comment.updated_at) {
       return (
@@ -41,13 +38,14 @@ const CommentCard = ({comment}) => {
 
   return (
     <Card sx={{position:"relative"}}>
-      {console.log(comment)}
       <Grid container sx={{py:"2.5em", px:"0.5em", bgcolor:"grey.300"}}>
+        
         <Grid item md={1} >
           <Box display="flex" justifyContent="center" alignItems="center" width="100%" height="100%">
             <Avatar>A</Avatar>
           </Box>
         </Grid>
+
         <Grid item md={11}>
           <Box sx={{position: "absolute", top: 0, right: 0}} display="flex" gap={2}>
             <IconButton  onClick={toggleEditMode}>
@@ -62,6 +60,7 @@ const CommentCard = ({comment}) => {
           <Typography variant="p" color="grey.500" display="block" fontSize="0.9rem">
             Écrit le {comment.created_at} {CommentUpdateDate()}
           </Typography>
+         
           {editMode ?
             <CommentForm comment={comment} handleSubmit={handleSubmit}/>
             :

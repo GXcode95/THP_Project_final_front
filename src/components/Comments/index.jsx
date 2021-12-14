@@ -2,13 +2,24 @@ import React from 'react'
 import { Grid,  Typography} from '@mui/material'
 import CommentCard from './CommentCard'
 import CommentForm from './CommentForm'
+import APIManager from 'services/Api'
+import { useSelector } from 'react-redux'
 
-const Comments = ({comments}) => {
-
-  const handleSubmit = (e) => {
+const Comments = ({comments,game, setGame}) => {
+  const user = useSelector(state => state.userReducer.user_info)
+  const handleSubmit = async (e) => {
     e.preventDefault()
-      console.log("ezfjf", e.target.content.value)
+    const content = e.target.content.value
+    const response = await APIManager.createComment(game.id, content, user.id)
+    
+    if(response.error){
+      alert(response.error)
+    } else {
+      setGame(response)
+    }
   }
+
+
   return (
     <Grid container spacing={2} >
       <Grid item md={12}>
@@ -19,15 +30,9 @@ const Comments = ({comments}) => {
       </Grid>
       {comments && comments.map(comment => (
         <Grid item md={12} key={comment.id}>
-          <CommentCard comment={comment} />
+          <CommentCard comment={comment} setGame={setGame} />
         </Grid>
       ))}
-    
-     {console.log("comments",comments)}
-     {console.log("comments",comments)}
-     {console.log("comments",comments)}
-     {console.log("comments",comments)}
-     {console.log("comments",comments)}
     </Grid>
   )
 }
