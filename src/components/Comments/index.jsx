@@ -10,7 +10,7 @@ const Comments = ({comments,game, setGame}) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const content = e.target.content.value
-    const response = await APIManager.createComment(game.id, content, user.id)
+    const response = await APIManager.createComment(game.id, content)
     
     if(response.error){
       alert(response.error)
