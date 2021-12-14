@@ -10,7 +10,7 @@ import {
 const initialState = {
   loading: false,
   games: [],
-  tags:[]
+  tags:[],
   error: ''
 }
 
@@ -45,7 +45,7 @@ const gamesReducer = (state = initialState, action) => {
         loading: false,
         games: games_copy
       }
-      
+
     case FETCH_TAGS_SUCCESS:
       return {
         ...state,
