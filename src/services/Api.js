@@ -310,6 +310,13 @@ export default class APIManager {
     return response.data
   }
 
+  static async updatePackageAdmin (packagesID) {
+    const response = await API.put(`/admin/packages/${packagesID}`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # updatePackages =>", response)
+    return response.data
+  }
+
   /////////////////////
   ///    COMMENTS   ///
   /////////////////////
