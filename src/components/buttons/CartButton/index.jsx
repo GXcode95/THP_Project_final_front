@@ -8,7 +8,7 @@ const CartButton = (props) => {
   const navigate = useNavigate()
 
   return (
-    <IconButton onClick={e => navigate("/panier")} sx={{display: "none"}}>
+    <IconButton onClick={e => navigate("/panier")}>
       <ShoppingCartIcon {...props} className="icon-hover-effect" sx={{fontSize: "1.3em"}}/>
     </IconButton>
   )
