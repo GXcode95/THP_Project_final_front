@@ -185,13 +185,12 @@ export default class APIManager {
     
     // render a games array of object with and images props,
     // wich is an array of string containing the images public_id on cloudinary
-    const formatedResponse = []
+    let formatedResponse = []
       if (response.data.error){
         formatedResponse = response.data.error
       } else {
-        response.data.forEach( game => formatedResponse.push({...game.info, images: response.images}) )
+        response.data.forEach( game => formatedResponse.push({...game.info, images: game.images }) )
       }        
-
     return formatedResponse
   }
 

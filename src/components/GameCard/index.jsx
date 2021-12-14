@@ -15,7 +15,16 @@ const GameCard = ({ game, edit }) => {
   const [editMode, setEditMode] = useState(false)
   const user = useSelector(state => state.userReducer.user_info)
 
-  const cardHeight = window.screen.width / 8
+  const handleCardHeight = () => {
+    const screen = window.screen.width
+    if (screen > 1500) {
+       return 350
+    } else if(screen > 1900) {
+      return 200
+    } else {
+      return 300
+    }
+  }
   const navigate = useNavigate()
 
   const handleRent = async () => {
@@ -48,14 +57,14 @@ const GameCard = ({ game, edit }) => {
             {game.name}
           </Typography>
         </Link>
-
-        <Grid container minHeight={`${cardHeight}px`}>
+        {console.log("GAME", game)}
+        <Grid container minHeight={`${handleCardHeight()}px`}>
           <Grid item md={5} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
             <Image
               cloudName={process.env.REACT_APP_CLOUD_NAME}
-              publicId={game.images ? game.images[0] : "default_game"}
-              height={cardHeight}
-              crop="scale"
+              publicId={game.images.length > 0 ? "/seed/" + game.images[0] : "default_game"}
+              height={handleCardHeight()}
+              crop="crop"
             />
           </Grid>
           <Grid item md={7} xs={12} >
@@ -66,7 +75,7 @@ const GameCard = ({ game, edit }) => {
               height="100%"
               pr="0.2em" pl="0.8em"
             >
-              <GameDescription game={game} limit={cardHeight * 0.6} />
+              <GameDescription game={game} limit={handleCardHeight() * 0.6} />
               <GameIconsInfos game={game} />
               <GameCredentials game={game} />
               <Stack direction="row" justifyContent="space-evenly">
