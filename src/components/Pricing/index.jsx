@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Grid, Container} from '@mui/material';
+import { Grid, Container } from '@mui/material';
 import PricingHero from './PricingHero'
 import PricingCard from './PricingCard'
 import APIManager from 'services/Api'
@@ -18,7 +18,7 @@ const Pricing = () => {
         return 'outlined'
       case 2:
         return 'contained'
-      default:;
+      default: ;
     }
   }
 
@@ -29,8 +29,8 @@ const Pricing = () => {
       case 1:
         return '2 jeux tous les mois'
       case 2:
-        return '4 jeu tous les mois'
-      default:;
+        return '4 jeux tous les mois'
+      default: ;
     }
   }
 
@@ -45,8 +45,8 @@ const Pricing = () => {
   )
 
   return (
-  <Container maxWidth="md" component="main">
-    <PricingHero />
+    <Container maxWidth="md" component="main">
+      <PricingHero />
       <Grid container spacing={5} alignItems="flex-end">
         {tiers && tiers.map((tier, i) => (
           // Enterprise card is full width at sm breakpoint
@@ -57,11 +57,11 @@ const Pricing = () => {
             sm={6}
             md={4}
           >
-            <PricingCard tier={tier} variant={getVariant(i)} description={getDescription(i)}/>
+            <PricingCard tier={tier} variant={getVariant(i)} description={getDescription(i)} />
           </Grid>
         ))}
       </Grid>
-  </Container>
+    </Container>
   );
 }
 

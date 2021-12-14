@@ -58,7 +58,7 @@ const UserSubscription = ({user}) => {
       </Typography>
 
       <Box sx={{ bgcolor: 'background.paper', maxWidth:"28em", width:"100%" }} >
-        <Tabs value={value} onChange={handleChange} variant="scrollable" scollButtons="auto">
+        <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto">
           <Tab label="Wishlist" />
           <Tab label="En cours" />
           <Tab label="Historique de location" />

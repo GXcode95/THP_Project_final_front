@@ -19,9 +19,31 @@ import { fetchUserSignInSuccess, fetchUserRequest, fetchUserError } from 'store/
 import APIManager from 'services/Api';
 import { useDispatch } from 'react-redux';
 import { MobileView } from 'react-device-detect';
+import isSigned from 'helpers/isSigned';
+import isAdmin from 'helpers/isAdmin';
 
 const App = () => {
   const dispatch = useDispatch()
+  const [user, setUser] = React.useState()
+
+  const userRoutes = () => {
+    if(user && isSigned(user)){
+      return (
+        <>
+          <Route path="/panier" element={<Cart />} exact />
+          <Route path="/profile" element={<Profile />} exact />
+        </>
+      )
+    } else {
+      return (
+        <>
+          <Route path="/panier" element={<Login />} exact />
+          <Route path="/profile" element={<Login />} exact />
+        </>
+      )
+    }
+  }
+
 
   React.useEffect( // sign in user if he have a valid jwt
     () => {
@@ -31,9 +53,13 @@ const App = () => {
         if (jwt) {
           dispatch(fetchUserRequest)
           const response = await APIManager.signInUserJwt()
-          response.error ?
-            dispatch(fetchUserError(response.error)) :
+          if(response.error ){
+            dispatch(fetchUserError(response.error))
+
+          }else {
             dispatch(fetchUserSignInSuccess(response))
+            setUser(response)
+          }
         }
       }
       signInWithJwt()
@@ -51,11 +77,12 @@ const App = () => {
             <Route path="/" element={<Home />} exact />
             <Route path="/jeux" element={<Games />} exact />
             <Route path="/jeu/:gameID" element={<Game />} exact />
-            <Route path="/panier" element={<Cart />} exact />
-            <Route path="/dashboard" element={<Dashboard />} exact />
             <Route path="/connexion" element={<Login />} exact />
-            <Route path="/profile" element={<Profile />} exact />
             <Route path="/abonnement" element={<Subscription />} exact />
+            {userRoutes()}
+            {user && isAdmin(user) && 
+              <Route path="/dashboard" element={<Dashboard />} exact /> 
+            }
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Box py="3em" />

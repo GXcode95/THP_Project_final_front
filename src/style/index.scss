@@ -24,10 +24,27 @@ a {
 }
 
 .stripe {
-    position: absolute;
+    <<<<<<< HEAD position: absolute;
     width: 100%;
     height: 100%;
     opacity: 0 !important;
+    =======background-image: none !important;
+    background-color: $primary !important;
+    text-align: center !important;
+    width: 90% !important;
+    margin-bottom: 5px;
+    box-shadow: none !important;
+    margin-left: 5% !important;
+}
+
+.stripe>span {
+    background-image: none !important;
+    text-align: center !important;
+    padding-top: 3px !important;
+    margin-bottom: 6px !important;
+    margin-left: 4px;
+    box-shadow: none !important;
+    >>>>>>>main
 }
 
 
@@ -92,6 +109,6 @@ a {
     font-size: 1.5em;
 }
 
-.game-title-card {
-    font-size: 1.75em !important;
+.fixed {
+    position: fixed;
 }

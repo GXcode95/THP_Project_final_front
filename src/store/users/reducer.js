@@ -6,17 +6,19 @@ import {
   FETCH_USER_SIGN_OUT_SUCCESS, 
   FETCH_USER_UPDATE_SUCCESS,
   FETCH_POST_WISHLIST_SUCCESS,
+  FETCH_UPDATE_WISHLIST_SUCCESS,
   FETCH_DELETE_WISHLIST_SUCCESS,
-  FETCH_UPDATE_CART_SUCCESS
+  FETCH_UPDATE_CART_SUCCESS,
+  FETCH_POST_ORDER_SUCCESS,
+  FETCH_UPDATE_ORDER_SUCCESS,
+  FETCH_DELETE_ORDER_SUCCESS
 } from "./types";
 
 const initialState = {
   loading: false,
   user_info: {},
   favorite: {},
-  rented_games: {},
-  rent_games: {},
-  wishlist: {},
+  rent: {},
   command_history: {},
   cart: {},
   error: ''
@@ -36,28 +38,18 @@ const userReducer = (state = initialState, action) => {
         error: action.error
       }
     case FETCH_USER_REGISTER_SUCCESS:
-      // Cookies.set('user', ...action)
-      return {
-        ...state,
-        ...action.user,
-        loading: false
-      }
     case FETCH_USER_SIGN_IN_SUCCESS:
-      // Cookies.set('user', ...action)
       return {
         ...state,
         ...action.user,
         loading: false
       }
     case FETCH_USER_SIGN_OUT_SUCCESS:
-      // Cookies.set('user', "")
       return {
         loading: false,
         user_info: {},
         favorite: {},
-        rented_games: {},
-        rent_games: {},
-        wishlist: {},
+        rent: {},
         command_history: {},
         cart: {},
         error: ''
@@ -69,18 +61,26 @@ const userReducer = (state = initialState, action) => {
         userInfo: action.userInfo
       }
     case FETCH_POST_WISHLIST_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        wishList: action.wishList
-      }
+    case FETCH_UPDATE_WISHLIST_SUCCESS:
     case FETCH_DELETE_WISHLIST_SUCCESS:
       return {
         ...state,
         loading: false,
-        wishList: action.wishList
+        rent: {
+          ...state.rent, 
+          wishlist: action.wishlist
+        }
       }
     case FETCH_UPDATE_CART_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        cart: action.cart,
+        command_history: action.command_history
+      }
+    case FETCH_POST_ORDER_SUCCESS:
+    case FETCH_UPDATE_ORDER_SUCCESS:
+    case FETCH_DELETE_ORDER_SUCCESS:
       return {
         ...state,
         loading: false,
