@@ -1,14 +1,15 @@
 
 import {
-  FETCH_USER_REQUEST, 
+  FETCH_USER_REQUEST,
   FETCH_USER_ERROR,
-  FETCH_USER_REGISTER_SUCCESS, 
+  FETCH_USER_REGISTER_SUCCESS,
   FETCH_USER_SIGN_IN_SUCCESS,
-  FETCH_USER_SIGN_OUT_SUCCESS, 
+  FETCH_USER_SIGN_OUT_SUCCESS,
   FETCH_USER_UPDATE_SUCCESS,
   FETCH_POST_WISHLIST_SUCCESS,
   FETCH_DELETE_WISHLIST_SUCCESS,
-  FETCH_UPDATE_CART_SUCCESS
+  FETCH_UPDATE_CART_SUCCESS,
+  FETCH_UPDATE_FAVORITE_SUCCESS
 } from "./types";
 
 export const fetchUserRequest = () => {
@@ -69,5 +70,12 @@ export const fetchUpdateCartSuccess = (cart) => {
   return {
     type: FETCH_UPDATE_CART_SUCCESS,
     cart
+  }
+}
+
+export const fetchUpdateFavoriteSuccess = (favorites) => {
+  return {
+    type: FETCH_UPDATE_FAVORITE_SUCCESS,
+    favorites
   }
 }
