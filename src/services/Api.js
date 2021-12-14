@@ -215,7 +215,7 @@ export default class APIManager {
   ///    ORDER    ///
   ///////////////////
 
-  static async creatOrder(orderInfo) {
+  static async createOrder(orderInfo) {
     const response = await API.post("/orders", orderInfo)
       .catch(error => handleCatchError(error))
     console.log("APIManager # creatOrder =>", response)
@@ -276,6 +276,14 @@ export default class APIManager {
     const response = await API.get(`/carts/${id}`)
       .catch(error => handleCatchError(error))
     console.log("APIManager # getCart =>", response)
+    let formattedResponse = []
+    if(response.data.error){
+      formattedResponse = response.data
+    }
+    else {
+      formattedResponse = response.data.cart.cart_games.forEach( order=> { return {...order, game: {...order.game, ...order.images}} })
+    }
+    console.log("FORMATTED", formattedResponse)
     return response.data
   }
 

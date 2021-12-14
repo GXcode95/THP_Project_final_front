@@ -12,29 +12,39 @@ import FavoriteButton from 'components/buttons/FavoriteButton';
 
 const GameCard = ({ game, edit }) => {
   const [editMode, setEditMode] = useState(false)
-  const user = useSelector(state => state.userReducer.user_info)
   const userReducer = useSelector(state => state.userReducer)
+  const user = useSelector(state => state.userReducer.user_info)
+  const cart = useSelector(state => state.userReducer.cart)
 
   const handleCardHeight = () => {
     const screen = window.screen.width
-    if (screen > 1500) {
-       return 350
-    } else if(screen > 1900) {
-      return 200
+    if (screen < 1500) {
+      return 150
+    } else if (screen < 1900) {
+      return 250
     } else {
-      return 300
+      return 200
     }
   }
   const navigate = useNavigate()
 
   const handleRent = async () => {
-    if (!isSigned(user)) {
+    if (!isSigned(userReducer)) {
       navigate('/connexion')
-    } else if (!isSubscribed(user)) {
+    } else if (!isSubscribed(userReducer)) {
       navigate('/abonnement')
     } else {
-      const response = await APIManager.createRent({ quantity: 1, user_id: user.user_info.id, game_id: game.id })
-      if (!response.error) alert("jeu ajouter au favoris")
+      const response = await APIManager.createRent({ quantity: 1, user_id: user.id, game_id: game.id })
+      if (!response.error) alert("Jeu ajouté à la Wish List!")
+    }
+  }
+
+  const handleBuy = async () => {
+    if (!isSigned(userReducer)) {
+      navigate('/connexion')
+    } else {
+      const response = await APIManager.createOrder({ quantity: 1, cart_id: cart.current_cart.id, game_id: game.id })
+      if (!response.error) alert("Jeu ajouté au au panier!")
     }
   }
 
@@ -52,29 +62,24 @@ const GameCard = ({ game, edit }) => {
 
         }}
       >
-        <Link to={`/jeu/${game.id}`}>
-          <Typography variant="h4" align="center" noWrap py="0.5em" >
-            {game.name}
-          </Typography>
-        </Link>
-        {console.log("GAME", game)}
         <Grid container minHeight={`${handleCardHeight()}px`}>
-            <Grid item lg={5} md={4} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
-
-            <Image
-              cloudName={process.env.REACT_APP_CLOUD_NAME}
-              publicId={game.images && game.images.length > 0 ? "/seed/" + game.images[0] : "default_game"}
-              height={handleCardHeight()}
-              crop="crop"
-            />
+          <Grid item lg={6} md={5} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
+            <Box sx={{ padding: '10px' }}>
+              <Image
+                cloudName={process.env.REACT_APP_CLOUD_NAME}
+                publicId={game.images && game.images.length > 0 ? "/seed/" + game.images[0] : "default_game"}
+                height={handleCardHeight()}
+                crop="crop"
+              />
+            </Box>
           </Grid>
-          <Grid item md={7} xs={12} >
+          <Grid item lg={6} md={7} xs={12} >
             <Box
               display="flex"
               flexDirection="column"
               justifyContent="space-evenly"
               height="100%"
-              pr="0.2em" pl="0.8em"
+              className='card-game-list'
             >
               <Link to={`/jeu/${game.id}`}>
                 <Typography variant="h5" align="left" noWrap className="game-title-card">
@@ -88,10 +93,10 @@ const GameCard = ({ game, edit }) => {
                 </strong>
                 <sup>    <span className="badge">{game.sell_stock > 0 && `${game.sell_stock} en stock`}</span></sup>
               </Typography>
-              <Stack direction="row" justifyContent="space-evenly">
+              <Stack direction="row" justifyContent="space-evenly" sx={{ marginBottom: "1em" }}>
                 <FavoriteButton gameID={game.id} userReducer={userReducer} />
-                <Button disabled>Acheter</Button>
-                <Button onClick={handleRent} color="secondary"> Louer</Button>
+                <Button onClick={handleBuy} color="primary" className="buttons-card">Acheter</Button>
+                <Button onClick={handleRent} color="secondary" className="buttons-card"> Louer</Button>
                 {edit && <Button onClick={toggleEditMode}> Éditer</Button>}
               </Stack>
             </Box>

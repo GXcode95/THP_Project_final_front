@@ -7,7 +7,10 @@ import Faq from 'components/Faq'
 import HowItWorks from 'components/HowItWorks'
 import GameList from 'components/GameList'
 import BannerTitle from 'components/BannerTitle'
+import HeroBanner from 'components/navigation/NavBar/HeroBanner'
 import { Box, Button, Container } from '@mui/material'
+import Alert from 'components/Alert'
+
 const Home = () => {
   const [games, setGames] = React.useState()
   const dispatch = useDispatch()
@@ -32,6 +35,7 @@ const Home = () => {
 
   return (
     <div className=''>
+      <HeroBanner />
       <HowItWorks />
       <BannerTitle textColor="white.main" text="Nos Jeux" />
       {games ? (
@@ -49,6 +53,11 @@ const Home = () => {
         <h2>Loading ...</h2>
       }
       <BannerTitle textColor="white.main" text="F.A.Q" />
+      <Alert message="ceci est un message d'alert" />
+      <Alert message="ceci est un message d'alert" type="error"/>
+      <Alert message="ceci est un message d'alert" type="info"/>
+      <Alert message="ceci est un message d'alert" type="success"/>
+      <Alert message="ceci est un message d'alert" type="warning"/>
       <Faq />
     </div>
   )

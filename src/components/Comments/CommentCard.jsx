@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Box,Card, Grid, Typography, IconButton} from '@mui/material'
+import { Box,Card, Grid, Typography, IconButton} from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import EditOffIcon from '@mui/icons-material/EditOff';
@@ -7,10 +7,11 @@ import CommentForm from './CommentForm'
 import APIManager from 'services/Api'
 import isAdmin from 'helpers/isAdmin'
 import isAuthor from 'helpers/isAuthor';
+import UserAvatar from 'components/UserAvatar'
 
 const CommentCard = ({comment, setGame, user}) => {
   const [editMode, setEditMode] = React.useState(false)
-
+  const [author, setAuthor] = React.useState()
   const toggleEditMode = () => {
     setEditMode(!editMode)
   }
@@ -38,13 +39,23 @@ const CommentCard = ({comment, setGame, user}) => {
     }
   }
   
+  React.useEffect(
+    () => {
+      const getCommentAuthor = async () => {
+        const response = await APIManager.getUserInfo(comment.user_id)
+        response.error ?  setAuthor("?") : setAuthor(response.user_info)
+      }
+      getCommentAuthor()
+    },[comment.user_id]
+  )
+
   return (
     <Card sx={{position:"relative"}}>
       <Grid container sx={{py:"2.5em", px:"0.5em", bgcolor:"grey.300"}}>
         
         <Grid item md={1} >
           <Box display="flex" justifyContent="center" alignItems="center" width="100%" height="100%">
-            <Avatar>A</Avatar>
+          { author && <UserAvatar email={author.email} />}
           </Box>
         </Grid>
 
