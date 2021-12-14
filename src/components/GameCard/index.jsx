@@ -13,7 +13,7 @@ import EditGameForm from 'components/forms/EditGame/EditGameForm';
 
 const GameCard = ({ game, edit }) => {
   const [editMode, setEditMode] = useState(false)
-  const user = useSelector(state => state.userReducer.user_info)
+  const user = useSelector(state => state.userReducer)
 
   const cardHeight = window.screen.width / 8
   const navigate = useNavigate()
