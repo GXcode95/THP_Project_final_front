@@ -8,7 +8,6 @@ import SignIn from 'components/forms/SignIn'
 import SignUp from 'components/forms/SignUp'
 import PasswordReset from 'components/forms/PasswordReset'
 import signIn from 'assets/images/bg_signin.jpg'
-import { BrowserView } from 'react-device-detect';
 
 const Login = () => {
   const [isRegistered, setIsRegistered] = React.useState(true)
@@ -19,6 +18,10 @@ const Login = () => {
   const togglePasswordReset = async () => {
     setPasswordReset(!passwordReset)
   }
+
+  
+
+
 
   return (
     <Grid
