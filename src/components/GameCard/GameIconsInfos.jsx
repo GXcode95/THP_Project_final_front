@@ -6,7 +6,7 @@ import Rating from '@mui/material/Rating';
 
 const GameIconsInfos = ({ game }) => {
   return (
-    <Stack direction="row" justifyContent="flex-start" align="left">
+    <Stack direction="row" justifyContent="flex-start" align="left" className="card-game-list">
       <Box display="flex" alignItems="left" jsutifyContent="center" color="action">
         <Typography variant="caption" ml="0.3rem" mr="0.5rem" color="action" >
           <GroupAddIcon color="action" /><sup>  {game.min_player}-{game.max_player}</sup>
