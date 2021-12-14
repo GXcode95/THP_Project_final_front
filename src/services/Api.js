@@ -329,7 +329,7 @@ export default class APIManager {
     return response.data
   }
 
-  static async updateComment (commentID, content ) {
+  static async updateComment (commentID, content) {
     const response = await API.put(`/comments/${commentID}`, {content: content})
     
     if (!response) return {error: ERROR_MESSAGE}
@@ -337,11 +337,19 @@ export default class APIManager {
     return response.data
   }
 
-  static async deleteComment (commentID ) {
+  static async deleteComment (commentID) {
     const response = await API.delete(`/comments/${commentID}`,)
     
     if (!response) return {error: ERROR_MESSAGE}
     console.log("APIManager # deleteComment => ", response)
+    return response.data
+  }
+
+  static async deleteCommentAdmin (commentID) {
+    const response = await API.delete(`/admin/comments/${commentID}`,)
+    
+    if (!response) return {error: ERROR_MESSAGE}
+    console.log("APIManager # deleteCommentAdmin => ", response)
     return response.data
   }
   
