@@ -12,8 +12,9 @@ import FavoriteButton from 'components/buttons/FavoriteButton';
 
 const GameCard = ({ game, edit }) => {
   const [editMode, setEditMode] = useState(false)
-  const user = useSelector(state => state.userReducer.user_info)
   const userReducer = useSelector(state => state.userReducer)
+  const user = useSelector(state => state.userReducer.user_info)
+  const cart = useSelector(state => state.userReducer.cart)
 
   const handleCardHeight = () => {
     const screen = window.screen.width
@@ -28,13 +29,22 @@ const GameCard = ({ game, edit }) => {
   const navigate = useNavigate()
 
   const handleRent = async () => {
-    if (!isSigned(user)) {
+    if (!isSigned(userReducer)) {
       navigate('/connexion')
-    } else if (!isSubscribed(user)) {
+    } else if (!isSubscribed(userReducer)) {
       navigate('/abonnement')
     } else {
-      const response = await APIManager.createRent({ quantity: 1, user_id: user.user_info.id, game_id: game.id })
-      if (!response.error) alert("jeu ajouter au favoris")
+      const response = await APIManager.createRent({ quantity: 1, user_id: user.id, game_id: game.id })
+      if (!response.error) alert("Jeu ajouté à la Wish List!")
+    }
+  }
+
+  const handleBuy = async () => {
+    if (!isSigned(userReducer)) {
+      navigate('/connexion')
+    } else {
+      const response = await APIManager.createOrder({ quantity: 1, cart_id: cart.current_cart.id, game_id: game.id })
+      if (!response.error) alert("Jeu ajouté au au panier!")
     }
   }
 
@@ -90,7 +100,7 @@ const GameCard = ({ game, edit }) => {
               </Typography>
               <Stack direction="row" justifyContent="space-evenly">
                 <FavoriteButton gameID={game.id} userReducer={userReducer} />
-                <Button disabled>Acheter</Button>
+                <Button onClick={handleBuy} color="primary">Acheter</Button>
                 <Button onClick={handleRent} color="secondary"> Louer</Button>
                 {edit && <Button onClick={toggleEditMode}> Éditer</Button>}
               </Stack>
