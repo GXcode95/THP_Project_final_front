@@ -1,10 +1,10 @@
 import React from 'react'
 import CreateGame from 'components/forms/CreateGame'
-import EditGame from 'components/forms/EditGame'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import AdminNav from 'pages/Dashboard/AdminNav';
+import EditGameList from 'components/forms/EditGame/EditGameList';
 
 const Dashboard = () => {
   const [value, setValue] = React.useState(0);
@@ -41,7 +41,7 @@ const Dashboard = () => {
           <CreateGame />
         </AdminNav>
         <AdminNav value={value} index={1}>
-          <EditGame />
+          <EditGameList />
         </AdminNav>
         <AdminNav value={value} index={2}>
           Item Three

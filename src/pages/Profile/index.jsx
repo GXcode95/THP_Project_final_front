@@ -24,9 +24,6 @@ const Profile = () => {
   )
   return (
     <div className=''>
-      {console.log("USER :", user)}
-      {console.log("USERSIGN :", isSigned(user))}
-
       { isSigned(user) && 
         <Grid container spacing={8}>
 

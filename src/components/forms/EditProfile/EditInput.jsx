@@ -22,7 +22,7 @@ const EditInputGrid = (props) => {
   };
 
   return (
-    <Grid container display="flex" justifyContent="center">
+    <Grid container display="flex" alignItems="center" flexDirection="column">
         {Object.values(props).map( (component,i) =>
             (
               <Box key={i} component="form" noValidate sx={{ mt: 1 }} >
