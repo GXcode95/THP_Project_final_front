@@ -340,4 +340,15 @@ export default class APIManager {
     return response.data
   }
   
+  //////////////////
+  ///    TAGS    ///
+  //////////////////
+
+  static async getTags () {
+    const response = await API.get(`/tags`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # getTags =>", response)
+    return response.data
+  }
+
 }
