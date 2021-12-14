@@ -349,21 +349,21 @@ export default class APIManager {
     return response.data
   }
 
-  static async createTags (tagID) {
+  static async createTagsAdmin (tagID) {
     const response = await API.post(`/admin/tags/${tagID}`)
     .catch(error => handleCatchError(error))
     console.log("APIManager # createTag =>", response)
     return response.data
   }
 
-  static async updateTags (tagID) {
+  static async updateTagsAdmin (tagID) {
     const response = await API.put(`/admin/tags/${tagID}`)
     .catch(error => handleCatchError(error))
     console.log("APIManager # updateTag =>", response)
     return response.data
   }
 
-  static async deleteTags (tagID) {
+  static async deleteTagsAdmin (tagID) {
     const response = await API.delete(`/admin/tags/${tagID}`)
     .catch(error => handleCatchError(error))
     console.log("APIManager # deleteTag =>", response)
