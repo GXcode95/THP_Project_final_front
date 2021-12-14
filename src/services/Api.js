@@ -48,8 +48,6 @@ export default class APIManager {
   ///    USER     ///
   ///////////////////
 
-
-  // /user or /user/:id ???
   static async getUserInfo(userId) {
     const response =  await API.get(`/users/${userId}`)
     .catch(error => handleCatchError(error)) 
@@ -109,7 +107,6 @@ export default class APIManager {
     return response.data
   }
   
-  // /users/:id or /user ???
   static async updateUserInfo (userId, userInfoUpdated) {
     const response = await API.put(`/users/${userId}`, userInfoUpdated)
     .catch(error => handleCatchError(error)) 
@@ -283,6 +280,13 @@ export default class APIManager {
     return response.data
   }
 
+  static async getCartsHistory (id) {
+    const response = await API.get(`/carts`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # getCartsHistory =>", response)
+    return response.data
+  }
+
   //////////////////////
   ///    PACKAGES    ///
   //////////////////////
@@ -294,12 +298,6 @@ export default class APIManager {
     return response.data
   }
 
-  static async getCartsHistory (id) {
-    const response = await API.get(`/carts`)
-    .catch(error => handleCatchError(error))
-    console.log("APIManager # getCartsHistory =>", response)
-    return response.data
-  }
 
   static async buyPackage (token, id, quantity) {
     const response = await API.post('/charges', {token, package: {
@@ -311,8 +309,9 @@ export default class APIManager {
     console.log("APIManager # BuyPackages =>", response)
     return response.data
   }
+
   /////////////////////
-  ///    PACKAGES   ///
+  ///    COMMENTS   ///
   /////////////////////
    
   static async createComment (gameID, content, userID) {
@@ -321,7 +320,6 @@ export default class APIManager {
     if (!response) return {error: ERROR_MESSAGE}
     console.log("APIManager # createComment => ", response)
     return response.data
-
   }
 
   static async updateComment (commentID, content ) {
@@ -351,7 +349,6 @@ export default class APIManager {
     return response.data
   }
 
-
   ///////////////////////
   ///    FAVORTITES   ///
   ///////////////////////
@@ -367,6 +364,17 @@ export default class APIManager {
     const response = await API.get(`/games/${gameID}/favorites`)
     .catch(error => handleCatchError(error))
     console.log("APIManager # deleteFavorite =>", response)
+    return response.data
+  }
+
+  //////////////////
+  ///    RANKS   ///
+  //////////////////
+
+  static async createRank (gameID) {
+    const response = await API.get(`/games/${gameID}/rank`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # createRank =>", response)
     return response.data
   }
 }
