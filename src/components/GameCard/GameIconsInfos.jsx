@@ -18,7 +18,7 @@ const GameIconsInfos = ({ game }) => {
         |
         <Typography variant="caption" ml="0.3rem" mr="0.5rem" color="action">
           <ChildCareIcon color="action" />
-          <sup>  {game.min_age} ans et +</sup>
+          <sup>  {game.min_age} ans+</sup>
         </Typography>
       </Box>
     </Stack>
