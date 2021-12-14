@@ -8,12 +8,23 @@ import { useSelector } from 'react-redux';
 import isSigned from 'helpers/isSigned'
 import isSubscribed from 'helpers/isSubscribed'
 import EditGameForm from 'components/forms/EditGame/EditGameForm';
+import FavoriteButton from 'components/buttons/FavoriteButton';
 
 const GameCard = ({ game, edit }) => {
   const [editMode, setEditMode] = useState(false)
   const user = useSelector(state => state.userReducer.user_info)
+  const userReducer = useSelector(state => state.userReducer)
 
-  const cardHeight = window.screen.width / 8
+  const handleCardHeight = () => {
+    const screen = window.screen.width
+    if (screen > 1500) {
+       return 350
+    } else if(screen > 1900) {
+      return 200
+    } else {
+      return 300
+    }
+  }
   const navigate = useNavigate()
 
   const handleRent = async () => {
@@ -41,14 +52,20 @@ const GameCard = ({ game, edit }) => {
 
         }}
       >
+        <Link to={`/jeu/${game.id}`}>
+          <Typography variant="h4" align="center" noWrap py="0.5em" >
+            {game.name}
+          </Typography>
+        </Link>
+        {console.log("GAME", game)}
+        <Grid container minHeight={`${handleCardHeight()}px`}>
+            <Grid item lg={5} md={4} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
 
-        <Grid container minHeight={`${cardHeight}px`}>
-          <Grid item lg={5} md={4} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
             <Image
               cloudName={process.env.REACT_APP_CLOUD_NAME}
-              publicId={game.images ? game.images[0] : "default_game"}
-              height={cardHeight}
-              crop="scale"
+              publicId={game.images && game.images.length > 0 ? "/seed/" + game.images[0] : "default_game"}
+              height={handleCardHeight()}
+              crop="crop"
             />
           </Grid>
           <Grid item md={7} xs={12} >
@@ -72,6 +89,7 @@ const GameCard = ({ game, edit }) => {
                 <sup>    <span className="badge">{game.sell_stock > 0 && `${game.sell_stock} en stock`}</span></sup>
               </Typography>
               <Stack direction="row" justifyContent="space-evenly">
+                <FavoriteButton gameID={game.id} userReducer={userReducer} />
                 <Button disabled>Acheter</Button>
                 <Button onClick={handleRent} color="secondary"> Louer</Button>
                 {edit && <Button onClick={toggleEditMode}> Éditer</Button>}
