@@ -2,9 +2,10 @@ import React from 'react'
 import {Card, Box, Typography} from '@mui/material'
 import { Button } from '@mui/material'
 import heroBanner  from 'assets/images/herobanner_version_1.jpg'
+import { useNavigate } from 'react-router'
 
 const HeroBanner = () => {
-
+  const navigate = useNavigate()
   return (
     <Card sx={{mb:"3em", borderRadius:"0"}} className="HeroBanner">
       <Box 
@@ -49,6 +50,7 @@ const HeroBanner = () => {
         <Button
            sx={{marginTop: "2rem", fontSize: "1.5rem"}}
            color="secondary"
+           onClick={ e => navigate('/abonnement')}
         >
           S'abonner
         </Button>

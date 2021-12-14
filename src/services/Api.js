@@ -1,7 +1,10 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { registerNavigationRoute } from 'workbox-routing';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
+const ERROR_MESSAGE = "Opération impossible, il semble y avoir un problème de connection."
+console.log("BASEURL", BASE_URL)
 const API = axios.create({ baseURL: BASE_URL});
 API.interceptors.request.use(({ headers, ...config }) => ({
     ...config,
@@ -35,7 +38,6 @@ const handleCatchError = (error) => {
 const handleJwt = (response) => {
   if (response.headers.authorization) {
     const jwt = response.headers.authorization.split(" ")[1]
-    console.log("jwt :", jwt)
     Cookies.set('token', jwt)
   }
 }
@@ -46,10 +48,8 @@ export default class APIManager {
   ///    USER     ///
   ///////////////////
 
-
-  // /user or /user/:id ???
   static async getUserInfo(userId) {
-    const response =  await API.get(`/user/${userId}`)
+    const response =  await API.get(`/users/${userId}`)
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # getUserInfo =>", response)
     return response.data
@@ -79,13 +79,14 @@ export default class APIManager {
       })
       .catch(error => handleCatchError(error)) 
     handleJwt(response)
-    console.log("jwtCookie: ", Cookies.get('token'))
     console.log("APIManager # signInUser =>", response)
     return response.data
   }
   
   static async signInUserJwt() {
-    const response = await API.post('/users/sign_in')
+    const response = await axios.post(`${BASE_URL}/users/sign_in`,null,{
+      headers: { 'Authorization': `Bearer ${Cookies.get('token')}` }
+    })
     .catch(error => handleCatchError(error))
     handleJwt(response)
     console.log("APIManager # signInUserJwt =>", response)
@@ -106,7 +107,6 @@ export default class APIManager {
     return response.data
   }
   
-  // /users/:id or /user ???
   static async updateUserInfo (userId, userInfoUpdated) {
     const response = await API.put(`/users/${userId}`, userInfoUpdated)
     .catch(error => handleCatchError(error)) 
@@ -139,8 +139,8 @@ export default class APIManager {
     return response.data
   }
   
-  static async createGameAdmin (gameInfo) {
-    const response = await API.post("/admin/games", gameInfo)
+  static async createGameAdmin (gameInfo, gameImages) {
+    const response = await API.post("/admin/games", {game: gameInfo, images: gameImages })
     .catch(error => handleCatchError(error))
     console.log("APIManager # createGameAdmin =>", response)
     return response.data
@@ -182,14 +182,34 @@ export default class APIManager {
     const response = await API.get("/games")
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # getAllGames =>", response)
-    return response.data
+    
+    // render a games array of object with and images props,
+    // wich is an array of string containing the images public_id on cloudinary
+    const formatedResponse = []
+      if (response.data.error){
+        formatedResponse = response.data.error
+      } else {
+        response.data.forEach( game => formatedResponse.push({...game.info, images: response.images}) )
+      }        
+
+    return formatedResponse
   }
 
   static async getGame (gameId) {
     const response = await API.get(`/games/${gameId}`)
     .catch(error => handleCatchError(error)) 
     console.log("APIManager # getGame =>", response)
-    return response.data
+
+    const formatedResponse = response.data.error ? 
+      response.data.error : { 
+                              ...response.data.info,
+                              images: response.data.images,
+                              comments: response.data.comments,
+                              rank: response.data.rank,
+                              tags: response.data.tags
+                            }
+    
+    return formatedResponse
   }
 
   ///////////////////
@@ -235,6 +255,13 @@ export default class APIManager {
     return response.data
   }
 
+  static async updateRent (rentId, rentQuantity) {
+    const response = await API.put(`/rents/${rentId}`, rentQuantity)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # updateRent =>", response)
+    return response.data
+  }
+
   static async deleteRent (rentId) {
     const response = await API.delete(`/rents/${rentId}`)
     .catch(error => handleCatchError(error))
@@ -250,6 +277,142 @@ export default class APIManager {
     const response = await API.get(`/carts/${id}`)
     .catch(error => handleCatchError(error))
     console.log("APIManager # getCart =>", response)
+    return response.data
+  }
+
+  static async getCartsHistory (id) {
+    const response = await API.get(`/carts`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # getCartsHistory =>", response)
+    return response.data
+  }
+
+  //////////////////////
+  ///    PACKAGES    ///
+  //////////////////////
+
+  static async getAllPackages () {
+    const response = await API.get(`/packages`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # getAllPackages =>", response)
+    return response.data
+  }
+
+
+  static async buyPackage (token, id, quantity) {
+    const response = await API.post('/charges', {token, package: {
+      presence: true,
+      package_id: id,
+      quantity: quantity
+    }}).catch(error => handleCatchError(error))
+    
+    console.log("APIManager # BuyPackages =>", response)
+    return response.data
+  }
+
+  static async updatePackageAdmin (packagesID) {
+    const response = await API.put(`/admin/packages/${packagesID}`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # updatePackages =>", response)
+    return response.data
+  }
+
+  /////////////////////
+  ///    COMMENTS   ///
+  /////////////////////
+   
+  static async createComment (gameID, content, userID) {
+    const response = await API.post(`/comments`, {game_id: gameID, content: content, user_id: userID})
+    
+    if (!response) return {error: ERROR_MESSAGE}
+    console.log("APIManager # createComment => ", response)
+    return response.data
+  }
+
+  static async updateComment (commentID, content) {
+    const response = await API.put(`/comments/${commentID}`, {content: content})
+    
+    if (!response) return {error: ERROR_MESSAGE}
+    console.log("APIManager # updateComment => ", response)
+    return response.data
+  }
+
+  static async deleteComment (commentID) {
+    const response = await API.delete(`/comments/${commentID}`,)
+    
+    if (!response) return {error: ERROR_MESSAGE}
+    console.log("APIManager # deleteComment => ", response)
+    return response.data
+  }
+
+  static async deleteCommentAdmin (commentID) {
+    const response = await API.delete(`/admin/comments/${commentID}`,)
+    
+    if (!response) return {error: ERROR_MESSAGE}
+    console.log("APIManager # deleteCommentAdmin => ", response)
+    return response.data
+  }
+  
+  //////////////////
+  ///    TAGS    ///
+  //////////////////
+
+  static async getTags () {
+    const response = await API.get(`/tags`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # getTags =>", response)
+    return response.data
+  }
+
+  static async createTagsAdmin (tagID) {
+    const response = await API.post(`/admin/tags/${tagID}`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # createTag =>", response)
+    return response.data
+  }
+
+  static async updateTagsAdmin (tagID) {
+    const response = await API.put(`/admin/tags/${tagID}`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # updateTag =>", response)
+    return response.data
+  }
+
+  static async deleteTagsAdmin (tagID) {
+    const response = await API.delete(`/admin/tags/${tagID}`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # deleteTag =>", response)
+    return response.data
+  }
+
+
+
+  ///////////////////////
+  ///    FAVORTITES   ///
+  ///////////////////////
+
+  static async createFavorite (gameID) {
+    const response = await API.get(`/games/${gameID}/favorites`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # createFavorite =>", response)
+    return response.data
+  }
+
+  static async deleteFavorite (gameID) {
+    const response = await API.get(`/games/${gameID}/favorites`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # deleteFavorite =>", response)
+    return response.data
+  }
+
+  //////////////////
+  ///    RANKS   ///
+  //////////////////
+
+  static async createRank (gameID) {
+    const response = await API.get(`/games/${gameID}/rank`)
+    .catch(error => handleCatchError(error))
+    console.log("APIManager # createRank =>", response)
     return response.data
   }
 }

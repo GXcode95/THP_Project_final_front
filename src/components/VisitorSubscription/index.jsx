@@ -6,7 +6,7 @@ import {Box} from '@mui/material'
 const VisitorSubscription = () => {
 
   return (
-    <div className=''>
+    <div>
       <Pricing />
       <Box py="3em"/>
       <HowItWorks />

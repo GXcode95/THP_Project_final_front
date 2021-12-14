@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Grid } from '@mui/material'
 import AddressInput from '../input/AddressInput';
 import PhoneInput from '../input/PhoneInput';
 import FirstNameInput from '../input/FirstNameInput';
@@ -12,7 +10,7 @@ import LastNameInput from '../input/LastNameInput';
 import EmailInput from '../input/EmailInput';
 import EditInputGrid from './EditInput';
 
-const EditProfile = () => {
+const EditProfile = ({user}) => {
   const [request, setRequest] = useState(true)
 
   const showInfo = (e) => {
@@ -28,16 +26,15 @@ const EditProfile = () => {
             alignItems: 'center',
           }}
         >
-          <Typography variant="h2" color="primary" >
+          <Typography variant="h2" color="primary" mb="0.4em" >
             Mon profile
           </Typography>
-          
           <EditInputGrid
-            emailInput={<EmailInput defaultValue={`john.doe@email.com`} />} 
-            lastNameInput={<LastNameInput defaultValue={`Doe`} />}
-            firstNameInput={<FirstNameInput defaultValue={`John`} />}
-            phoneInput={<PhoneInput defaultValue={`1234567890`} />}
-            addInput={<AddressInput defaultValue={`52 rue de paris 78570 Andrésy`} />}
+            emailInput={<EmailInput defaultValue={user.email} />} 
+            lastNameInput={<LastNameInput defaultValue={user.last_name} />}
+            firstNameInput={<FirstNameInput defaultValue={user.first_name} />}
+            phoneInput={<PhoneInput defaultValue={user.phone} />}
+            addInput={<AddressInput defaultValue={user.address} />}
           />
           
           {request ?
@@ -45,7 +42,7 @@ const EditProfile = () => {
             fullWidth
             variant="contained"
             onClick={showInfo}
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2,maxWidth:"80%" }}
           >
             Changer de mot de passe
           </Button>:

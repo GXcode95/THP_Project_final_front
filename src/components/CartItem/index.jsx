@@ -9,17 +9,11 @@ import RemoveIcon from '@mui/icons-material/Remove';
 const CartItem = (props) => {
 
   const cardHeight = window.screen.width / 5
-  const games = props.cartGames
+  const games = props.games
+  const cartTotal = (gameObj) => `${gameObj.game.price}€ x ${gameObj.quantity} = ${gameObj.game.price * gameObj.quantity}€ `
 
   return (
     <div>
-      <Typography
-          variant="h2"
-          color="primary"
-          sx={{textAlign:"center"}}
-      >
-          Mon panier
-      </Typography>
         <List sx={{ width: '100%', bgcolor: 'background.primary' }}>
           {games.map( gameObj => (
             <>
@@ -34,31 +28,35 @@ const CartItem = (props) => {
                     />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={gameObj.game.name} secondary={`${gameObj.game.price}€ x ${gameObj.quantity} = ${gameObj.game.price * gameObj.quantity}€ `} />
-                {props.quantityButton? 
+                <ListItemText id={gameObj.rent_id || gameObj.order_id} primary={gameObj.game.name} secondary={props.rent? `Quantité: ${gameObj.quantity}` : cartTotal(gameObj)} />
+                {props.quantityButton &&
                   <Grid container spacing={2} direction="row"  width='25%'>
-                    <ListItemButton component="button" onClick={props.handleAdd} sx={{display: "flex", justifyContent: "center"}}>
+                    <ListItemButton 
+                      component="button" 
+                      onClick={e => props.handleAdd(gameObj.rent_id || gameObj.order_id)} 
+                      sx={{display: "flex", justifyContent: "center"}}
+                    >
                       <ListItemIcon sx={{display: "flex", justifyContent: "center"}}>
                         <AddIcon />
                       </ListItemIcon>
                     </ListItemButton>
-                    <ListItemButton component="button" onClick={props.handleRemove} sx={{display: "flex", justifyContent: "center"}}>
+                    <ListItemButton 
+                      component="button" 
+                      onClick={e => props.handleRemove(gameObj.rent_id || gameObj.order_id)} 
+                      sx={{display: "flex", justifyContent: "center"}}
+                    >
                       <ListItemIcon sx={{display: "flex", justifyContent: "center"}}>
                         <RemoveIcon />
                       </ListItemIcon>
                     </ListItemButton>
                   </Grid>
-                  :
-                  <></>
                 }
-                {props.deleteButton? 
-                  <ListItemButton component="button" onClick={props.handleDelete} sx={{display: "flex", justifyContent: "center"}}>
+                {props.deleteButton && 
+                  <ListItemButton component="button" onClick={e => props.handleDelete(gameObj.rent_id || gameObj.order_id)} sx={{display: "flex", justifyContent: "center"}}>
                     <ListItemIcon >
                       <DeleteRoundedIcon />
                     </ListItemIcon>
                   </ListItemButton>
-                  :
-                  <></>
                 }
               </ListItem>
             </>

@@ -53,7 +53,7 @@ export const light = createTheme({
       defaultProps: {
         disableRipple: true
       }
-    }
+    },
   },
 });
 
