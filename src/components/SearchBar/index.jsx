@@ -1,6 +1,7 @@
 import React from 'react'
-import { Box, TextField, Stack } from '@mui/material'
+import { Box, TextField } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
+
 const SearchBar = ({ games, setGames }) => {
   const handleChange = (e) => {
     let searchQuery = e.target.value.toLowerCase()
