@@ -23,13 +23,13 @@ const CartHistory = ({carts}) => {
       >
         <List dense={false}>
          {carts && carts.map( cart => (
-            <ListItem key={cart.id}>
+            <ListItem key={cart.cart.id}>
               <ListItemIcon>
                 <CreditCardIcon />
               </ListItemIcon>
               <ListItemText
-                primary={formatDate(cart.updated_at)}
-                secondary={`${cart.price} €`}
+                primary={formatDate(cart.cart.updated_at)}
+                secondary={`${cart.cart_price} €`}
               />
             </ListItem>)
           )}

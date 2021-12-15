@@ -18,7 +18,10 @@ const Profile = () => {
     () => {
       const fetchCartsHistory = async () => {
         const response = await APIManager.getCartsHistory()
-        if (!response.error) {
+        if (response.error) {
+          alert(response.error)
+        } else {
+            console.log("history",  response)
           setCartsHistory(response)
         }
       }
@@ -51,7 +54,7 @@ const Profile = () => {
             <EditProfile user={user.user_info} />
           </Grid>
           <Grid item xs={12} md={6} >
-            <CartHistory carts={cartsHistory} />
+            {cartsHistory && <CartHistory carts={cartsHistory} /> }
           </Grid>
           <Grid item xs={12} md={12} >
             <Typography variant="h2" align="center" color="primary">
