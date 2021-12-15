@@ -6,6 +6,7 @@ import EditProfile from 'components/forms/EditProfile'
 import CartHistory from 'components/CartHistory'
 import { Grid, Typography } from '@mui/material'
 import GameList from 'components/GameList';
+import { fetchUpdateFavoriteSuccess } from 'store/users/actions';
 
 const Profile = () => {
   const [cartsHistory, setCartsHistory] = React.useState()
@@ -28,20 +29,17 @@ const Profile = () => {
 
   React.useEffect(
     () => {
-      const getFavoritesGames = async () => {
-        if (user.favorites.length > 0) {
-          return user.favorites.map( async (game) => {
-            const response = await APIManager.getGame(game.id)
-            favGames ? 
-              setFavGames([...favGames, response]) :
-              setFavGames([response])
-          })
+      const fetchFavorites = async () => {
+        const response = await APIManager.getFavorites()
+        if (!response.error) {
+          fetchUpdateFavoriteSuccess(response)
+          setFavGames(response.favorites)
         }
       }
-      getFavoritesGames()
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]
+      fetchFavorites()
+    }, []
   )
+
   return (
     <div className=''>
       {isSigned(user) &&
@@ -57,7 +55,7 @@ const Profile = () => {
             <Typography variant="h2" align="center" color="primary">
               Mes Favoris
             </Typography>
-            {favGames && <GameList games={favGames} /> }
+            {favGames && favGames.length > 0 && <GameList games={favGames} /> }
           </Grid>
 
         </Grid>

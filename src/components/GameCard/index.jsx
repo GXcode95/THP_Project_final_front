@@ -57,7 +57,6 @@ const GameCard = ({ game, edit }) => {
             {game.name}
           </Typography>
         </Link>
-        {console.log("GAME", game)}
         <Grid container minHeight={`${handleCardHeight()}px`}>
             <Grid item lg={5} md={4} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
 

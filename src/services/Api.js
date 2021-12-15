@@ -81,7 +81,13 @@ export default class APIManager {
       .catch(error => handleCatchError(error))
     handleJwt(response)
     console.log("APIManager # signInUser =>", response)
-    return response.data
+    let formatedResponse = []
+      if (response.data.error){
+        formatedResponse = response.data.error
+      } else {
+        response.data.favorites.forEach( game => formatedResponse.push({...game.info, images: game.images }) )
+      }        
+    return {...response.data, favorites: formatedResponse}
   }
 
   static async signInUserJwt() {
@@ -91,7 +97,13 @@ export default class APIManager {
       .catch(error => handleCatchError(error))
     handleJwt(response)
     console.log("APIManager # signInUserJwt =>", response)
-    return response.data
+    let formatedResponse = []
+      if (response.data.error){
+        formatedResponse = response.data.error
+      } else {
+        response.data.favorites.forEach( game => formatedResponse.push({...game.info, images: game.images }) )
+      }        
+    return {...response.data, favorites: formatedResponse}
   }
 
   static async changePasswordRequest(email) {
@@ -283,7 +295,6 @@ export default class APIManager {
     else {
       formattedResponse = response.data.cart.cart_games.forEach( order=> { return {...order, game: {...order.game, ...order.images}} })
     }
-    console.log("FORMATTED", formattedResponse)
     return response.data
   }
 
@@ -399,6 +410,19 @@ export default class APIManager {
   ///////////////////////
   ///    FAVORTITES   ///
   ///////////////////////
+
+  static async getFavorites() {
+    const response = await API.get('favorites')
+      .catch(error => handleCatchError(error))
+    let formatedResponse = []
+      if (response.data.error){
+        formatedResponse = response.data.error
+      } else {
+        response.data.forEach( game => formatedResponse.push({...game.info, images: game.images }) )
+      }
+    console.log("APIManager # getFavorite =>", formatedResponse)   
+    return { favorites: formatedResponse }
+  }
 
   static async createFavorite(gameID, userID) {
     const response = await API.post(`/favorites`, { game_id: gameID, user_id: userID })
