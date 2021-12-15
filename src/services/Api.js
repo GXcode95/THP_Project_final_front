@@ -140,11 +140,11 @@ export default class APIManager {
     return response.data
   }
 
-  static async createGameAdmin(gameInfo, gameImages) {
-    const response = await API.post("/admin/games", { game: gameInfo, images: gameImages })
+  static async createGameAdmin(gameInfo, gameImages, tags) {
+    const response = await API.post("/admin/games", { game: gameInfo, images: gameImages, tags: tags })
       .catch(error => handleCatchError(error))
     console.log("APIManager # createGameAdmin =>", response)
-    return response.data
+    // return response.data
   }
 
   static async createGameImagesAdmin(gameId, image) {

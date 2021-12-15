@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Container, Typography, Box, TextField, Button} from '@mui/material';
+import { Checkbox, Container, FormGroup, FormControlLabel, Typography, Box, TextField, Button} from '@mui/material';
 import NumberField from '../GameInput/NumberField';
 import ImagesDropzone from 'components/ImagesDropzone';
 import APIManager from 'services/Api'
@@ -14,6 +14,7 @@ const CreateGame = () => {
   const [minPlayer, setMinPlayer] = useState()
   const [age, setAge] = useState()
   const [price, setPrice] = useState()
+  const [tags, setTags] = useState()
 
   const handleClick = async () => {
     const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`
@@ -38,7 +39,8 @@ const CreateGame = () => {
     )
   }
 
-  const uploadGame = async (imagesId) => {
+  const uploadGame = async (publicIdList) => {
+    
     const gameInfo = {
       name: name,
       description: description,
@@ -51,11 +53,40 @@ const CreateGame = () => {
       sell_stock: 100,
       rent_stock:100
     }
-    
-    const response = await APIManager.createGameAdmin(gameInfo, imagesId)
+    const tags = await getAllCheckedTags()
+    console.log("----------------------")
+    console.log("----------------------")
+    console.log(tags)
+    console.log("----------------------")
+    console.log("----------------------")
+
+    const response = await APIManager.createGameAdmin(gameInfo, publicIdList, tags)
     response.error ? alert(`une erreur est survenue :"${response.error}"`) : alert("jeu créer avec succès")
   }
 
+  const getAllCheckedTags = () => {
+    const checkboxLabels = document.querySelectorAll('#form-group-checkboxs>label input')
+    let checkedTags = []
+
+    checkboxLabels.forEach( input => {
+      if(input.parentElement.classList.contains('Mui-checked')) 
+        checkedTags.push(parseInt(input.name))
+    })
+    return checkedTags
+  }
+
+  React.useEffect (
+    () => {
+      const fetchAllTags = async () => {
+        const response = await APIManager.getTags()
+        if (response.error)
+          alert(response.error)
+        else
+          setTags(response)
+      }
+      fetchAllTags()
+    },[]
+  )
   return (
     <Container component="main" maxWidth="xs">
 
@@ -68,7 +99,9 @@ const CreateGame = () => {
             Ajouter un jeu
           </Typography>
           
-          <Box  noValidate sx={{ mt: 1 }}>
+          <Box noValidate sx={{ mt: 1 }}>
+            <ImagesDropzone files={files} setFiles={setFiles} />
+
             <TextField
               margin="normal"
               required
@@ -125,8 +158,16 @@ const CreateGame = () => {
                 shrink: true,
               }}
             />
-            
-            <ImagesDropzone files={files} setFiles={setFiles} />
+
+            <FormGroup id="form-group-checkboxs">
+              {tags && tags.map( tag => (
+                <FormControlLabel 
+                  control={<Checkbox name={tag.id} />} 
+                  label={tag.name} 
+                  key={tag.id} 
+                />
+              ))}
+            </FormGroup>
 
             <Button
               onClick={handleClick}
