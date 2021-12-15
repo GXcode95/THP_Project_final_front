@@ -47,7 +47,7 @@ const PricingCard = ({ tier, variant, description }) => {
       </CardContent>
       {user && isSigned(user) ? 
         <StripeButton item={tier} quantity={1} variant={variant} /> :
-        <Button className="stripe" sx={{fontWeight: 600, mb: "0.5em"}}>
+        <Button className="stripe stripe-package" sx={{fontWeight: 600, mb: "0.5em"}}>
           <Link to='/connexion'>
             J'en profite
           </Link>    
