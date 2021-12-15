@@ -70,7 +70,6 @@ const App = () => {
         <CssBaseline />
         <Router>
           <NavBar />
-          <HeroBanner />
           <Routes>
             <Route path="/" element={<Home />} exact />
             <Route path="/jeux" element={<Games />} exact />

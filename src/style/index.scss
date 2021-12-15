@@ -27,19 +27,17 @@ a {
     background-image: none !important;
     background-color: $primary !important;
     text-align: center !important;
-    width: 90% !important;
-    margin-bottom: 5px;
-    box-shadow: none !important;
-    margin-left: 5% !important;
 }
 
 .stripe>span {
     background-image: none !important;
     text-align: center !important;
-    padding-top: 3px !important;
-    margin-bottom: 6px !important;
-    margin-left: 4px;
-    box-shadow: none !important;
+}
+
+.stripe-package {
+    width: 96%;
+    margin-left: 2%;
+    margin-bottom: 0.4em;
 }
 
 
@@ -96,7 +94,12 @@ a {
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 0.25rem;
+    background-color: $primary;
+}
+
+.badge-rent {
     background-color: $secondary;
+    font-size: .95em;
 }
 
 .price {
@@ -106,4 +109,38 @@ a {
 
 .fixed {
     position: fixed;
+}
+
+@media screen and (max-width:500px) {
+    .login-image {
+        display: none
+    }
+    .card-game-list {
+        align-items: center;
+    }
+}
+
+@media screen and(min-width:900px) and (max-width:1207px) {
+    .login-image {
+        height: 386px !important
+    }
+}
+
+@media screen and(min-width:1208px) and (max-width:4000px) {
+    .login-image {
+        height: 361px !important;
+    }
+}
+
+@media screen and (max-width:899px) {
+    .card-game-list {
+        align-items: center;
+    }
+    .buttons-card {
+        margin-left: 3% !important;
+        margin-right: 3% !important;
+    }
+    .game-info-details {
+        align-items: center;
+    }
 }
