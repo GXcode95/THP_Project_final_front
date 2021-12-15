@@ -53,7 +53,8 @@ const CreateGame = () => {
       sell_stock: 100,
       rent_stock:100
     }
-    const tags = await getAllCheckedTags()
+    console.log(gameInfo)
+    const tags = getAllCheckedTags()
     console.log("----------------------")
     console.log("----------------------")
     console.log("----------------------")
@@ -141,13 +142,13 @@ const CreateGame = () => {
               onChange={e => setEditor(e.target.value)}
             />
                 
-            <NumberField name={"age"} handleChange={setAge} />
+            <NumberField name={"age"} onChange={setAge} />
 
-            <NumberField name={"min_players"} handleChange={setMinPlayer} />
+            <NumberField name={"min_players"} onChange={setMinPlayer} />
 
-            <NumberField name={"max_players"} handleChange={setMaxPlayer} />
+            <NumberField name={"max_players"} onChange={setMaxPlayer} />
 
-            <NumberField name={"price"} handleChange={setPrice} />
+            <NumberField name={"price"} onChange={setPrice} />
 
             <TextField
               margin="normal"
