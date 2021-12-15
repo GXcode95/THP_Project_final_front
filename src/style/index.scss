@@ -27,21 +27,18 @@ a {
     background-image: none !important;
     background-color: $primary !important;
     text-align: center !important;
-    width: 90% !important;
-    margin-bottom: 5px;
-    box-shadow: none !important;
-    margin-left: 5% !important;
 }
 
 .stripe>span {
     background-image: none !important;
     text-align: center !important;
-    padding-top: 3px !important;
-    margin-bottom: 6px !important;
-    margin-left: 4px;
-    box-shadow: none !important;
 }
 
+.stripe-package {
+    width: 96%;
+    margin-left: 2%;
+    margin-bottom: 0.4em;
+}
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 
