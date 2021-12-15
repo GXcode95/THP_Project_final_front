@@ -4,21 +4,31 @@ import APIManager from 'services/Api'
 import { useNavigate } from 'react-router-dom'
 
 
-const StripeButton = ({ item, quantity, variant }) => {
+const StripeButton = ({ item, quantity, type }) => {
   const navigate = useNavigate()
 
-  const handleToken = async (token) => {
+  const handleTokenPackage = async (token) => {
     const response = await APIManager.buyPackage(token, item.id, quantity)
-    if (!response.error)
+    if (response.error)
+      alert(response.errror)
+    else
+      navigate(0)
+  }
+
+  const handleTokenGame = async (token) => {
+    const response = await APIManager.buyCart(token)
+    if (response.error)
+      alert(response.errror)
+    else
       navigate(0)
   }
 
   return (
     <StripeCheckout
       stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
-      token={handleToken}
-      className='stripe'
-      label="J'en profite"
+      token={ (type === "game") ? handleTokenGame : handleTokenPackage}
+      className={ (type === "game" ) ? 'stripe' : 'stripe stripe-package'}
+      label={ (type === "game") ? "Payer" : "J'en profite" }
     />
   )
 }
