@@ -18,8 +18,8 @@ const NumberField= ({name, onChange, defaultValue}) => {
       fullWidth
       type="number"
       defaultValue={defaultValue}
-      onChange={onChange}
-
+      onChange={e => onChange(e.target.value)}
+      
     >
     </ TextField>
   );
