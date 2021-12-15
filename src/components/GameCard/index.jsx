@@ -4,16 +4,22 @@ import { Card, Box, Typography, Button, Stack, Grid } from '@mui/material'
 import GameIconsInfos from './GameIconsInfos'
 import { Link, useNavigate } from 'react-router-dom';
 import APIManager from 'services/Api'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import isSigned from 'helpers/isSigned'
 import isSubscribed from 'helpers/isSubscribed'
 import EditGameForm from 'components/forms/EditGame/EditGameForm';
 import FavoriteButton from 'components/buttons/FavoriteButton';
+import { fetchPostWishListSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
 
 const GameCard = ({ game, edit }) => {
-  const [editMode, setEditMode] = useState(false)
-  const user = useSelector(state => state.userReducer.user_info)
+  const dispatch = useDispatch()
   const userReducer = useSelector(state => state.userReducer)
+  const user = userReducer.user_info
+  const rent = userReducer.rent
+  let wishListLength = 0 
+  rent.wishlist && rent.wishlist.map(game => wishListLength += game.quantity) 
+  const [wishListSpaceLeft, setWishListSpaceLeft] = useState(rent.wishlist_limit - wishListLength)
+  const [editMode, setEditMode] = useState(false)
 
   const handleCardHeight = () => {
     const screen = window.screen.width
@@ -28,13 +34,22 @@ const GameCard = ({ game, edit }) => {
   const navigate = useNavigate()
 
   const handleRent = async () => {
-    if (!isSigned(user)) {
+    if (!isSigned(userReducer)) {
       navigate('/connexion')
-    } else if (!isSubscribed(user)) {
+    } else if (!isSubscribed(userReducer)) {
       navigate('/abonnement')
+    } else if (wishListSpaceLeft <= 0) {
+      alert("Vous avez atteint la limite de jeux autorisés par votre abonnement")
     } else {
-      const response = await APIManager.createRent({ quantity: 1, user_id: user.user_info.id, game_id: game.id })
-      if (!response.error) alert("jeu ajouter au favoris")
+      dispatch(fetchUserRequest())
+      const response = await APIManager.createRent({ quantity: 1, user_id: user.id, game_id: game.id })
+      if(response.error){
+        dispatch(fetchUserError(response.error))
+      }else{
+        dispatch(fetchPostWishListSuccess(response.wishlist))
+        alert("jeu ajouter au favoris")
+        setWishListSpaceLeft(wishListSpaceLeft - 1)
+      }
     }
   }
 

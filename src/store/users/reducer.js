@@ -62,7 +62,23 @@ const userReducer = (state = initialState, action) => {
         userInfo: action.userInfo
       }
     case FETCH_POST_WISHLIST_SUCCESS:
+    return {
+      ...state,
+      loading: false,
+      rent: {
+        ...state.rent,
+        wishlist: action.wishList
+      }
+    }
     case FETCH_UPDATE_WISHLIST_SUCCESS:
+    return {
+      ...state,
+      loading: false,
+      rent: {
+        ...state.rent,
+        wishlist: action.wishlist
+      }
+    }
     case FETCH_DELETE_WISHLIST_SUCCESS:
       return {
         ...state,
@@ -80,7 +96,17 @@ const userReducer = (state = initialState, action) => {
         command_history: action.command_history
       }
     case FETCH_POST_ORDER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        cart: action.cart
+      }
     case FETCH_UPDATE_ORDER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        cart: action.cart
+      }
     case FETCH_DELETE_ORDER_SUCCESS:
       return {
         ...state,
