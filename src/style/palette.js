@@ -29,6 +29,13 @@ export const light = createTheme({
     },
     black: {
       main: "#000"
+    },
+    alert: {
+      main: "#Dcc5a3",
+      error: "#D05757",
+      success: "#5AA65F",
+      info: "#6fbdb5",
+      warning: "#F7c274"
     }
   },
   components: {
