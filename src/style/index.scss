@@ -96,7 +96,12 @@ a {
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 0.25rem;
+    background-color: $primary;
+}
+
+.badge-rent {
     background-color: $secondary;
+    font-size: .95em;
 }
 
 .price {
@@ -136,5 +141,8 @@ a {
     .buttons-card {
         margin-left: 3% !important;
         margin-right: 3% !important;
+    }
+    .game-info-details {
+        align-items: center;
     }
 }
