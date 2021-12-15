@@ -13,7 +13,7 @@ const GameIconsInfos = ({ game }) => {
         </Typography>
         |
         <Typography variant="caption" ml="0.3rem" mr="0.5rem" color="action">
-          <sub><Rating name="read-only" value={game.rank} readOnly size="small" /></sub>
+          <sub><Rating name="read-only" value={game.rank ? game.rank : 0} readOnly size="small" /></sub>
         </Typography>
         |
         <Typography variant="caption" ml="0.3rem" mr="0.5rem" color="action">
