@@ -292,9 +292,20 @@ export default class APIManager {
         return response.data
     }
 
-    //////////////////////
-    ///    PACKAGES    ///
-    //////////////////////
+    static async buyCart(token) {
+            const response = await API.post('/charges', {
+                token,
+                package: {
+                    presence: false,
+                }
+            }).catch(error => handleCatchError(error))
+
+            console.log("APIManager # buyCart =>", response)
+            return response.data
+        }
+        //////////////////////
+        ///    PACKAGES    ///
+        //////////////////////
 
     static async getAllPackages() {
         const response = await API.get(`/packages`)
