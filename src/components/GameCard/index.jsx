@@ -16,15 +16,12 @@ const GameCard = ({ game, edit }) => {
   const userReducer = useSelector(state => state.userReducer)
   const user = userReducer.user_info
   const rent = userReducer.rent
-  let wishListLength = 0 
-  rent.wishlist && rent.wishlist.map(game => wishListLength += game.quantity) 
-  const [wishListSpaceLeft, setWishListSpaceLeft] = useState(rent.wishlist_limit - wishListLength)
   const [editMode, setEditMode] = useState(false)
-
+  
   const handleCardHeight = () => {
     const screen = window.screen.width
     if (screen > 1500) {
-       return 350
+      return 350
     } else if(screen > 1900) {
       return 200
     } else {
@@ -32,14 +29,19 @@ const GameCard = ({ game, edit }) => {
     }
   }
   const navigate = useNavigate()
-
+  
   const handleRent = async () => {
+    let wishListLength = 0  
+    rent.wishlist && rent.wishlist.map(game => wishListLength += game.quantity)
+    
     if (!isSigned(userReducer)) {
       navigate('/connexion')
     } else if (!isSubscribed(userReducer)) {
       navigate('/abonnement')
-    } else if (wishListSpaceLeft <= 0) {
+    } else if (wishListLength >= rent.wishlist_limit) {
       alert("Vous avez atteint la limite de jeux autorisés par votre abonnement")
+    } else if (rent.wishlist.find(wishedGame => wishedGame.game.id === game.id)){
+      alert("Ce jeu a déjà été ajouté à votre wish list!")
     } else {
       dispatch(fetchUserRequest())
       const response = await APIManager.createRent({ quantity: 1, user_id: user.id, game_id: game.id })
@@ -48,7 +50,6 @@ const GameCard = ({ game, edit }) => {
       }else{
         dispatch(fetchPostWishListSuccess(response.wishlist))
         alert("jeu ajouter au favoris")
-        setWishListSpaceLeft(wishListSpaceLeft - 1)
       }
     }
   }
