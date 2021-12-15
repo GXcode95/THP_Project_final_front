@@ -54,6 +54,7 @@ const GameCard = ({ game, edit }) => {
         dispatch(fetchPostWishListSuccess(response.wishlist))
         alert("jeu ajouter au favoris")
       }
+    }
   }
 
   const handleBuy = async () => {
@@ -64,6 +65,7 @@ const GameCard = ({ game, edit }) => {
       if (!response.error) alert("Jeu ajouté au au panier!")
     }
   }
+
 
   const toggleEditMode = () => {
     setEditMode(!editMode)
