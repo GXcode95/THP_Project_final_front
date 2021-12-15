@@ -4,6 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import AdminNav from 'pages/Dashboard/AdminNav';
+import AdminRent from './AdminRent'
 import EditGameList from 'components/forms/EditGame/EditGameList';
 
 const Dashboard = () => {
@@ -18,11 +19,26 @@ const Dashboard = () => {
       'aria-controls': `vertical-tabpanel-${index}`,
     };
   }
+
+  const TabPanel = () => {
+    switch (value) {
+      case 0:
+        return  <CreateGame />
+      case 1:
+        return <EditGameList />
+      case 2: 
+        return  <AdminRent/>
+      default:;
+    }
+  }
+
+
+  
   return (
     <>
       <AdminNav />
       <Box
-        sx={{ flexGrow: 1, display: 'flex', height: 224 }}
+        sx={{ flexGrow: 1, display: 'flex', height: 224}}
       >
         <Tabs
           orientation="vertical"
@@ -37,16 +53,7 @@ const Dashboard = () => {
           <Tab label="Autres" {...a11yProps(2)} />
 
         </Tabs>
-        <AdminNav value={value} index={0}>
-          <CreateGame />
-        </AdminNav>
-        <AdminNav value={value} index={1}>
-          <EditGameList />
-        </AdminNav>
-        <AdminNav value={value} index={2}>
-          Item Three
-        </AdminNav>
-
+        {TabPanel()}
       </Box>
     </>
   );
