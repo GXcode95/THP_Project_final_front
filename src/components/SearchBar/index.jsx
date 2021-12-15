@@ -2,12 +2,12 @@ import React from 'react'
 import { Box, TextField } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 
-const SearchBar = ({ games, setGames }) => {
+const SearchBar = ({ setFilter, filter }) => {
   const handleChange = (e) => {
     let searchQuery = e.target.value.toLowerCase()
     searchQuery ?
-      setGames(games.filter(game => game.name.toLowerCase().includes(searchQuery))) :
-      setGames(games)
+      setFilter({ ...filter, search: searchQuery }) :
+      setFilter({ ...filter, search: "" })
   }
 
   return (

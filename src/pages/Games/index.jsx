@@ -1,12 +1,12 @@
 import React from 'react'
-import SearchBar from 'components/SearchBar'
 import GameList from 'components/GameList'
 import APIManager from 'services/Api'
 import { useDispatch } from 'react-redux'
-import  {Container} from '@mui/material'
-import {fetchGamesRequest, fetchGamesError, fetchGamesSuccess} from 'store/games/actions'
+import { Container } from '@mui/material'
+import { fetchGamesRequest, fetchGamesError, fetchGamesSuccess } from 'store/games/actions'
+import SearchContainer from 'components/SearchContainer'
 
-const Games = ({edit}) => {
+const Games = ({ edit }) => {
   const [filteredGames, setFilteredGames] = React.useState()
 
   const [games, setGames] = React.useState()
@@ -17,7 +17,7 @@ const Games = ({edit}) => {
       const fetchAllGames = async () => {
         dispatch(fetchGamesRequest())
         const response = await APIManager.getAllGames()
-        if(response.error) {
+        if (response.error) {
           dispatch(fetchGamesError(response.error))
         } else {
           dispatch(fetchGamesSuccess(response))
@@ -25,18 +25,18 @@ const Games = ({edit}) => {
         }
       }
       fetchAllGames()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []
   )
 
   return (
     <div>
-      <SearchBar games={games} setGames={setFilteredGames} />
+      <SearchContainer games={games} setGames={setFilteredGames} />
       <Container>
-        <GameList games={filteredGames ? filteredGames : games} edit={edit}/>
+        <GameList games={filteredGames ? filteredGames : games} edit={edit} />
       </Container>
     </div>
   )
 }
-    
+
 export default Games
