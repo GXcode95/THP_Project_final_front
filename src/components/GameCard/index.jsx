@@ -4,17 +4,20 @@ import { Card, Box, Typography, Button, Stack, Grid } from '@mui/material'
 import GameIconsInfos from './GameIconsInfos'
 import { Link, useNavigate } from 'react-router-dom';
 import APIManager from 'services/Api'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import isSigned from 'helpers/isSigned'
 import isSubscribed from 'helpers/isSubscribed'
 import EditGameForm from 'components/forms/EditGame/EditGameForm';
 import FavoriteButton from 'components/buttons/FavoriteButton';
+import { fetchPostWishListSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
 
 const GameCard = ({ game, edit }) => {
+  const dispatch = useDispatch()
   const [editMode, setEditMode] = useState(false)
   const userReducer = useSelector(state => state.userReducer)
-  const user = useSelector(state => state.userReducer.user_info)
-  const cart = useSelector(state => state.userReducer.cart)
+  const user = userReducer.user_info
+  const cart = userReducer.cart
+  const rent = userReducer.rent
 
   const handleCardHeight = () => {
     const screen = window.screen.width
@@ -29,15 +32,28 @@ const GameCard = ({ game, edit }) => {
     }
   }
   const navigate = useNavigate()
-
+  
   const handleRent = async () => {
+    let wishListLength = 0  
+    rent.wishlist && rent.wishlist.map(game => wishListLength += game.quantity)
+    
     if (!isSigned(userReducer)) {
       navigate('/connexion')
     } else if (!isSubscribed(userReducer)) {
       navigate('/abonnement')
+    } else if (wishListLength >= rent.wishlist_limit) {
+      alert("Vous avez atteint la limite de jeux autorisés par votre abonnement")
+    } else if (rent.wishlist.find(wishedGame => wishedGame.game.id === game.id)){
+      alert("Ce jeu a déjà été ajouté à votre wish list!")
     } else {
+      dispatch(fetchUserRequest())
       const response = await APIManager.createRent({ quantity: 1, user_id: user.id, game_id: game.id })
-      if (!response.error) alert("Jeu ajouté à la Wish List!")
+      if(response.error){
+        dispatch(fetchUserError(response.error))
+      }else{
+        dispatch(fetchPostWishListSuccess(response.wishlist))
+        alert("jeu ajouter au favoris")
+      }
     }
   }
 
@@ -49,6 +65,7 @@ const GameCard = ({ game, edit }) => {
       if (!response.error) alert("Jeu ajouté au au panier!")
     }
   }
+
 
   const toggleEditMode = () => {
     setEditMode(!editMode)
@@ -64,6 +81,11 @@ const GameCard = ({ game, edit }) => {
 
         }}
       >
+        <Link to={`/jeu/${game.id}`}>
+          <Typography variant="h4" align="center" noWrap py="0.5em" >
+            {game.name}
+          </Typography>
+        </Link>
         <Grid container minHeight={`${handleCardHeight()}px`}>
           <Grid item lg={6} md={5} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
             <Box sx={{ padding: '10px' }}>
