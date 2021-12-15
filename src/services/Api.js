@@ -58,6 +58,7 @@ export default class APIManager {
     const response = await API.delete("/users/sign_out")
       .catch(error => handleCatchError(error))
     console.log("APIManager # signOutUser =>", response)
+    if(response) Cookies.remove('token')
     return response.data
   }
 
@@ -79,11 +80,14 @@ export default class APIManager {
         .catch(error => handleCatchError(error))
     handleJwt(response)
     console.log("APIManager # signInUser =>", response)
-    let formatedResponse = []
+    
+    let formatedResponse = null
     if (response.data.error){
       formatedResponse = response.data.error
     } else {
-      response.data.favorites.forEach( game => formatedResponse.push({...game.info, images: game.images }) )
+      formatedResponse = response.data.favorites.map( game => {
+        return {...game.info, images: game.images }
+      })
     }        
     return {...response.data, favorites: formatedResponse}
   }
@@ -99,7 +103,9 @@ export default class APIManager {
       if (response.data.error){
         formatedResponse = response.data.error
       } else {
-        response.data.favorites.forEach( game => formatedResponse.push({...game.info, images: game.images }) )
+        formatedResponse = response.data.favorites.map( game => {
+          return {...game.info, images: game.images } 
+        })
       }        
     return {...response.data, favorites: formatedResponse}
   }
@@ -422,13 +428,13 @@ export default class APIManager {
   ///////////////////////
   
   static async getFavorites() {
-    const response = await API.get('favorites')
+    const response = await API.get('/favorites')
       .catch(error => handleCatchError(error))
     let formatedResponse = []
       if (response.data.error){
         formatedResponse = response.data.error
       } else {
-        response.data.forEach( game => formatedResponse.push({...game.info, images: game.images }) )
+        formatedResponse = response.data.map( game => {return {...game.info, images: game.images } })
       }
     console.log("APIManager # getFavorite =>", formatedResponse)   
     return { favorites: formatedResponse }
