@@ -74,22 +74,22 @@ const AdminRent = ({rented}) => {
           </Grid>
           <Grid item xs={12}>
           {rentsInfo && rentsInfo.map( (rent,i) => (
-                <Grid container key={i}>
-                  <Grid item md={4}>
-                    <Link to={`jeu/${rent.game.id}`}>
-                      { rent.game.name }
-                    </Link>
-                  </Grid>
-                  <Grid item md={2}>
-                    {rent.user.user_info.first_name + " " + rent.user.user_info.first_name}
-                  </Grid>  
-                  <Grid item md={4}>
-                    {rent.user.user_info.address}
-                  </Grid>
-                  <Grid item md={2}>
-                    {rent.user.user_info.phone}
-                  </Grid>
-                </Grid>
+            <Grid container key={i}>
+              <Grid item md={4}>
+                <Link to={`jeu/${rent.game.id}`}>
+                  { rent.game.name }
+                </Link>
+              </Grid>
+              <Grid item md={2}>
+                {rent.user.user_info.first_name + " " + rent.user.user_info.first_name}
+              </Grid>  
+              <Grid item md={4}>
+                {rent.user.user_info.address}
+              </Grid>
+              <Grid item md={2}>
+                {rent.user.user_info.phone}
+              </Grid>
+            </Grid>
           ))}
           </Grid>
      </Grid>
