@@ -139,6 +139,7 @@ export default class APIManager {
     }
   
     static async createGameAdmin(gameInfo, gameImages, tags) {
+        console.log("XAAAAAAAAAAAAVVVVVIIIIIER LE PLUS BO !!!")
       const response = await API.post("/admin/games", { game: gameInfo, images: gameImages, tags: tags })
         .catch(error => handleCatchError(error))
       console.log("APIManager # createGameAdmin =>", response)

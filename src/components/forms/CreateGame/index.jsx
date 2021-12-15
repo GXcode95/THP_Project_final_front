@@ -56,7 +56,9 @@ const CreateGame = () => {
     const tags = await getAllCheckedTags()
     console.log("----------------------")
     console.log("----------------------")
+    console.log("----------------------")
     console.log(tags)
+    console.log("----------------------")
     console.log("----------------------")
     console.log("----------------------")
 
@@ -162,7 +164,7 @@ const CreateGame = () => {
             <FormGroup id="form-group-checkboxs">
               {tags && tags.map( tag => (
                 <FormControlLabel 
-                  control={<Checkbox name={tag.id} />} 
+                  control={<Checkbox name={`${tag.id}`} />} 
                   label={tag.name} 
                   key={tag.id} 
                 />
