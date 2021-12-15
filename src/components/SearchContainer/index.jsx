@@ -23,8 +23,13 @@ const SearchContainer = ({ games, setGames }) => {
     min_age: "Aucun Filtre",
     min_player: "Aucun Filtre",
     max_player: "Aucun Filtre",
-    min_rank: "Aucun Filtre"
+    min_rank: "Aucun Filtre",
+    search: ""
   })
+
+  const filterSearch = (filter, games) => {
+    return games.filter(game => game.name.toLowerCase().includes(filter.search))
+  }
 
   const filterGames = (filter, arrayTmp, i = 0) => {
 
@@ -80,9 +85,7 @@ const SearchContainer = ({ games, setGames }) => {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault()
     let checkedTags = getAllCheckedTags()
-    console.log("checkedTAGS", checkedTags)
     setFilter({ ...filter, tags: checkedTags })
   }
 
@@ -100,8 +103,10 @@ const SearchContainer = ({ games, setGames }) => {
     () => {
       if (games && games.length > 0) {
         let arrayTmp = games.map(x => x)
-        console.log("RESPONSSSEE", filterGames(filter, arrayTmp))
-        setGames(filterGames(filter, arrayTmp))
+        arrayTmp = filterGames(filter, arrayTmp)
+        if (filter.search !== "")
+          arrayTmp = filterSearch(filter, arrayTmp)
+        setGames(arrayTmp)
       }
     }, [filter]
   )
@@ -109,8 +114,8 @@ const SearchContainer = ({ games, setGames }) => {
   return (
     <div>
       <Container>
-        {console.log('gameReducer => ', games)}
-        <SearchBar games={games} setGames={setGames} />
+        {console.log('GAMES FOR SEARCH => ', games)}
+        <SearchBar setFilter={setFilter} filter={filter} />
         <SearchSelect name="Prix-Min" selectList={min_prices} setFilter={setFilter} filter={filter} />
         <SearchSelect name="Prix-Max" selectList={max_prices} setFilter={setFilter} filter={filter} />
         <SearchSelect name="Age-Min" selectList={min_ages} setFilter={setFilter} filter={filter} />
