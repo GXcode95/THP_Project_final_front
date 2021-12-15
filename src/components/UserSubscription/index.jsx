@@ -7,19 +7,21 @@ import CurrentRent from './CurrentRents';
 
 const UserSubscription = ({user, tiers}) => {
   const [value, setValue] = useState(0);
-
-  const wishlist = user.rent.wishlist
-  const rents = user.rent.rent_games
   // const rentsHistory = user.rent.rented_games
   const [userTier, setUserTier] = useState()
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
+  }; 
+
+  const wishlist = user.rent.wishlist
+  const wishlist_limit = user.rent.wishlist_limit
+  const rents = user.rent.rent_games
+  const rentsHistory = user.rent.rented_games
   
   const TabPanel = () => {
     switch (value) {
       case 0:
-        return <Wishlist wishlist={wishlist} user={user} userTier={userTier}/>
+        return <Wishlist wishlist={wishlist} wishlist_limit={wishlist_limit} user={user} userTier={userTier}/>
       case 1:
         return <CurrentRent rents={rents} />
       case 2:
