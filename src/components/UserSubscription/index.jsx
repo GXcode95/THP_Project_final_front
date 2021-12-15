@@ -7,9 +7,6 @@ import CurrentRent from './CurrentRents';
 
 const UserSubscription = ({user, tiers}) => {
   const [value, setValue] = useState(0);
-
-  const wishlist = user.rent.wishlist
-  const rents = user.rent.rent_games
   // const rentsHistory = user.rent.rented_games
   const [userTier, setUserTier] = useState()
   const handleChange = (event, newValue) => {
