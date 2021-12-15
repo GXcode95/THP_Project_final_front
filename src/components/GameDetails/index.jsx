@@ -42,21 +42,19 @@ const GameDetails = () => {
     }, [game]
   )
 
-
   const slideNumberStyle = {
     fontSize: '20px',
     fontWeight: 'bold',
   }
   return (
     <div className="">
-
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <div style={{ textAlign: "center" }}>
-            <div style={{
-              padding: "0 20px"
-            }}>
-              {imageFromCloudinary &&
+      <Grid container spacing={2} alignContent="center">
+        {imageFromCloudinary &&
+          <Grid item xs={12} md={6} lg={4}>
+            <div style={{ textAlign: "center" }}>
+              <div style={{
+                padding: "0 20px"
+              }}>
                 <Carousel
                   data={imageFromCloudinary}
                   time={3000}
@@ -79,13 +77,13 @@ const GameDetails = () => {
                     maxHeight: "500px",
                     margin: "40px auto",
                   }}
-                />}
+                />
+              </div>
             </div>
-          </div>
-
-        </Grid>
-        <Grid item xs={6}>
-          <GameInfo game={game && game} />
+          </Grid>
+        }
+        <Grid item xs={12} md={6} lg={8}>
+          <GameInfo game={game && game} className="game-info-details" />
           <Button onClick={handleRent}>Louer</Button>
         </Grid>
       </Grid>
@@ -93,7 +91,7 @@ const GameDetails = () => {
       <br />
       <br />
       <GameTabs game={game && game} setGame={setGame} />
-    </div>
+    </div >
   );
 }
 

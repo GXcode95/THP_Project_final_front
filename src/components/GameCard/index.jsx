@@ -89,7 +89,7 @@ const GameCard = ({ game, edit }) => {
                 </Typography>
               </Link>
               <GameIconsInfos game={game} />
-              <Typography variant="subtitle2" align="left" noWrap color="secondary">
+              <Typography variant="subtitle2" align="left" noWrap color="primary">
                 <strong className="price">
                   {game.price}€
                 </strong>
