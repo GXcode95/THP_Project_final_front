@@ -10,7 +10,7 @@ import userReducer from 'store/users/reducer'
 import gamesReducer from 'store/games/reducer'
 import RentButton from 'components/buttons/RentButton'
 import APIManager from 'services/Api'
-       
+
 const Cart = () => {
   const dispatch = useDispatch()
   const storedCart = useSelector(state => state.userReducer.cart)
@@ -21,8 +21,6 @@ const Cart = () => {
     cart_games.map( cart_game => total += cart_game.game.price * cart_game.quantity)
     return total
   }
-
-
 
   const handleAdd = async (orderId) => {
     const quantityElement = document.getElementById(orderId).lastChild
@@ -50,7 +48,7 @@ const Cart = () => {
     const quantity = parseInt(quantityElement.textContent.split(' ')[2]) > 1 ? parseInt(quantityElement.textContent.split(' ')[2]) : 2
     const price = parseInt(quantityElement.textContent.split(' ')[0])
     const totalPrice = totalPriceElement.textContent.split(' ')[1].slice(0, -1)
-    
+
     dispatch(fetchUserRequest())
     const response = await APIManager.updateOrder(orderId, {quantity: quantity -1})
     if(response.error) {
@@ -95,6 +93,7 @@ const Cart = () => {
       }
       fetchCart()
   },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   []
   )
 
@@ -110,27 +109,22 @@ const Cart = () => {
         <Typography variant="h2" color="primary" mb="0.4em" >
           Mon panier
         </Typography>
-        <CartItem 
-          games={cart.cart_games} 
-          quantityButton={true} 
-          deleteButton={true} 
-          handleAdd={handleAdd} 
-          handleRemove={handleRemove} 
+        <CartItem
+          games={cart.cart_games}
+          quantityButton={true}
+          deleteButton={true}
+          handleAdd={handleAdd}
+          handleRemove={handleRemove}
           handleDelete={handleDelete}
         />
         <Typography id="total_price" variant="h5" color="primary" mb="0.4em" >
           Total: {cart && totalPrice(cart.cart_games)}€
         </Typography>
 
-        {/* <StripeButton item={"Panier"} quantity={1} variant={variant} /> :
-        <Button className="stripe" sx={{fontWeight: 600, mb: "0.5em"}}>
-          <Link to='/connexion'>
-            J'en profite
-          </Link>    
-        </Button> */}
+        <StripeButton item={"Panier"} quantity={1} type="game" /> 
       </Box>
     </Container>
   )
 }
-    
+
 export default Cart
