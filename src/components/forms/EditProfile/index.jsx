@@ -9,14 +9,17 @@ import FirstNameInput from '../input/FirstNameInput';
 import LastNameInput from '../input/LastNameInput';
 import EmailInput from '../input/EmailInput';
 import EditInputGrid from './EditInput';
-
+import sendAlert from 'helpers/sendAlert'
 const EditProfile = ({user}) => {
   const [request, setRequest] = useState(true)
 
   const showInfo = (e) => {
     setRequest(false)
   } 
-
+const yoyo = () => {
+  sendAlert("mon alerte de", "error")
+  console.log('pate')
+}
   return (
     <Container component="main" maxWidth="xs">
         <Box
@@ -26,6 +29,7 @@ const EditProfile = ({user}) => {
             alignItems: 'center',
           }}
         >
+          <Button onClick={yoyo}>Click</Button>
           <Typography variant="h2" color="primary" mb="0.4em" >
             Mon profile
           </Typography>
