@@ -1,4 +1,4 @@
-import { Container, FormGroup, FormControlLabel, Checkbox, Button } from '@mui/material';
+import { Grid, Container, FormGroup, FormControlLabel, Checkbox, Button } from '@mui/material';
 import SearchBar from 'components/SearchBar';
 import SearchSelect from 'components/SearchSelect';
 import React from 'react';
@@ -113,28 +113,46 @@ const SearchContainer = ({ games, setGames }) => {
 
   return (
     <div>
-      <Container>
-        {console.log('GAMES FOR SEARCH => ', games)}
-        <SearchBar setFilter={setFilter} filter={filter} />
-        <SearchSelect name="Prix-Min" selectList={min_prices} setFilter={setFilter} filter={filter} />
-        <SearchSelect name="Prix-Max" selectList={max_prices} setFilter={setFilter} filter={filter} />
-        <SearchSelect name="Age-Min" selectList={min_ages} setFilter={setFilter} filter={filter} />
-        <SearchSelect name="Players-Min" selectList={min_players} setFilter={setFilter} filter={filter} />
-        <SearchSelect name="Players-Max" selectList={max_players} setFilter={setFilter} filter={filter} />
-        <SearchSelect name="Rank-Min" selectList={min_rank} setFilter={setFilter} filter={filter} />
-        <FormGroup id="form-group-checkboxs-tags">
-          {tags && tags.map(tag => (
-            <FormControlLabel
-              control={<Checkbox name={tag.id} />}
-              label={tag.name}
-              key={tag.id}
-            />
-          ))}
+    <SearchBar setFilter={setFilter} filter={filter} sx={{marginTop:"2rem"}} />
+      <Grid container 
+        spacing={3}
+        sx={{
+          padding:"2rem", 
+          border:"solid blue 1px"
+        }}
+      >
+     
+        <Grid item
+        >
+          {console.log('GAMES FOR SEARCH => ', games)}
+          
+          <SearchSelect name="Prix-Min" selectList={min_prices} setFilter={setFilter} filter={filter} />
+          <SearchSelect name="Prix-Max" selectList={max_prices} setFilter={setFilter} filter={filter} />
+          <SearchSelect name="Age-Min" selectList={min_ages} setFilter={setFilter} filter={filter} />
+          <SearchSelect name="Players-Min" selectList={min_players} setFilter={setFilter} filter={filter} />
+          <SearchSelect name="Players-Max" selectList={max_players} setFilter={setFilter} filter={filter} />
+          <SearchSelect name="Rank-Min" selectList={min_rank} setFilter={setFilter} filter={filter} />
+        </Grid>
+        
+        <Grid item
+          direction="row">
+          <FormGroup 
+            id="form-group-checkboxs-tags"
+            sx={{border:"solid 1px red"}} 
+          >
+            {tags && tags.map(tag => (
+              <FormControlLabel
+                control={<Checkbox name={tag.id} />}
+                label={tag.name}
+                key={tag.id}
+              />
+            ))}
+          </FormGroup>
           <Button variant="contained" onClick={handleSubmit}>
-            Valider les Catégories
-          </Button>
-        </FormGroup>
-      </Container>
+              Valider les Catégories
+            </Button>
+        </Grid>
+      </Grid>
     </div>
   );
 };
