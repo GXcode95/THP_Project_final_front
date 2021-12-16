@@ -3,6 +3,8 @@ import { Checkbox, Container, FormGroup, FormControlLabel, Typography, Box, Text
 import NumberField from '../GameInput/NumberField';
 import ImagesDropzone from 'components/ImagesDropzone';
 import APIManager from 'services/Api'
+import validateGameForms from 'helpers/validateGameForms';
+import sendAlert from 'helpers/sendAlert';
 
 const CreateGame = () => {
   const [snackState, setSnackState] = useState(false)
@@ -57,7 +59,9 @@ const CreateGame = () => {
       sell_stock: 100,
       rent_stock:100
     }
-    console.log(gameInfo)
+    console.log("Errors messages", validateGameForms(gameInfo))
+
+    const errorsMessages = validateGameForms(gameInfo)
     const tags = getAllCheckedTags()
     console.log("----------------------")
     console.log("----------------------")
@@ -66,9 +70,13 @@ const CreateGame = () => {
     console.log("----------------------")
     console.log("----------------------")
     console.log("----------------------")
-
-    const response = await APIManager.createGameAdmin(gameInfo, publicIdList, tags)
-    response.error ? alert(`une erreur est survenue :"${response.error}"`) : alert("jeu créer avec succès")
+    
+    if (errorsMessages.length > 0 ){
+      sendAlert(errorsMessages)
+    }else{
+      const response = await APIManager.createGameAdmin(gameInfo, publicIdList, tags)
+      response.error ? alert(`une erreur est survenue :"${response.error}"`) : alert("jeu créer avec succès")
+    }
   }
 
   const getAllCheckedTags = () => {
@@ -108,6 +116,14 @@ const CreateGame = () => {
           
           <Box noValidate sx={{ mt: 1 }}>
             <ImagesDropzone files={files} setFiles={setFiles} />
+              <Button
+                onClick={handleClick}
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Valider
+              </Button>
 
             <TextField
               margin="normal"
