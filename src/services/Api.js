@@ -1,6 +1,5 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { registerNavigationRoute } from 'workbox-routing';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
 const ERROR_MESSAGE = "Opération impossible, il semble y avoir un problème de connection."
@@ -59,6 +58,7 @@ export default class APIManager {
         const response = await API.delete("/users/sign_out")
             .catch(error => handleCatchError(error))
         console.log("APIManager # signOutUser =>", response)
+        if (response) Cookies.remove('token')
         return response.data
     }
 
@@ -80,7 +80,16 @@ export default class APIManager {
             .catch(error => handleCatchError(error))
         handleJwt(response)
         console.log("APIManager # signInUser =>", response)
-        return response.data
+
+        let formatedResponse = null
+        if (response.data.error) {
+            formatedResponse = response.data.error
+        } else {
+            formatedResponse = response.data.favorites.map(game => {
+                return {...game.info, images: game.images }
+            })
+        }
+        return {...response.data, favorites: formatedResponse }
     }
 
     static async signInUserJwt() {
@@ -90,7 +99,15 @@ export default class APIManager {
             .catch(error => handleCatchError(error))
         handleJwt(response)
         console.log("APIManager # signInUserJwt =>", response)
-        return response.data
+        let formatedResponse = []
+        if (response.data.error) {
+            formatedResponse = response.data.error
+        } else {
+            formatedResponse = response.data.favorites.map(game => {
+                return {...game.info, images: game.images }
+            })
+        }
+        return {...response.data, favorites: formatedResponse }
     }
 
     static async changePasswordRequest(email) {
@@ -139,8 +156,8 @@ export default class APIManager {
         return response.data
     }
 
-    static async createGameAdmin(gameInfo, gameImages) {
-        const response = await API.post("/admin/games", { game: gameInfo, images: gameImages })
+    static async createGameAdmin(gameInfo, gameImages, tags) {
+        const response = await API.post("/admin/games", { game: gameInfo, images: gameImages, tags: tags })
             .catch(error => handleCatchError(error))
         console.log("APIManager # createGameAdmin =>", response)
         return response.data
@@ -205,8 +222,7 @@ export default class APIManager {
                 images: response.data.images,
                 comments: response.data.comments,
                 rank: response.data.rank,
-                tags: response.data.tags,
-                isRanked: response.data.is_ranked
+                tags: response.data.tags
             }
         return formatedResponse
     }
@@ -276,13 +292,13 @@ export default class APIManager {
         const response = await API.get(`/carts/${id}`)
             .catch(error => handleCatchError(error))
         console.log("APIManager # getCart =>", response)
-        let formattedResponse = []
+        let formatedResponse = []
         if (response.data.error) {
-            formattedResponse = response.data
+            formatedResponse = response.data
         } else {
-            formattedResponse = response.data.cart.cart_games.forEach(order => { return {...order, game: {...order.game, ...order.images } } })
+            formatedResponse = response.data.cart.cart_games.forEach(order => { return {...order, game: {...order.game, ...order.images } } })
         }
-        console.log("FORMATTED", formattedResponse)
+        console.log("FORMATED", formatedResponse)
         return response.data
     }
 
@@ -346,7 +362,16 @@ export default class APIManager {
 
         if (!response) return { error: ERROR_MESSAGE }
         console.log("APIManager # createComment => ", response)
-        return response.data
+
+        const formatedResponse = response.data.error ?
+            response.data : {
+                ...response.data.info,
+                images: response.data.images,
+                comments: response.data.comments,
+                rank: response.data.rank,
+                tags: response.data.tags
+            }
+        return formatedResponse
     }
 
     static async updateComment(commentID, content) {
@@ -354,7 +379,16 @@ export default class APIManager {
 
         if (!response) return { error: ERROR_MESSAGE }
         console.log("APIManager # updateComment => ", response)
-        return response.data
+
+        const formatedResponse = response.data.error ?
+            response.data : {
+                ...response.data.info,
+                images: response.data.images,
+                comments: response.data.comments,
+                rank: response.data.rank,
+                tags: response.data.tags
+            }
+        return formatedResponse
     }
 
     static async deleteComment(commentID) {
@@ -362,7 +396,16 @@ export default class APIManager {
 
         if (!response) return { error: ERROR_MESSAGE }
         console.log("APIManager # deleteComment => ", response)
-        return response.data
+
+        const formatedResponse = response.data.error ?
+            response.data : {
+                ...response.data.info,
+                images: response.data.images,
+                comments: response.data.comments,
+                rank: response.data.rank,
+                tags: response.data.tags
+            }
+        return formatedResponse
     }
 
     static async deleteCommentAdmin(commentID) {
@@ -370,7 +413,16 @@ export default class APIManager {
 
         if (!response) return { error: ERROR_MESSAGE }
         console.log("APIManager # deleteCommentAdmin => ", response)
-        return response.data
+
+        const formatedResponse = response.data.error ?
+            response.data : {
+                ...response.data.info,
+                images: response.data.images,
+                comments: response.data.comments,
+                rank: response.data.rank,
+                tags: response.data.tags
+            }
+        return formatedResponse
     }
 
     //////////////////
@@ -411,6 +463,19 @@ export default class APIManager {
     ///    FAVORTITES   ///
     ///////////////////////
 
+    static async getFavorites() {
+        const response = await API.get('/favorites')
+            .catch(error => handleCatchError(error))
+        let formatedResponse = []
+        if (response.data.error) {
+            formatedResponse = response.data.error
+        } else {
+            formatedResponse = response.data.map(game => { return {...game.info, images: game.images } })
+        }
+        console.log("APIManager # getFavorite =>", formatedResponse)
+        return { favorites: formatedResponse }
+    }
+
     static async createFavorite(gameID, userID) {
         const response = await API.post(`/favorites`, { game_id: gameID, user_id: userID })
             .catch(error => handleCatchError(error))
@@ -424,6 +489,7 @@ export default class APIManager {
         console.log("APIManager # deleteFavorite =>", response)
         return response.data
     }
+
 
     //////////////////
     ///    RANKS   ///
