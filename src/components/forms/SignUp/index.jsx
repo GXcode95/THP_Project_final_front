@@ -37,13 +37,12 @@ const SignUp = () => {
       phone: phone,
       address: address
     }
-    console.log("USER", userInfo)
-    dispatch(fetchUserRequest())
+    
     const errorsMessages = validateSignUpForm(userInfo)
-    console.log("EEEEEERORORORORORO", errorsMessages)
     if (errorsMessages.length > 0) {
       sendAlert(errorsMessages)
     }else{
+      dispatch(fetchUserRequest())
       const response = await APIManager.registerUser(userInfo)
       if(response){
         response.error ? 

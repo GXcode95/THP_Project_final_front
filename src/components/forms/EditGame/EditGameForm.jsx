@@ -43,10 +43,6 @@ const EditGameForm = ({ game, toggleEditMode }) => {
       rent_stock:100
     } 
     const errorsMessages = validateGameForms(gameInfoUpdated)
-
-    console.log("Errors messages", validateGameForms(gameInfoUpdated))
-
-    console.log("gameInfoUpdated", gameInfoUpdated)
     if (errorsMessages.length > 0 ){
       sendAlert(errorsMessages)
     }else{
