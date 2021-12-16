@@ -200,14 +200,13 @@ export default class APIManager {
         console.log("APIManager # getGame =>", response)
 
         const formatedResponse = response.data.error ?
-            response.data.error : {
+            response.data : {
                 ...response.data.info,
                 images: response.data.images,
                 comments: response.data.comments,
                 rank: response.data.rank,
                 tags: response.data.tags,
-                isRanked: response.isRanked
-
+                isRanked: response.data.is_ranked
             }
         return formatedResponse
     }
@@ -431,9 +430,19 @@ export default class APIManager {
     //////////////////
 
     static async createRank(gameID, note) {
-        const response = await API.post(`/games/${gameID}/rank`, { game_id: gameID, note: note })
+        console.log("000000000000000000000000000000àà", gameID, note)
+        const response = await API.post(`/ranks`, { game_id: gameID, note: note })
             .catch(error => handleCatchError(error))
         console.log("APIManager # createRank =>", response)
-        return response.data
+        const formatedResponse = response.data.error ?
+            response.data : {
+                ...response.data.info,
+                images: response.data.images,
+                comments: response.data.comments,
+                rank: response.data.rank,
+                tags: response.data.tags,
+                isRanked: response.data.is_ranked
+            }
+        return formatedResponse
     }
 }

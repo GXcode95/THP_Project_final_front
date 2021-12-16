@@ -7,12 +7,13 @@ import Box from '@mui/material/Box';
 import { Container, Grid } from '@mui/material'
 import Comments from 'components/Comments'
 import RatingGame from 'components/Rating';
+import isSigned from 'helpers/isSigned';
 const GameTabs = ({ game, setGame }) => {
-
   const [value, setValue] = React.useState('1');
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   return (
     <Grid container spacing={2} px={6} >
       <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -31,7 +32,7 @@ const GameTabs = ({ game, setGame }) => {
             </Container>
           </TabPanel>
           <TabPanel value="3">
-            {game && game.isRanked ? <RatingGame /> : 'Vous avez déjà noté le jeu'}
+            {game && (game.isRanked || game.isRanked === null) ? 'Déjà noté' : <RatingGame game={game} setGame={setGame} />}
           </TabPanel>
         </TabContext>
       </Box>
