@@ -8,7 +8,7 @@ import APIManager from 'services/Api';
 import validateGameForms from 'helpers/validateGameForms';
 import { useDispatch } from 'react-redux';
 import { fetchUserRequest, fetchUserError, fetchUserSignInSuccess } from 'store/users/actions';
-import sendAlert from 'helpers/sendAlert';
+import { setSnackbar } from 'store/snackbar/actions';
 
 const EditGameForm = ({ game, toggleEditMode }) => {
   const dispatch = useDispatch()
@@ -44,13 +44,13 @@ const EditGameForm = ({ game, toggleEditMode }) => {
     } 
     const errorsMessages = validateGameForms(gameInfoUpdated)
     if (errorsMessages.length > 0 ){
-      sendAlert(errorsMessages)
+      dispatch(setSnackbar(true, "error", errorsMessages))
     }else{
     dispatch(fetchUserRequest())
     const response = await APIManager.updateGamesAdmin(gameId, gameInfoUpdated)
     response.error ? 
-      dispatch(fetchUserError(response.error)) :
-      dispatch(fetchUserSignInSuccess(response))
+      dispatch(fetchUserError(response.error)) && dispatch(setSnackbar(true, "error", response.error)):
+      dispatch(fetchUserSignInSuccess(response)) && dispatch(setSnackbar(true, "success", "Les modifications apportées ont bien été prises en compte."))
     }
   }
 

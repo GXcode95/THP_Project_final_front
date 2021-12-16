@@ -10,6 +10,7 @@ import isSubscribed from 'helpers/isSubscribed'
 import EditGameForm from 'components/forms/EditGame/EditGameForm';
 import FavoriteButton from 'components/buttons/FavoriteButton';
 import { fetchPostWishListSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
+import { setSnackbar } from 'store/snackbar/actions';
 
 const GameCard = ({ game, edit }) => {
   const dispatch = useDispatch()
@@ -42,16 +43,18 @@ const GameCard = ({ game, edit }) => {
     } else if (!isSubscribed(userReducer)) {
       navigate('/abonnement')
     } else if (wishListLength >= rent.wishlist_limit) {
-      alert("Vous avez atteint la limite de jeux autorisés par votre abonnement")
+      dispatch(setSnackbar(true, "error","Vous avez atteint la limite de jeux autorisés par votre abonnement"))
     } else if (rent.wishlist.find(wishedGame => wishedGame.game.id === game.id)){
-      alert("Ce jeu a déjà été ajouté à votre wish list!")
+      dispatch(setSnackbar(true, "error","Ce jeu a déjà été ajouté à votre wish list!"))
     } else {
       dispatch(fetchUserRequest())
       const response = await APIManager.createRent({ quantity: 1, user_id: user.id, game_id: game.id })
       if(response.error){
         dispatch(fetchUserError(response.error))
+        dispatch(setSnackbar(true, "error",  response.error))
       }else{
         dispatch(fetchPostWishListSuccess(response.wishlist))
+        dispatch(setSnackbar(true, "success", "Le jeu a bien été ajouté a votre liste de jeux pour le mois prochain!"))
         alert("jeu ajouter au favoris")
       }
     }
@@ -62,7 +65,7 @@ const GameCard = ({ game, edit }) => {
       navigate('/connexion')
     } else {
       const response = await APIManager.createOrder({ quantity: 1, cart_id: cart.current_cart.id, game_id: game.id })
-      if (!response.error) alert("Jeu ajouté au au panier!")
+      if (!response.error) dispatch(setSnackbar(true, "success","Jeu ajouté au au panier!"))
     }
   }
 
