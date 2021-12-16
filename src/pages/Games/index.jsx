@@ -1,16 +1,17 @@
 import React from 'react'
 import GameList from 'components/GameList'
 import APIManager from 'services/Api'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Container } from '@mui/material'
 import { fetchGamesRequest, fetchGamesError, fetchGamesSuccess } from 'store/games/actions'
 import SearchContainer from 'components/SearchContainer'
-
+import Progress from 'components/Progress'
 const Games = ({ edit }) => {
   const [filteredGames, setFilteredGames] = React.useState()
 
   const [games, setGames] = React.useState()
   const dispatch = useDispatch()
+  const gamesReducer = useSelector(state => state.gamesReducer)
 
   React.useEffect(
     () => {
@@ -33,7 +34,7 @@ const Games = ({ edit }) => {
     <div>
       <SearchContainer games={games} setGames={setFilteredGames} />
       <Container>
-        <GameList games={filteredGames ? filteredGames : games} edit={edit} />
+      {gamesReducer.loading ? <Progress /> : <GameList games={filteredGames ? filteredGames : games} edit={edit} />}
       </Container>
     </div>
   )
