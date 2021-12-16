@@ -1,10 +1,10 @@
-import { Grid, Box, Container, FormGroup, FormControlLabel, Checkbox, Button, Typography } from '@mui/material';
-import SearchBar from 'components/SearchBar';
-import SearchSelect from 'components/SearchSelect';
+import { Button, Container, Typography } from '@mui/material';
+import SearchBar from './SearchBar';
+import SearchFilters from './SearchFilters';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import APIManager from 'services/Api';
-
+import SearchTags from './SearchTags'
 const SearchContainer = ({ games, setGames }) => {
 
   const gameReducer = useSelector(state => state.gamesReducer)
@@ -15,6 +15,7 @@ const SearchContainer = ({ games, setGames }) => {
   const min_players = ["Aucun Filtre", 1, 2, 3, 4, 10]
   const max_players = ["Aucun Filtre", 1, 2, 3, 4, 10]
   const min_rank = ["Aucun Filtre", 1, 2, 3, 4, 5]
+  const [filterMode , setFilterMode] = React.useState()
 
   const [filter, setFilter] = React.useState({
     tags: "Aucun Filtre",
@@ -88,7 +89,7 @@ const SearchContainer = ({ games, setGames }) => {
     let checkedTags = getAllCheckedTags()
     setFilter({ ...filter, tags: checkedTags })
   }
-
+  
   React.useEffect(
     () => {
       const fetchAllTags = async () => {
@@ -112,63 +113,30 @@ const SearchContainer = ({ games, setGames }) => {
   )
 
   return (
-    <div>
+    <Container>
       <SearchBar setFilter={setFilter} filter={filter} />
-
-        
-        <Grid container 
-          direction="row"
-          justifyContent="center"
-          spacing={1}
-          sx={{
-            paddingBottom:"2rem", 
+      
+      <Button variant="text" color="secondary" onClick={ e =>  setFilterMode(!filterMode)}>
+        {filterMode ? "-" : "+"} de filtres...
+      </Button>
+      
+      {filterMode && 
+        <>
+          <SearchFilters 
+            filter={filter}
+            setFilter={setFilter}
+            min_prices={min_prices}
+            min_players={min_players}
+            min_ages={min_ages}
+            max_prices={max_prices}
+            max_players={max_players}
+            min_rank={min_rank}
+          />
             
-          }}
-        >
-        
-          <Grid item
-            direction='row'
-            justifyContent="center"
-          >
-            <Typography variant="h4" sx={{paddingLeft:"1.2rem", marginLeft:"auto", marginRight:"auto", color:"secondary.main", fontWeight:"bold"}}>Filtres</Typography>
-            {console.log('GAMES FOR SEARCH => ', games)}
-            <Box item sx={{margin:"1.1rem" }}>
-              <SearchSelect name="Prix-Min" selectList={min_prices} setFilter={setFilter} filter={filter} />
-            </Box>
-            <Box item sx={{margin:"1.1rem"}}>
-              <SearchSelect name="Prix-Max" selectList={max_prices} setFilter={setFilter} filter={filter} />
-            </Box>
-            <Box item sx={{margin:"1.1rem"}}>
-              <SearchSelect name="Age-Min" selectList={min_ages} setFilter={setFilter} filter={filter} />
-            </Box>
-            <Box item sx={{margin:"1.1rem"}}>
-              <SearchSelect name="Players-Min" selectList={min_players} setFilter={setFilter} filter={filter} />
-            </Box>
-            <Box item sx={{margin:"1.1rem"}}>
-              <SearchSelect name="Players-Max" selectList={max_players} setFilter={setFilter} filter={filter} />
-            </Box>
-            <Box item sx={{margin:"1.1rem"}}>
-              <SearchSelect name="Rank-Min" selectList={min_rank} setFilter={setFilter} filter={filter} />
-            </Box>
-          </Grid>
-          
-          <Grid item spacing={3} direction="row">
-            <FormGroup id="form-group-checkboxs-tags">
-            <Typography variant="h4" sx={{color:"secondary.main", fontWeight:"bold"}}>Catégories</Typography>
-              {tags && tags.map(tag => (
-                <FormControlLabel 
-                  control={<Checkbox name={tag.id} />}
-                  label={tag.name}
-                  key={tag.id}
-                />
-              ))}
-            </FormGroup>
-            <Button variant="contained" onClick={handleSubmit}>
-                Valider les Catégories
-            </Button>
-          </Grid>
-        </Grid>
-      </div>
+          <SearchTags handleSubmit={handleSubmit}  tags={tags}/>
+        </>
+      }
+    </Container>
   );
 };
 
