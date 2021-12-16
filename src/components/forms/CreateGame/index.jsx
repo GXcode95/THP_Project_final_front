@@ -1,10 +1,14 @@
 import React, {useState} from 'react'
-import { Checkbox, Container, FormGroup, FormControlLabel, Typography, Box, TextField, Button} from '@mui/material';
+import { Checkbox, Container, FormGroup, FormControlLabel, Typography, Box, TextField, Button, Snackbar} from '@mui/material';
 import NumberField from '../GameInput/NumberField';
 import ImagesDropzone from 'components/ImagesDropzone';
 import APIManager from 'services/Api'
 
 const CreateGame = () => {
+  const [snackState, setSnackState] = useState(false)
+  const [message, setMessage] = useState("")
+  const [alertType, setAlertType] = useState("")
+  
   const [files, setFiles] = useState([])
   const [name, setName] = useState()
   const [description, setDescription] = useState()
@@ -180,6 +184,8 @@ const CreateGame = () => {
             >
               Valider
             </Button>
+
+            <Snackbar snackState={snackState} setSnackState={setSnackState} message={message} alertType={alertType}/>
           </Box>
         </Box>
       </Container>
