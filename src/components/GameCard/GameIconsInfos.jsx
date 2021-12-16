@@ -4,6 +4,7 @@ import ChildCareIcon from '@mui/icons-material/ChildCare'
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import Rating from '@mui/material/Rating';
 
+
 const GameIconsInfos = ({ game }) => {
   return (
     <Stack direction="row" justifyContent="flex-start" align="left" className="card-game-list">
