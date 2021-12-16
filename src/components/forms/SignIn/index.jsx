@@ -8,6 +8,7 @@ import EmailInput from '../input/EmailInput';
 import PasswordInput from '../input/PasswordInput';
 import CookieBar from 'components/CookieBar';
 import Cookies from 'js-cookie';
+import { setSnackbar } from 'store/snackbar/actions';
 
 const SignIn = () => {
   const [email, setEmail] = React.useState()
@@ -24,8 +25,8 @@ const SignIn = () => {
       dispatch(fetchUserRequest())
       const response = await APIManager.signInUser(email, password)
       response.error ?
-        dispatch(fetchUserError(response.error)) :
-        dispatch(fetchUserSignInSuccess(response))
+        dispatch(fetchUserError(response.error)) && dispatch(setSnackbar(true, "error", "Email et/ou mot de passe sont incorrect(s) ")) :
+        dispatch(fetchUserSignInSuccess(response)) && dispatch(setSnackbar(true, "success", "Vous êtes maintenant connecté(e)"))
       navigate('/')
     } else {
       alert('vous devez accepter les cookies pour vous connecter')

@@ -6,6 +6,8 @@ import Box from '@mui/material/Box';
 import AdminNav from 'pages/Dashboard/AdminNav';
 import AdminRent from './AdminRent'
 import EditGameList from 'components/forms/EditGame/EditGameList';
+import ManagingTag from 'components/forms/ManagingTag';
+import { Grid } from '@mui/material';
 
 const Dashboard = () => {
   const [value, setValue] = React.useState(0);
@@ -23,36 +25,40 @@ const Dashboard = () => {
   const TabPanel = () => {
     switch (value) {
       case 0:
-        return  <CreateGame />
+        return <CreateGame />
       case 1:
         return <EditGameList />
-      case 2: 
-        return  <AdminRent/>
-      default:;
+      case 2:
+        return <AdminRent />
+      case 3:
+        return <ManagingTag />
+      default: ;
     }
   }
 
 
-  
+
   return (
     <>
       <AdminNav />
       <Box
-        sx={{ flexGrow: 1, display: 'flex', height: 224}}
+        sx={{ flexGrow: 1, display: 'flex', height: 224 }}
       >
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          sx={{ borderRight: 1, borderColor: 'divider' }}
-        >
-          <Tab label="Ajouter un jeu" {...a11yProps(0)} />
-          <Tab label="Editer un jeu" {...a11yProps(1)} />
-          <Tab label="Autres" {...a11yProps(2)} />
-
-        </Tabs>
+        <Grid sx={{ mr: 3 }}>
+          <Tabs
+            orientation="vertical"
+            variant="scrollable"
+            value={value}
+            onChange={handleChange}
+            aria-label="Vertical tabs example"
+            sx={{ borderRight: 1, borderColor: 'divider' }}
+          >
+            <Tab label="Ajouter un jeu" {...a11yProps(0)} />
+            <Tab label="Editer un jeu" {...a11yProps(1)} />
+            <Tab label="Autres" {...a11yProps(2)} />
+            <Tab label="Catégories" {...a11yProps(3)} />
+          </Tabs>
+        </Grid>
         {TabPanel()}
       </Box>
     </>
