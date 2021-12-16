@@ -1,9 +1,10 @@
 import React from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { TextField, IconButton, Typography, Button, Box } from '@mui/material';
+import { TextField, IconButton, Typography, Grid } from '@mui/material';
 import APIManager from 'services/Api'
 import EditIcon from '@mui/icons-material/Edit';
 import EditOffIcon from '@mui/icons-material/EditOff';
+import GradingOutlinedIcon from '@mui/icons-material/GradingOutlined';
+import DeleteButton from 'components/buttons/DeleteButton';
 
 const TagCard = ({ setTags, tag }) => {
 
@@ -29,21 +30,26 @@ const TagCard = ({ setTags, tag }) => {
   }
 
   return (
-    <Box sx={{ flexGrow: 1, display: 'flex' }}>
-      {editionMode ?
-        <div>
-          <TextField label="Nom" variant="outlined" value={name} onChange={handleChange} />
-          <Button color="primary" onClick={editTag}>Editer</Button>
-        </div>
-        :
-        <Typography>{tag.name}</Typography>}
-      <IconButton aria-label="delete" onClick={e => deleteTag(e, tag.id)}>
-        <DeleteIcon />
-      </IconButton>
-      <IconButton aria-label="delete" onClick={e => setEditionMode(!editionMode)}>
-        {editionMode ? <EditOffIcon /> : <EditIcon />}
-      </IconButton>
-    </Box>
+
+    <Grid container>
+      <Grid item xs={8}>
+        {editionMode ?
+          <TextField label="Nom" variant="outlined" value={name} onChange={handleChange} /> :
+          <Typography noWrap>{tag.name}</Typography>}
+      </Grid>
+      <Grid item xs={4}>
+        <IconButton aria-label="delete" onClick={e => setEditionMode(!editionMode)}>
+          {editionMode ? <EditOffIcon color="error" /> : <EditIcon color="secondary" />}
+        </IconButton>
+        {editionMode ?
+          <IconButton aria-label="edit" onClick={editTag} color="success">
+            <GradingOutlinedIcon />
+          </IconButton>
+          :
+          <DeleteButton aria-label="delete" onClick={e => deleteTag(e, tag.id)} color="error" />
+        }
+      </Grid>
+    </Grid>
   );
 };
 
