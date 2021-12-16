@@ -7,6 +7,8 @@ import APIManager from 'services/Api'
 import { useNavigate } from 'react-router';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { setSnackbar } from 'store/snackbar/actions';
+import isAdmin from 'helpers/isAdmin';
+
 
 const AvatarDropdown = () => {
   const [anchorEl, setAnchorEl] = useState(null);
