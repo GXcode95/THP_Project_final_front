@@ -11,6 +11,8 @@ import PhoneInput from '../input/PhoneInput';
 import FirstNameInput from '../input/FirstNameInput';
 import LastNameInput from '../input/LastNameInput';
 import AddressInput from '../input/AddressInput';
+import validateSignUpForm from 'helpers/validateSignUpForm';
+import sendAlert from 'helpers/sendAlert';
 
 const SignUp = () => {
   const [email,setEmail] = useState()
@@ -27,24 +29,31 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userInfo = {
-      email,
-      password,
+      email: email,
+      password: password,
       password_confirmation: passwordConfirmation,
       first_name: firstName,
       last_name: lastName,
-      phone,
-      address
+      phone: phone,
+      address: address
     }
+    console.log("USER", userInfo)
     dispatch(fetchUserRequest())
-    const response = await APIManager.registerUser(userInfo)
-    if(response){
-      response.error ? 
-        dispatch(fetchUserError(response.error)) :
-        dispatch(fetchUserRegisterSuccess(response))
-    }else {
-      alert("Un problème est survenue, mercide réessayer dans quelques instant")
+    const errorsMessages = validateSignUpForm(userInfo)
+    console.log("EEEEEERORORORORORO", errorsMessages)
+    if (errorsMessages.length > 0) {
+      sendAlert(errorsMessages)
+    }else{
+      const response = await APIManager.registerUser(userInfo)
+      if(response){
+        response.error ? 
+          dispatch(fetchUserError(response.error)) :
+          dispatch(fetchUserRegisterSuccess(response))
+      }else {
+        alert("Un problème est survenue, merci de réessayer dans quelques instant")
+      }
+      navigate('/') 
     }
-    navigate('/') 
   }
 
   return (
