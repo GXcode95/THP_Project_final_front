@@ -45,7 +45,7 @@ const GameCard = ({ game, edit }) => {
     } else if (wishListLength >= rent.wishlist_limit) {
       dispatch(setSnackbar(true, "error","Vous avez atteint la limite de jeux autorisés par votre abonnement"))
     } else if (rent.wishlist.find(wishedGame => wishedGame.game.id === game.id)){
-      dispatch(setSnackbar(true, "error","Ce jeu a déjà été ajouté à votre wish list!"))
+      dispatch(setSnackbar(true, "error","Ce jeu a déjà été ajouté à votre liste de jeux pour le mois prochain!"))
     } else {
       dispatch(fetchUserRequest())
       const response = await APIManager.createRent({ quantity: 1, user_id: user.id, game_id: game.id })
@@ -55,7 +55,6 @@ const GameCard = ({ game, edit }) => {
       }else{
         dispatch(fetchPostWishListSuccess(response.wishlist))
         dispatch(setSnackbar(true, "success", "Le jeu a bien été ajouté a votre liste de jeux pour le mois prochain!"))
-        alert("jeu ajouter au favoris")
       }
     }
   }
