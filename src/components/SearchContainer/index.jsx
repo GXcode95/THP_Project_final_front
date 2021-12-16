@@ -120,7 +120,6 @@ const SearchContainer = ({ games, setGames }) => {
           direction="row"
           justifyContent="center"
           spacing={1}
-          border="solid 1 px blue"
           sx={{
             paddingBottom:"2rem", 
             
@@ -131,7 +130,7 @@ const SearchContainer = ({ games, setGames }) => {
             direction='row'
             justifyContent="center"
           >
-            <Typography variant="h4" sx={{paddingLeft:"1.2rem", color:"secondary.main", fontWeight:"bold"}}>Filtres</Typography>
+            <Typography variant="h4" sx={{paddingLeft:"1.2rem", marginLeft:"auto", marginRight:"auto", color:"secondary.main", fontWeight:"bold"}}>Filtres</Typography>
             {console.log('GAMES FOR SEARCH => ', games)}
             <Box item sx={{margin:"1.1rem" }}>
               <SearchSelect name="Prix-Min" selectList={min_prices} setFilter={setFilter} filter={filter} />
