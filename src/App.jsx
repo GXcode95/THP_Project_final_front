@@ -10,7 +10,7 @@ import Profile from 'pages/Profile';
 import Subscription from 'pages/Subscription';
 import NotFound from 'pages/NotFound'
 import { light } from 'style/palette'
-import { ThemeProvider, CssBaseline, Box } from '@mui/material';
+import { ThemeProvider, CssBaseline, Box, Button } from '@mui/material';
 import NavBar from 'components/navigation/NavBar';
 import BottomBar from 'components/BottomBar'
 import HeroBanner from './components/navigation/NavBar/HeroBanner'
@@ -23,6 +23,8 @@ import isSigned from 'helpers/isSigned';
 import isAdmin from 'helpers/isAdmin';
 import {useSelector} from 'react-redux'
 import SendAlert from 'components/Alert/SendAlert';
+
+
 const App = () => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.userReducer)
@@ -71,6 +73,9 @@ const App = () => {
         <CssBaseline />
         <Router>
           <NavBar />
+          <Button onClick={e => Cookies.set('token', "daldadodaod")}>
+            DEPINPIVENEN
+          </Button>
           <Routes>
             <Route path="/" element={<Home />} exact />
             <Route path="/jeux" element={<Games />} exact />
