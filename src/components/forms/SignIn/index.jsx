@@ -20,7 +20,7 @@ const SignIn = () => {
     const response = await APIManager.signInUser(email, password)
     response.error ? 
       dispatch(fetchUserError(response.error)) && dispatch(setSnackbar(true, "error", "Email et/ou mot de passe sont incorrect(s) ")):
-      dispatch(fetchUserSignInSuccess(response)) && dispatch(setSnackbar(true, "error", "Vous êtes maintenant connecté(e)"))
+      dispatch(fetchUserSignInSuccess(response)) && dispatch(setSnackbar(true, "success", "Vous êtes maintenant connecté(e)"))
     navigate('/')
   };
 
