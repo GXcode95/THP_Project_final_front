@@ -37,6 +37,7 @@ const SignUp = () => {
       phone: phone,
       address: address
     }
+
     
     const errorsMessages = validateSignUpForm(userInfo)
     if (errorsMessages.length > 0) {
