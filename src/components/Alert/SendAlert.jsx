@@ -32,7 +32,7 @@ const SendAlert = () => {
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         open={snackbarReducer.SNOpen}
-        autoHideDuration={10000}
+        autoHideDuration={7000}
         onClose={handleClose}
         action={action}
         sx={{mt: 5}}

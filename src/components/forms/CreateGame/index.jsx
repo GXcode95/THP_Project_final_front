@@ -57,7 +57,6 @@ const CreateGame = () => {
       sell_stock: 100,
       rent_stock:100
     }
-    console.log("Errors messages", validateGameForms(gameInfo))
 
     const errorsMessages = validateGameForms(gameInfo)
     const tags = getAllCheckedTags()
@@ -73,7 +72,7 @@ const CreateGame = () => {
       dispatch(setSnackbar(true, "error", errorsMessages))
     }else{
       const response = await APIManager.createGameAdmin(gameInfo, publicIdList, tags)
-      response.error ? alert(`une erreur est survenue :"${response.error}"`) : alert("jeu créer avec succès")
+      response.error ? dispatch(setSnackbar(true, "error",response.error)) : dispatch(setSnackbar(true, "success", "Nouveau jeu créé avec succès!"))
     }
   }
 

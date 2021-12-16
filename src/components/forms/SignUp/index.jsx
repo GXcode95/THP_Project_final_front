@@ -46,8 +46,8 @@ const SignUp = () => {
       const response = await APIManager.registerUser(userInfo)
       if(response){
         response.error ? 
-          dispatch(fetchUserError(response.error)) :
-          dispatch(fetchUserRegisterSuccess(response))
+          dispatch(fetchUserError(response.error)) && dispatch(setSnackbar(true, "error", response.error)):
+          dispatch(fetchUserRegisterSuccess(response)) && dispatch(setSnackbar(true, "success", "Votre compte a bien été créé! Bienvenue chez PlayBox!"))
       }else {
         alert("Un problème est survenue, merci de réessayer dans quelques instant")
       }

@@ -6,6 +6,7 @@ import { fetchUserRequest, fetchUserSignOutSuccess, fetchUserError } from 'store
 import APIManager from 'services/Api'
 import { useNavigate } from 'react-router';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { setSnackbar } from 'store/snackbar/actions';
 
 const AvatarDropdown = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -23,8 +24,8 @@ const AvatarDropdown = () => {
     dispatch(fetchUserRequest())
     const response = await APIManager.signOutUser()
     response.error ? 
-      dispatch(fetchUserError) :
-      dispatch(fetchUserSignOutSuccess)
+      dispatch(fetchUserError) && dispatch(setSnackbar(true, "error", response.error)):
+      dispatch(fetchUserSignOutSuccess) && dispatch(setSnackbar(true, "success", "Vous êtes maintenant déconnecté(e)"))
     navigate(0)
   }
   return (

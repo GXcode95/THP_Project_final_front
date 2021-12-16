@@ -49,8 +49,8 @@ const EditGameForm = ({ game, toggleEditMode }) => {
     dispatch(fetchUserRequest())
     const response = await APIManager.updateGamesAdmin(gameId, gameInfoUpdated)
     response.error ? 
-      dispatch(fetchUserError(response.error)) :
-      dispatch(fetchUserSignInSuccess(response))
+      dispatch(fetchUserError(response.error)) && dispatch(setSnackbar(true, "error", response.error)):
+      dispatch(fetchUserSignInSuccess(response)) && dispatch(setSnackbar(true, "success", "Les modifications apportées ont bien été prises en compte."))
     }
   }
 
