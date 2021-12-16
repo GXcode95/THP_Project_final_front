@@ -72,37 +72,37 @@ export default class APIManager {
 
   static async signInUser(email, password) {
     const response = await axios.post(`${BASE_URL}/users/sign_in`, {
-          "user": {
-            email,
-            password
-          }
-        })
-        .catch(error => handleCatchError(error))
+      "user": {
+        email,
+        password
+      }
+    })
+      .catch(error => handleCatchError(error))
     handleJwt(response)
     console.log("APIManager # signInUser =>", response)
     let formatedResponse = []
-    if (response.data.error){
+    if (response.data.error) {
       formatedResponse = response.data.error
     } else {
-      response.data.favorites.forEach( game => formatedResponse.push({...game.info, images: game.images }) )
-    }        
-    return {...response.data, favorites: formatedResponse}
+      response.data.favorites.forEach(game => formatedResponse.push({ ...game.info, images: game.images }))
+    }
+    return { ...response.data, favorites: formatedResponse }
   }
 
   static async signInUserJwt() {
     const response = await axios.post(`${BASE_URL}/users/sign_in`, null, {
-          headers: { 'Authorization': `Bearer ${Cookies.get('token')}` }
-        })
-        .catch(error => handleCatchError(error))
-      handleJwt(response)
-      console.log("APIManager # signInUserJwt =>", response)
-      let formatedResponse = []
-      if (response.data.error){
-        formatedResponse = response.data.error
-      } else {
-        response.data.favorites.forEach( game => formatedResponse.push({...game.info, images: game.images }) )
-      }        
-    return {...response.data, favorites: formatedResponse}
+      headers: { 'Authorization': `Bearer ${Cookies.get('token')}` }
+    })
+      .catch(error => handleCatchError(error))
+    handleJwt(response)
+    console.log("APIManager # signInUserJwt =>", response)
+    let formatedResponse = []
+    if (response.data.error) {
+      formatedResponse = response.data.error
+    } else {
+      response.data.favorites.forEach(game => formatedResponse.push({ ...game.info, images: game.images }))
+    }
+    return { ...response.data, favorites: formatedResponse }
   }
 
   static async changePasswordRequest(email) {
@@ -201,7 +201,7 @@ export default class APIManager {
     if (response.data.error) {
       formatedResponse = response.data.error
     } else {
-      response.data.forEach(game => formatedResponse.push({...game.info, images: game.images, rank: game.rank, tags: game.tags }))
+      response.data.forEach(game => formatedResponse.push({ ...game.info, images: game.images, rank: game.rank, tags: game.tags }))
     }
     return formatedResponse
   }
@@ -291,7 +291,7 @@ export default class APIManager {
     if (response.data.error) {
       formatedResponse = response.data
     } else {
-      formatedResponse = response.data.cart.cart_games.forEach(order => { return {...order, game: {...order.game, ...order.images } } })
+      formatedResponse = response.data.cart.cart_games.forEach(order => { return { ...order, game: { ...order.game, ...order.images } } })
     }
     console.log("FORMATED", formatedResponse)
     return response.data
@@ -343,7 +343,7 @@ export default class APIManager {
 
   static async updatePackageAdmin(packagesID) {
     const response = await API.put(`/admin/packages/${packagesID}`)
-        .catch(error => handleCatchError(error))
+      .catch(error => handleCatchError(error))
     console.log("APIManager # updatePackages =>", response)
     return response.data
   }
@@ -369,7 +369,7 @@ export default class APIManager {
   }
 
   static async deleteComment(commentID) {
-    const response = await API.delete(`/comments/${commentID}`, )
+    const response = await API.delete(`/comments/${commentID}`,)
 
     if (!response) return { error: ERROR_MESSAGE }
     console.log("APIManager # deleteComment => ", response)
@@ -377,7 +377,7 @@ export default class APIManager {
   }
 
   static async deleteCommentAdmin(commentID) {
-    const response = await API.delete(`/admin/comments/${commentID}`, )
+    const response = await API.delete(`/admin/comments/${commentID}`,)
 
     if (!response) return { error: ERROR_MESSAGE }
     console.log("APIManager # deleteCommentAdmin => ", response)
@@ -390,28 +390,28 @@ export default class APIManager {
 
   static async getTags() {
     const response = await API.get(`/tags`)
-        .catch(error => handleCatchError(error))
+      .catch(error => handleCatchError(error))
     console.log("APIManager # getTags =>", response)
     return response.data
   }
 
-  static async createTagsAdmin(tagID) {
-    const response = await API.post(`/admin/tags/${tagID}`)
-        .catch(error => handleCatchError(error))
+  static async createTagsAdmin(name) {
+    const response = await API.post(`/admin/tags`, { name: name })
+      .catch(error => handleCatchError(error))
     console.log("APIManager # createTag =>", response)
     return response.data
   }
 
-  static async updateTagsAdmin(tagID) {
-    const response = await API.put(`/admin/tags/${tagID}`)
-        .catch(error => handleCatchError(error))
+  static async updateTagsAdmin(tagID, name) {
+    const response = await API.put(`/admin/tags/${tagID}`, { name: name })
+      .catch(error => handleCatchError(error))
     console.log("APIManager # updateTag =>", response)
     return response.data
   }
 
   static async deleteTagsAdmin(tagID) {
     const response = await API.delete(`/admin/tags/${tagID}`)
-        .catch(error => handleCatchError(error))
+      .catch(error => handleCatchError(error))
     console.log("APIManager # deleteTag =>", response)
     return response.data
   }
@@ -421,30 +421,30 @@ export default class APIManager {
   ///////////////////////
   ///    FAVORTITES   ///
   ///////////////////////
-  
+
   static async getFavorites() {
     const response = await API.get('favorites')
       .catch(error => handleCatchError(error))
     let formatedResponse = []
-      if (response.data.error){
-        formatedResponse = response.data.error
-      } else {
-        response.data.forEach( game => formatedResponse.push({...game.info, images: game.images }) )
-      }
-    console.log("APIManager # getFavorite =>", formatedResponse)   
+    if (response.data.error) {
+      formatedResponse = response.data.error
+    } else {
+      response.data.forEach(game => formatedResponse.push({ ...game.info, images: game.images }))
+    }
+    console.log("APIManager # getFavorite =>", formatedResponse)
     return { favorites: formatedResponse }
   }
 
   static async createFavorite(gameID, userID) {
     const response = await API.post(`/favorites`, { game_id: gameID, user_id: userID })
-        .catch(error => handleCatchError(error))
+      .catch(error => handleCatchError(error))
     console.log("APIManager # createFavorite =>", response)
     return response.data
   }
 
   static async deleteFavorite(gameID) {
     const response = await API.delete(`/favorites/${gameID}`)
-        .catch(error => handleCatchError(error))
+      .catch(error => handleCatchError(error))
     console.log("APIManager # deleteFavorite =>", response)
     return response.data
   }
@@ -455,7 +455,7 @@ export default class APIManager {
 
   static async createRank(gameID) {
     const response = await API.get(`/games/${gameID}/rank`)
-        .catch(error => handleCatchError(error))
+      .catch(error => handleCatchError(error))
     console.log("APIManager # createRank =>", response)
     return response.data
   }
