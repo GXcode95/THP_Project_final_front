@@ -6,6 +6,7 @@ import { fetchUserRequest, fetchUserSignInSuccess, fetchUserError } from 'store/
 import { Button,Box, Container } from '@mui/material';
 import EmailInput from '../input/EmailInput';
 import PasswordInput from '../input/PasswordInput';
+import { setSnackbar } from 'store/snackbar/actions';
 
 const SignIn = () => {
   const [email, setEmail] = React.useState()
@@ -18,8 +19,8 @@ const SignIn = () => {
     dispatch(fetchUserRequest())
     const response = await APIManager.signInUser(email, password)
     response.error ? 
-      dispatch(fetchUserError(response.error)) :
-      dispatch(fetchUserSignInSuccess(response))
+      dispatch(fetchUserError(response.error)) && dispatch(setSnackbar(true, "error", "Email et/ou mot de passe sont incorrect(s) ")):
+      dispatch(fetchUserSignInSuccess(response)) && dispatch(setSnackbar(true, "error", "Vous êtes maintenant connecté(e)"))
     navigate('/')
   };
 

@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
-import { Checkbox, Container, FormGroup, FormControlLabel, Typography, Box, TextField, Button} from '@mui/material';
+import { Checkbox, Container, FormGroup, FormControlLabel, Typography, Box, TextField, Button, Snackbar} from '@mui/material';
 import NumberField from '../GameInput/NumberField';
 import ImagesDropzone from 'components/ImagesDropzone';
 import APIManager from 'services/Api'
 import validateGameForms from 'helpers/validateGameForms';
-import sendAlert from 'helpers/sendAlert';
+import { useDispatch } from 'react-redux';
+import { setSnackbar } from 'store/snackbar/actions';
 
 const CreateGame = () => {
+  const dispatch = useDispatch()
   const [files, setFiles] = useState([])
   const [name, setName] = useState()
   const [description, setDescription] = useState()
@@ -55,7 +57,6 @@ const CreateGame = () => {
       sell_stock: 100,
       rent_stock:100
     }
-    console.log("Errors messages", validateGameForms(gameInfo))
 
     const errorsMessages = validateGameForms(gameInfo)
     const tags = getAllCheckedTags()
@@ -68,10 +69,10 @@ const CreateGame = () => {
     console.log("----------------------")
     
     if (errorsMessages.length > 0 ){
-      sendAlert(errorsMessages)
+      dispatch(setSnackbar(true, "error", errorsMessages))
     }else{
       const response = await APIManager.createGameAdmin(gameInfo, publicIdList, tags)
-      response.error ? alert(`une erreur est survenue :"${response.error}"`) : alert("jeu créer avec succès")
+      response.error ? dispatch(setSnackbar(true, "error",response.error)) : dispatch(setSnackbar(true, "success", "Nouveau jeu créé avec succès!"))
     }
   }
 
@@ -188,6 +189,14 @@ const CreateGame = () => {
               ))}
             </FormGroup>
 
+            <Button
+              onClick={handleClick}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Valider
+            </Button>
           </Box>
         </Box>
       </Container>
