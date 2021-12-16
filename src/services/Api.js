@@ -96,12 +96,15 @@ export default class APIManager {
     const response = await axios.post(`${BASE_URL}/users/sign_in`, null, {
       headers: { 'Authorization': `Bearer ${Cookies.get('token')}` }
     })
-      .catch(error => handleCatchError(error))
+    .catch(error => {
+      handleCatchError(error)
+      return { error: error }
+    })
     handleJwt(response)
     console.log("APIManager # signInUserJwt =>", response)
     let formatedResponse = []
     if (response.data.error) {
-      formatedResponse = response.data.error
+      return {...response.data, error: response.data.error}
     } else {
       formatedResponse = response.data.favorites.map(game => {
         return { ...game.info, images: game.images }
