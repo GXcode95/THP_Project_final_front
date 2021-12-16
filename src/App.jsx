@@ -22,6 +22,7 @@ import { MobileView } from 'react-device-detect';
 import isSigned from 'helpers/isSigned';
 import isAdmin from 'helpers/isAdmin';
 import {useSelector} from 'react-redux'
+import SendAlert from 'components/Alert/SendAlert';
 const App = () => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.userReducer)
@@ -87,9 +88,11 @@ const App = () => {
             <BottomBar />
           </MobileView>
         </Router>
+        <SendAlert/>
       </ThemeProvider>
       {console.log("cookies => ", Cookies.get('token'))}
       {console.log("store => ", store)}
+
     </div>
   );
 }

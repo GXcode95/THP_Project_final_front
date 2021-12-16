@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import { useDispatch } from 'react-redux'
 import APIManager from 'services/Api'
 import { fetchUserError, fetchUserRequest, fetchPostWishListSuccess } from 'store/users/actions'
+import { setSnackbar } from 'store/snackbar/actions'
 
 const Wishlist = (props) => {
   const dispatch = useDispatch()
@@ -17,7 +18,7 @@ const Wishlist = (props) => {
     const quantity = parseInt(quantityElement.textContent.split(' ')[1])
 
     if(wishListSpaceLeft <= 0){
-      alert("Vous avez atteint la limite de jeux autorisés par votre abonnement")
+      dispatch(setSnackbar(true, "error","Vous avez atteint la limite de jeux autorisés par votre abonnement"))
       return
     }
     

@@ -3,12 +3,14 @@ import thunkMiddleware from 'redux-thunk';
 import userReducer from './users/reducer'
 import themeReducer from './themes/reducer';
 import gamesReducer from './games/reducer'
+import snackbarReducer from './snackbar/reducer';
 
 
 const rootReducer = combineReducers({
   userReducer,
   themeReducer,
-  gamesReducer
+  gamesReducer,
+  snackbarReducer
 })
 
 let store = createStore(
