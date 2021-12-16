@@ -1,11 +1,15 @@
 const validateSignUpForm = (data) => {
   let errorsMessages = []
 
+  let emailRegex = (/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+
   Object.keys(data).map( key => {
     switch (key) {
       case "email":
         if(!data[key] || data[key].length === 0){
           errorsMessages.push("Le champ Nom du jeu est obligatoire")
+        }else if (!data[key].match(emailRegex)){
+          errorsMessages.push("L'email fournit n'est pas valide")
         }
         break
       case "password":
