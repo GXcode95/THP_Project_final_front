@@ -21,13 +21,17 @@ import { useDispatch } from 'react-redux';
 import { MobileView } from 'react-device-detect';
 import isSigned from 'helpers/isSigned';
 import isAdmin from 'helpers/isAdmin';
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux';
+import CookieBar from "components/CookieBar";
+
 const App = () => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.userReducer)
   const store = useSelector(state => state)
+
+
   const userRoutes = () => {
-    if(user && isSigned(user)){
+    if (user && isSigned(user)) {
       return (
         <>
           <Route path="/panier" element={<Cart />} exact />
@@ -44,7 +48,6 @@ const App = () => {
     }
   }
 
-
   React.useEffect( // sign in user if he have a valid jwt
     () => {
       const signInWithJwt = async () => {
@@ -53,9 +56,9 @@ const App = () => {
         if (jwt) {
           dispatch(fetchUserRequest)
           const response = await APIManager.signInUserJwt()
-          if(response.error ){
+          if (response.error) {
             dispatch(fetchUserError(response.error))
-          }else {
+          } else {
             dispatch(fetchUserSignInSuccess(response))
           }
         }
@@ -63,6 +66,7 @@ const App = () => {
       signInWithJwt()
     }, [dispatch]
   )
+
 
   return (
     <div className='App'>
@@ -77,8 +81,8 @@ const App = () => {
             <Route path="/connexion" element={<Login />} exact />
             <Route path="/abonnement" element={<Subscription />} exact />
             {userRoutes()}
-            {user && isAdmin(user) && 
-              <Route path="/dashboard" element={<Dashboard />} exact /> 
+            {user && isAdmin(user) &&
+              <Route path="/dashboard" element={<Dashboard />} exact />
             }
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -87,7 +91,9 @@ const App = () => {
             <BottomBar />
           </MobileView>
         </Router>
+        <CookieBar user={user} className="cookies-bar" />
       </ThemeProvider>
+
       {console.log("cookies => ", Cookies.get('token'))}
       {console.log("store => ", store)}
     </div>
