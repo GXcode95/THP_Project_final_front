@@ -37,7 +37,6 @@ const GameDetails = () => {
       if (game) {
         const tmpImage = game.images.map(image => { return { "image": `http://res.cloudinary.com/thefinalproject/image/upload/c_crop,h_200/v1/seed/${image}` } });
         setImageFromCloudinary(tmpImage);
-        console.log(tmpImage);
       }
     }, [game]
   )
@@ -83,6 +82,7 @@ const GameDetails = () => {
           </Grid>
         }
         <Grid item xs={12} md={6} lg={8}>
+          {console.log(game)}
           <GameInfo game={game && game} className="game-info-details" />
           <Button onClick={handleRent}>Louer</Button>
         </Grid>
