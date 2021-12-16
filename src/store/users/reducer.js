@@ -22,7 +22,7 @@ const initialState = {
   rent: {},
   command_history: {},
   cart: {},
-  error: ''
+  error: "salut mec ! (voix d'Eddy murphy)"
 }
 
 const userReducer = (state = initialState, action) => {

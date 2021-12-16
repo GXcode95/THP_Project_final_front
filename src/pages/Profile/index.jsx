@@ -7,6 +7,7 @@ import CartHistory from 'components/CartHistory'
 import { Grid, Typography } from '@mui/material'
 import GameList from 'components/GameList';
 import { fetchUpdateFavoriteSuccess } from 'store/users/actions';
+import Snack from 'components/Snack'
 
 const Profile = () => {
   const [cartsHistory, setCartsHistory] = React.useState()
@@ -45,9 +46,10 @@ const Profile = () => {
 
   return (
     <div className=''>
+      <Snack />
       {isSigned(user) &&
         <Grid container spacing={8}>
-
+          
           <Grid item xs={12} md={6} >
             <EditProfile user={user.user_info} />
           </Grid>
