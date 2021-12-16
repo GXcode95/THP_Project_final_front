@@ -217,7 +217,7 @@ export default class APIManager {
     console.log("APIManager # getGame =>", response)
 
     const formatedResponse = response.data.error ?
-      response.data.error : {
+      response.data : {
         ...response.data.info,
         images: response.data.images,
         comments: response.data.comments,
@@ -362,7 +362,16 @@ export default class APIManager {
 
     if (!response) return { error: ERROR_MESSAGE }
     console.log("APIManager # createComment => ", response)
-    return response.data
+    
+    const formatedResponse = response.data.error ?
+      response.data : {
+        ...response.data.info,
+        images: response.data.images,
+        comments: response.data.comments,
+        rank: response.data.rank,
+        tags: response.data.tags
+      }
+    return formatedResponse
   }
 
   static async updateComment(commentID, content) {
@@ -370,7 +379,16 @@ export default class APIManager {
 
     if (!response) return { error: ERROR_MESSAGE }
     console.log("APIManager # updateComment => ", response)
-    return response.data
+    
+    const formatedResponse = response.data.error ?
+      response.data : {
+        ...response.data.info,
+        images: response.data.images,
+        comments: response.data.comments,
+        rank: response.data.rank,
+        tags: response.data.tags
+      }
+    return formatedResponse
   }
 
   static async deleteComment(commentID) {
@@ -378,7 +396,16 @@ export default class APIManager {
 
     if (!response) return { error: ERROR_MESSAGE }
     console.log("APIManager # deleteComment => ", response)
-    return response.data
+    
+    const formatedResponse = response.data.error ?
+      response.data : {
+        ...response.data.info,
+        images: response.data.images,
+        comments: response.data.comments,
+        rank: response.data.rank,
+        tags: response.data.tags
+      }
+    return formatedResponse
   }
 
   static async deleteCommentAdmin(commentID) {
@@ -386,7 +413,16 @@ export default class APIManager {
 
     if (!response) return { error: ERROR_MESSAGE }
     console.log("APIManager # deleteCommentAdmin => ", response)
-    return response.data
+    
+    const formatedResponse = response.data.error ?
+      response.data : {
+        ...response.data.info,
+        images: response.data.images,
+        comments: response.data.comments,
+        rank: response.data.rank,
+        tags: response.data.tags
+      }
+    return formatedResponse
   }
 
   //////////////////
