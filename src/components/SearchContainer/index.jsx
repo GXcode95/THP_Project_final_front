@@ -119,9 +119,11 @@ const SearchContainer = ({ games, setGames }) => {
         <Grid container 
           direction="row"
           justifyContent="center"
-          spacing={3}
+          spacing={1}
+          border="solid 1 px blue"
           sx={{
-            padding:"2rem", 
+            paddingBottom:"2rem", 
+            
           }}
         >
         
@@ -129,7 +131,7 @@ const SearchContainer = ({ games, setGames }) => {
             direction='row'
             justifyContent="center"
           >
-            <Typography variant="h4" sx={{paddingLeft:"1.2rem", color:"secondary.main"}}>Filtres</Typography>
+            <Typography variant="h4" sx={{paddingLeft:"1.2rem", color:"secondary.main", fontWeight:"bold"}}>Filtres</Typography>
             {console.log('GAMES FOR SEARCH => ', games)}
             <Box item sx={{margin:"1.1rem" }}>
               <SearchSelect name="Prix-Min" selectList={min_prices} setFilter={setFilter} filter={filter} />
@@ -153,7 +155,7 @@ const SearchContainer = ({ games, setGames }) => {
           
           <Grid item spacing={3} direction="row">
             <FormGroup id="form-group-checkboxs-tags">
-            <Typography variant="h4" sx={{color:"secondary.main"}}>Catégories</Typography>
+            <Typography variant="h4" sx={{color:"secondary.main", fontWeight:"bold"}}>Catégories</Typography>
               {tags && tags.map(tag => (
                 <FormControlLabel 
                   control={<Checkbox name={tag.id} />}
