@@ -37,14 +37,13 @@ const SignUp = () => {
     }
     dispatch(fetchUserRequest())
     const response = await APIManager.registerUser(userInfo)
-    if(response){
-      response.error ? 
-        dispatch(fetchUserError(response.error)) :
-        dispatch(fetchUserRegisterSuccess(response))
+    if(response.error){
+      dispatch(fetchUserError(response.error))
+      alert(response.error)
     }else {
-      alert("Un problème est survenue, mercide réessayer dans quelques instant")
+      dispatch(fetchUserRegisterSuccess(response))
+      navigate('/') 
     }
-    navigate('/') 
   }
 
   return (

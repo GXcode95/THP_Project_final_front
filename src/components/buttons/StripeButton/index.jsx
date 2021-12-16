@@ -20,7 +20,7 @@ const StripeButton = ({ item, quantity, type }) => {
     if (response.error)
       alert(response.errror)
     else
-      navigate(0)
+      navigate('/')
   }
 
   return (
