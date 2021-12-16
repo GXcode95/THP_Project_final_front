@@ -1,4 +1,4 @@
-import { Grid, Container, FormGroup, FormControlLabel, Checkbox, Button } from '@mui/material';
+import { Grid, Box, Container, FormGroup, FormControlLabel, Checkbox, Button, Typography } from '@mui/material';
 import SearchBar from 'components/SearchBar';
 import SearchSelect from 'components/SearchSelect';
 import React from 'react';
@@ -113,47 +113,61 @@ const SearchContainer = ({ games, setGames }) => {
 
   return (
     <div>
-    <SearchBar setFilter={setFilter} filter={filter} sx={{marginTop:"2rem"}} />
-      <Grid container 
-        spacing={3}
-        sx={{
-          padding:"2rem", 
-          border:"solid blue 1px"
-        }}
-      >
-     
-        <Grid item
-        >
-          {console.log('GAMES FOR SEARCH => ', games)}
-          
-          <SearchSelect name="Prix-Min" selectList={min_prices} setFilter={setFilter} filter={filter} />
-          <SearchSelect name="Prix-Max" selectList={max_prices} setFilter={setFilter} filter={filter} />
-          <SearchSelect name="Age-Min" selectList={min_ages} setFilter={setFilter} filter={filter} />
-          <SearchSelect name="Players-Min" selectList={min_players} setFilter={setFilter} filter={filter} />
-          <SearchSelect name="Players-Max" selectList={max_players} setFilter={setFilter} filter={filter} />
-          <SearchSelect name="Rank-Min" selectList={min_rank} setFilter={setFilter} filter={filter} />
-        </Grid>
+      <SearchBar setFilter={setFilter} filter={filter} />
+
         
-        <Grid item
-          direction="row">
-          <FormGroup 
-            id="form-group-checkboxs-tags"
-            sx={{border:"solid 1px red"}} 
+        <Grid container 
+          direction="row"
+          justifyContent="center"
+          spacing={3}
+          sx={{
+            padding:"2rem", 
+          }}
+        >
+        
+          <Grid item
+            direction='row'
+            justifyContent="center"
           >
-            {tags && tags.map(tag => (
-              <FormControlLabel
-                control={<Checkbox name={tag.id} />}
-                label={tag.name}
-                key={tag.id}
-              />
-            ))}
-          </FormGroup>
-          <Button variant="contained" onClick={handleSubmit}>
-              Valider les Catégories
+            <Typography variant="h4" sx={{paddingLeft:"1.2rem", color:"secondary.main"}}>Filtres</Typography>
+            {console.log('GAMES FOR SEARCH => ', games)}
+            <Box item sx={{margin:"1.1rem" }}>
+              <SearchSelect name="Prix-Min" selectList={min_prices} setFilter={setFilter} filter={filter} />
+            </Box>
+            <Box item sx={{margin:"1.1rem"}}>
+              <SearchSelect name="Prix-Max" selectList={max_prices} setFilter={setFilter} filter={filter} />
+            </Box>
+            <Box item sx={{margin:"1.1rem"}}>
+              <SearchSelect name="Age-Min" selectList={min_ages} setFilter={setFilter} filter={filter} />
+            </Box>
+            <Box item sx={{margin:"1.1rem"}}>
+              <SearchSelect name="Players-Min" selectList={min_players} setFilter={setFilter} filter={filter} />
+            </Box>
+            <Box item sx={{margin:"1.1rem"}}>
+              <SearchSelect name="Players-Max" selectList={max_players} setFilter={setFilter} filter={filter} />
+            </Box>
+            <Box item sx={{margin:"1.1rem"}}>
+              <SearchSelect name="Rank-Min" selectList={min_rank} setFilter={setFilter} filter={filter} />
+            </Box>
+          </Grid>
+          
+          <Grid item spacing={3} direction="row">
+            <FormGroup id="form-group-checkboxs-tags">
+            <Typography variant="h4" sx={{color:"secondary.main"}}>Catégories</Typography>
+              {tags && tags.map(tag => (
+                <FormControlLabel 
+                  control={<Checkbox name={tag.id} />}
+                  label={tag.name}
+                  key={tag.id}
+                />
+              ))}
+            </FormGroup>
+            <Button variant="contained" onClick={handleSubmit}>
+                Valider les Catégories
             </Button>
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
+      </div>
   );
 };
 
