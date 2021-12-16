@@ -12,7 +12,7 @@ import FirstNameInput from '../input/FirstNameInput';
 import LastNameInput from '../input/LastNameInput';
 import AddressInput from '../input/AddressInput';
 import validateSignUpForm from 'helpers/validateSignUpForm';
-import sendAlert from 'helpers/sendAlert';
+import { setSnackbar } from 'store/snackbar/actions';
 
 const SignUp = () => {
   const [email,setEmail] = useState()
@@ -40,7 +40,7 @@ const SignUp = () => {
     
     const errorsMessages = validateSignUpForm(userInfo)
     if (errorsMessages.length > 0) {
-      sendAlert(errorsMessages)
+      dispatch(setSnackbar(true, "error", errorsMessages))
     }else{
       dispatch(fetchUserRequest())
       const response = await APIManager.registerUser(userInfo)
