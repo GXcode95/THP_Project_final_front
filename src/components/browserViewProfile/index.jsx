@@ -10,6 +10,9 @@ import { fetchUpdateFavoriteSuccess } from 'store/users/actions';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import ProfileNav from './ProfileNav';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 
 const BrowserViewProfile = () => {
   const [cartsHistory, setCartsHistory] = React.useState()
@@ -87,9 +90,9 @@ const BrowserViewProfile = () => {
               aria-label="Vertical tabs example"
               sx={{ borderRight: 1, borderColor: 'divider' }}
             >
-              <Tab label="Profil" {...a11yProps(0)} />
-              <Tab label="Achats" {...a11yProps(1)} />
-              <Tab label="Favoris" {...a11yProps(2)} />
+              <Tab icon={<PermIdentityOutlinedIcon />} label="Profil" {...a11yProps(0)} />
+              <Tab icon={<LocalMallOutlinedIcon />} label="Achats" {...a11yProps(1)} />
+              <Tab icon={<FavoriteBorderIcon />} label="Favoris" {...a11yProps(2)} />
               <Tab label="??????" {...a11yProps(3)} />
             </Tabs>
           </Grid>

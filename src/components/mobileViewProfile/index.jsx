@@ -12,6 +12,10 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import isAdmin from 'helpers/isAdmin';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
+
 const MobileViewProfile = () => {
   const [cartsHistory, setCartsHistory] = React.useState()
   const user = useSelector(state => state.userReducer)
@@ -57,7 +61,7 @@ const MobileViewProfile = () => {
               aria-controls="panel1-content"
               id="panel1-header"
             >
-              <Typography>Mon profil</Typography>
+              <Typography><sub><PermIdentityOutlinedIcon /></sub> Mon profil</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <EditProfile user={user.user_info} />
@@ -70,7 +74,7 @@ const MobileViewProfile = () => {
                 aria-controls="panel2-content"
                 id="panel2-header"
               >
-                <Typography>Mes Commandes</Typography>
+                <Typography><sub><LocalMallOutlinedIcon /></sub> Mes Commandes</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 {cartsHistory && <CartHistory carts={cartsHistory} />}
@@ -84,7 +88,7 @@ const MobileViewProfile = () => {
                 aria-controls="panel2-content"
                 id="panel2-header"
               >
-                <Typography>Mes Favoris</Typography>
+                <Typography><sub><FavoriteBorderIcon /></sub> Mes Favoris</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 {favGames && favGames.length > 0 && <GameList games={favGames} />}
