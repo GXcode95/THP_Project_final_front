@@ -116,7 +116,7 @@ const SearchContainer = ({ games, setGames }) => {
     <Container>
       <SearchBar setFilter={setFilter} filter={filter} />
       
-      <Button variant="text" color="secondary" onClick={ e =>  setFilterMode(!filterMode)}>
+      <Button variant="text" color="secondary" onClick={ e =>  setFilterMode(!filterMode)} sx={{marginBottom:"1rem", marginTop:"1rem"}}>
         {filterMode ? "-" : "+"} de filtres...
       </Button>
       
