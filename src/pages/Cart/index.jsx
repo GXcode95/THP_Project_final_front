@@ -10,11 +10,12 @@ import userReducer from 'store/users/reducer'
 import gamesReducer from 'store/games/reducer'
 import RentButton from 'components/buttons/RentButton'
 import APIManager from 'services/Api'
+import Progress from 'components/Progress'
 
 const Cart = () => {
   const dispatch = useDispatch()
-  const storedCart = useSelector(state => state.userReducer.cart)
-  const [cart, setCart] = useState(storedCart)
+  const userReducer = useSelector(state => state.userReducer)
+  const [cart, setCart] = useState(userReducer.cart)
 
   const totalPrice = (cart_games) => {
     let total = 0
@@ -83,7 +84,7 @@ const Cart = () => {
     () => {
       const fetchCart = async () => {
         dispatch(fetchUserRequest())
-        const response = await APIManager.getCart(storedCart.current_cart.id)
+        const response = await APIManager.getCart(userReducer.cart.current_cart.id)
         if(response.error) {
           dispatch(fetchUserError(response.error))
         } else {
@@ -109,19 +110,26 @@ const Cart = () => {
         <Typography variant="h2" color="primary" mb="0.4em" >
           Mon panier
         </Typography>
-        <CartItem
-          games={cart.cart_games}
-          quantityButton={true}
-          deleteButton={true}
-          handleAdd={handleAdd}
-          handleRemove={handleRemove}
-          handleDelete={handleDelete}
-        />
-        <Typography id="total_price" variant="h5" color="primary" mb="0.4em" >
-          Total: {cart && totalPrice(cart.cart_games)}€
-        </Typography>
+        { userReducer && userReducer.loading ? 
+            <Progress /> 
+            :
+            <>   
+              <CartItem
+                games={cart.cart_games}
+                quantityButton={true}
+                deleteButton={true}
+                handleAdd={handleAdd}
+                handleRemove={handleRemove}
+                handleDelete={handleDelete}
+              />
+              <Typography id="total_price" variant="h5" color="primary" mb="0.4em" >
+                Total: {cart && totalPrice(cart.cart_games)}€
+              </Typography>
 
-        <StripeButton item={"Panier"} quantity={1} type="game" /> 
+              <StripeButton item={"Panier"} quantity={1} type="game" /> 
+            </>
+        }
+
       </Box>
     </Container>
   )
