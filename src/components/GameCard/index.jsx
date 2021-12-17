@@ -77,25 +77,20 @@ const GameCard = ({ game, edit }) => {
     <>
       <Card elevation={6}
         sx={{
-          padding: "0em",
+          padding: 0,
           borderRadius: '6px'
-
         }}
       >
-        <Link to={`/jeu/${game.id}`}>
-          <Typography variant="h4" align="center" noWrap py="0.5em" >
-            {game.name}
-          </Typography>
-        </Link>
 
-        <Grid container minHeight={`${handleCardHeight()}px`}>
+
+        <Grid container spacing={1} marginLeft={1} marginRight={1} minHeight={`${handleCardHeight()}px`}>
           <Grid item lg={6} md={5} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
-            <Box sx={{ padding: '10px' }}>
+            <Box sx={{ padding: '10px'}}>
               <Image
                 cloudName={process.env.REACT_APP_CLOUD_NAME}
                 publicId={game.images && game.images.length > 0 ? game.images[0] : "default_game"}
                 height={handleCardHeight()}
-                crop={game.images && game.images.length > 0 ? "crop" : "scale" }
+                crop={game.images && game.images.length > 0 ? "scale" : "scale" }
               />
             </Box>
           </Grid>
