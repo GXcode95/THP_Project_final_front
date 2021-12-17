@@ -6,11 +6,11 @@ const GameCredentials = ({game}) => {
   return (
     <Box>
       <Typography variant="body" > 
-        Un jeu créer par 
+        Un jeu créé par 
         <Typography component="span" color="secondary" > 
           {` ${game.creator} `} 
         </Typography>
-        et editer par 
+        et edité par 
         <Typography component="span" color="secondary" > 
           {` ${game.editor}`}
         </Typography>    .
