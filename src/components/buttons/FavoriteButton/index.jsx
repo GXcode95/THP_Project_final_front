@@ -44,7 +44,7 @@ const FavoriteButton = ({ gameID, userReducer }) => {
       {isSigned(userReducer) &&
         <IconButton aria-label="favorite" onClick={handleFavorite}>
           {isFav ?
-            <FavoriteIcon style={{fill: "#ff3a3a"}}/> :
+            <FavoriteIcon sx={{color: "error.main"}}/> :
             <FavoriteBorderTwoToneIcon  />
           }
         </IconButton>}
