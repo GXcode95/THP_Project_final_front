@@ -129,7 +129,7 @@ export default class APIManager {
 
     static async updateUserInfo(userId, userInfoUpdated) {
         console.log("userINFOupdated", userInfoUpdated)
-        const response = await API.put(`/users/${userId}`, userInfoUpdated)
+        const response = await API.put(`/users/${userId}`, {user: {...userInfoUpdated}})
             .catch(error => handleCatchError(error))
         console.log("APIManager # updateUserInfo =>", response)
         console.log("ResponseDATA", response.data)
