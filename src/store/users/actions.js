@@ -13,7 +13,8 @@ import {
     FETCH_POST_ORDER_SUCCESS,
     FETCH_UPDATE_ORDER_SUCCESS,
     FETCH_DELETE_ORDER_SUCCESS,
-    CHANGE_COOKIES_CONSENT
+    CHANGE_COOKIES_CONSENT,
+    END_OF_LOADING
 } from "./types";
 
 export const fetchUserRequest = () => {
@@ -49,10 +50,10 @@ export const fetchUserSignOutSuccess = () => {
     }
 }
 
-export const fetchUserUpdateSuccess = (user) => {
+export const fetchUserUpdateSuccess = (userInfo) => {
     return {
         type: FETCH_USER_UPDATE_SUCCESS,
-        user
+        userInfo
     }
 }
 
@@ -117,5 +118,11 @@ export const changeCookiesConsent = (consentCookies) => {
     return {
         type: CHANGE_COOKIES_CONSENT,
         consentCookies
+    }
+}
+
+export const endOfLoading = () => {
+    return {
+        type: END_OF_LOADING
     }
 }

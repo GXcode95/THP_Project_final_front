@@ -12,7 +12,6 @@ const Profile = () => {
       <BrowserView>
         <BrowserViewProfile />
       </BrowserView>
-
     </>
   )
 }

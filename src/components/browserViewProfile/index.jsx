@@ -1,12 +1,14 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import APIManager from 'services/Api';
 import isSigned from 'helpers/isSigned'
 import EditProfile from 'components/forms/EditProfile'
 import CartHistory from 'components/CartHistory'
 import { Grid, Box } from '@mui/material'
 import GameList from 'components/GameList';
-import { fetchUpdateFavoriteSuccess } from 'store/users/actions';
+import { fetchUserRequest, fetchUserError, fetchUpdateFavoriteSuccess, endOfLoading } from 'store/users/actions';
+import Progress from 'components/Progress';
+import { setSnackbar } from 'store/snackbar/actions';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import ProfileNav from './ProfileNav';
@@ -16,9 +18,10 @@ import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 
 const BrowserViewProfile = () => {
   const [cartsHistory, setCartsHistory] = React.useState()
-  const user = useSelector(state => state.userReducer)
+  const userReducer = useSelector(state => state.userReducer)
   const [favGames, setFavGames] = React.useState()
   const [value, setValue] = React.useState(0);
+  const dispatch = useDispatch()
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -33,7 +36,7 @@ const BrowserViewProfile = () => {
   const TabPanel = () => {
     switch (value) {
       case 0:
-        return <EditProfile user={user.user_info} />
+        return <EditProfile user={userReducer.user_info} />
 
       case 1:
         return cartsHistory && <CartHistory carts={cartsHistory} />
@@ -45,39 +48,47 @@ const BrowserViewProfile = () => {
     }
   }
 
-
-
   React.useEffect(
     () => {
       const fetchCartsHistory = async () => {
+        dispatch(fetchUserRequest())
         const response = await APIManager.getCartsHistory()
         if (response.error) {
-          alert(response.error)
+          dispatch(fetchUserError(response.error))
+          dispatch(setSnackbar(true, "error", response.error))
         } else {
-          console.log("history", response)
           setCartsHistory(response)
+          dispatch(endOfLoading())
         }
       }
       fetchCartsHistory()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []
   )
 
   React.useEffect(
     () => {
       const fetchFavorites = async () => {
+        dispatch(fetchUserRequest())
         const response = await APIManager.getFavorites()
-        if (!response.error) {
+        if (response.error) {
+          dispatch(fetchUserError(response.error))
+          dispatch(setSnackbar(true, "error", response.error))
+        } else {
           fetchUpdateFavoriteSuccess(response)
           setFavGames(response.favorites)
         }
       }
       fetchFavorites()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []
   )
-
   return (
     <div className=''>
-      {isSigned(user) &&
+      {userReducer && userReducer.loading ?
+
+        <Progress />
+        :
         <Box
           sx={{ flexGrow: 1, display: 'flex', height: 224 }}
         >
