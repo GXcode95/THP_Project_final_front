@@ -21,7 +21,7 @@ const SearchTags = ({tags, handleSubmit}) => {
         ))}
       </FormGroup>
       
-      <Button variant="contained" onClick={handleSubmit}>
+      <Button variant="contained" onClick={handleSubmit} sx={{marginBottom:"2rem"}}>
         Valider les Catégories
       </Button>
     </Box>

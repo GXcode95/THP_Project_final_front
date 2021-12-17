@@ -5,7 +5,7 @@ import SearchSelect from './SearchSelect'
 const SearchFilters = (props) => {
 
   return (
-    <Grid container>
+    <Grid container sx={{marginBottom:'0.7rem'}}>
       <Grid item xs={2}>
         <SearchSelect name="Prix-Min" selectList={props.min_prices} setFilter={props.setFilter} filter={props.filter} />
       </Grid>
