@@ -37,7 +37,7 @@ const GameDetails = () => {
     () => {
       if (game) {
         const tmpImage = game.images.length > 0 ?
-          game.images.map(image => { return { "image": `http://res.cloudinary.com/thefinalproject/image/upload/c_crop,h_200/v1/${image}` } }) 
+          game.images.map(image => { return { "image": `http://res.cloudinary.com/thefinalproject/image/upload/c_scale,h_200/v1/${image}` } }) 
           :
           [{"image": DEFAULT_CLOUD_IMAGE_URL}]
           
@@ -71,8 +71,8 @@ const GameDetails = () => {
                   dots={true}
                   pauseIconColor="white"
                   pauseIconSize="40px"
-                  slideBackgroundColor="darkgrey"
-                  slideImageFit="cover"
+                  slideBackgroundColor="white"
+                  slideImageFit="contain"
                   thumbnails={true}
                   thumbnailWidth="100px"
                   style={{

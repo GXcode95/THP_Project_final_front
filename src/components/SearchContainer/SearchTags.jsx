@@ -1,28 +1,16 @@
 import React from 'react'
-import {Button, Checkbox, FormGroup, FormControlLabel,  Box} from '@mui/material'
-
-const SearchTags = ({tags, handleChange}) => {
+import {Stack} from '@mui/material'
+import Tag from 'components/Tag'
+const SearchTags = ({tags, handleClick}) => {
 
   return (
-    <Box>
-      <FormGroup 
-        id="form-group-checkboxs-tags"
-        sx={{
-          flexDirection: 'row'
-        }}
-        
-      >
-        {tags && tags.map(tag => (
-          <FormControlLabel 
-            control={<Checkbox name={tag.id} />}
-            label={tag.name}
-            key={tag.id}
-            onChange={handleChange}
-          />
-        ))}
-      </FormGroup>
+    <Stack direction="row" id="stacked-tags" spacing={2}>
       
-    </Box>
+      {tags && tags.map( (tag,i) => (
+        <Tag tag={tag} key={i} onClick={handleClick}/>
+      ))}
+
+    </Stack>
   )
 }
 export default SearchTags
