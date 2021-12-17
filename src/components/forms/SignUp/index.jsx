@@ -11,6 +11,8 @@ import PhoneInput from '../input/PhoneInput';
 import FirstNameInput from '../input/FirstNameInput';
 import LastNameInput from '../input/LastNameInput';
 import AddressInput from '../input/AddressInput';
+import validateSignUpForm from 'helpers/validateSignUpForm';
+import { setSnackbar } from 'store/snackbar/actions';
 
 const SignUp = () => {
   const [email,setEmail] = useState()
@@ -27,21 +29,29 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userInfo = {
-      email,
-      password,
+      email: email,
+      password: password,
       password_confirmation: passwordConfirmation,
       first_name: firstName,
       last_name: lastName,
-      phone,
-      address
+      phone: phone,
+      address: address
     }
-    dispatch(fetchUserRequest())
-    const response = await APIManager.registerUser(userInfo)
-    if(response.error){
-      dispatch(fetchUserError(response.error))
-      alert(response.error)
-    }else {
-      dispatch(fetchUserRegisterSuccess(response))
+
+    
+    const errorsMessages = validateSignUpForm(userInfo)
+    if (errorsMessages.length > 0) {
+      dispatch(setSnackbar(true, "error", errorsMessages))
+    }else{
+      dispatch(fetchUserRequest())
+      const response = await APIManager.registerUser(userInfo)
+      if(response){
+        response.error ? 
+          dispatch(fetchUserError(response.error)) && dispatch(setSnackbar(true, "error", response.error)):
+          dispatch(fetchUserRegisterSuccess(response)) && dispatch(setSnackbar(true, "success", "Votre compte a bien été créé! Bienvenue chez PlayBox!"))
+      }else {
+        alert("Un problème est survenue, merci de réessayer dans quelques instant")
+      }
       navigate('/') 
     }
   }

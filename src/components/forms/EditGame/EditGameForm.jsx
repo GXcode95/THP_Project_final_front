@@ -5,8 +5,10 @@ import StringField from '../GameInput/StringField';
 import { Container, Box, Typography, TextField, Button} from '@mui/material';
 import CloseButton from 'components/buttons/CloseButton';
 import APIManager from 'services/Api';
+import validateGameForms from 'helpers/validateGameForms';
 import { useDispatch } from 'react-redux';
 import { fetchUserRequest, fetchUserError, fetchUserSignInSuccess } from 'store/users/actions';
+import { setSnackbar } from 'store/snackbar/actions';
 
 const EditGameForm = ({ game, toggleEditMode }) => {
   const dispatch = useDispatch()
@@ -40,12 +42,16 @@ const EditGameForm = ({ game, toggleEditMode }) => {
       sell_stock: 100,
       rent_stock:100
     } 
-    console.log("gameInfoUpdated", gameInfoUpdated)
+    const errorsMessages = validateGameForms(gameInfoUpdated)
+    if (errorsMessages.length > 0 ){
+      dispatch(setSnackbar(true, "error", errorsMessages))
+    }else{
     dispatch(fetchUserRequest())
     const response = await APIManager.updateGamesAdmin(gameId, gameInfoUpdated)
     response.error ? 
-      dispatch(fetchUserError(response.error)) :
-      dispatch(fetchUserSignInSuccess(response))  
+      dispatch(fetchUserError(response.error)) && dispatch(setSnackbar(true, "error", response.error)):
+      dispatch(fetchUserSignInSuccess(response)) && dispatch(setSnackbar(true, "success", "Les modifications apportées ont bien été prises en compte."))
+    }
   }
 
 
