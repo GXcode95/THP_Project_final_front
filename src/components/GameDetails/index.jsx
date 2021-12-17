@@ -37,6 +37,8 @@ const GameDetails = () => {
       if (game) {
         const tmpImage = game.images.map(image => { return { "image": `http://res.cloudinary.com/thefinalproject/image/upload/c_crop,h_200/v1/seed/${image}` } });
         setImageFromCloudinary(tmpImage);
+      } else {
+        setImageFromCloudinary([{"image": `http://res.cloudinary.com/thefinalproject/image/upload/c_crop,h_200/v1/default_game`}])
       }
     }, [game]
   )
