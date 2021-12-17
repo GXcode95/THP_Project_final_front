@@ -13,7 +13,7 @@ const GameInfo = ({ game }) => {
         {game && game.name}
       </Typography>
       <Stack direction="row" justifyContent="flex-start" align="left" className="card-game-list">
-        <Box display="flex" alignItems="left" jsutifyContent="center" color="action">
+        <Box display="flex" alignItems="left" justifyContent="center" color="action">
           <Typography variant="caption" ml="0.3rem" mr="0.5rem" color="action" >
             <GroupAddIcon color="action" /><sup>  {game && game.min_player}-{game && game.max_player}</sup>
           </Typography>
