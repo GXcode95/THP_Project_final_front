@@ -85,8 +85,16 @@ const SearchContainer = ({ games, setGames }) => {
     return checkedTags
   }
 
-  const handleSubmit = (e) => {
+  const handleChangeTag = (e) => {
+    const checkbox = e.target.parentElement
     let checkedTags = getAllCheckedTags()
+     
+    if(checkbox.classList.contains('Mui-checked')) {
+      checkedTags = checkedTags.filter(id => id !== parseInt(e.target.name))
+    }else {
+      checkedTags.push(parseInt(e.target.name)) 
+    }
+
     setFilter({ ...filter, tags: checkedTags })
   }
   
@@ -133,7 +141,7 @@ const SearchContainer = ({ games, setGames }) => {
             min_rank={min_rank}
           />
             
-          <SearchTags handleSubmit={handleSubmit}  tags={tags}/>
+          <SearchTags handleChange={handleChangeTag}  tags={tags}/>
         </>
       }
     </Container>

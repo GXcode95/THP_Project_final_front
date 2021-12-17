@@ -1,7 +1,7 @@
 import React from 'react'
-import {Button, Checkbox, FormGroup, FormControlLabel, Typography, Box} from '@mui/material'
+import {Button, Checkbox, FormGroup, FormControlLabel,  Box} from '@mui/material'
 
-const SearchTags = ({tags, handleSubmit}) => {
+const SearchTags = ({tags, handleChange}) => {
 
   return (
     <Box>
@@ -17,13 +17,11 @@ const SearchTags = ({tags, handleSubmit}) => {
             control={<Checkbox name={tag.id} />}
             label={tag.name}
             key={tag.id}
+            onChange={handleChange}
           />
         ))}
       </FormGroup>
       
-      <Button variant="contained" onClick={handleSubmit}>
-        Valider les Catégories
-      </Button>
     </Box>
   )
 }
