@@ -13,7 +13,6 @@ import { light } from 'style/palette'
 import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import NavBar from 'components/navigation/NavBar';
 import BottomBar from 'components/BottomBar'
-import HeroBanner from './components/navigation/NavBar/HeroBanner'
 import Cookies from 'js-cookie'
 import { fetchUserSignInSuccess, fetchUserRequest, fetchUserError } from 'store/users/actions';
 import APIManager from 'services/Api';
@@ -23,6 +22,7 @@ import isSigned from 'helpers/isSigned';
 import isAdmin from 'helpers/isAdmin';
 import { useSelector } from 'react-redux';
 import CookieBar from "components/CookieBar";
+import SendAlert from 'components/Alert/SendAlert';
 
 const App = () => {
   const dispatch = useDispatch()
@@ -74,6 +74,7 @@ const App = () => {
         <CssBaseline />
         <Router>
           <NavBar />
+          <SendAlert />
           <Routes>
             <Route path="/" element={<Home />} exact />
             <Route path="/jeux" element={<Games />} exact />
