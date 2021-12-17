@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Typography, List, ListItem, ListItemIcon, ListItemText} from '@mui/material'
 import CreditCardIcon from '@mui/icons-material/CreditCard';
+import centToEuro from 'helpers/CentToEuro'
 
 const CartHistory = ({carts}) => {
 
@@ -29,7 +30,7 @@ const CartHistory = ({carts}) => {
               </ListItemIcon>
               <ListItemText
                 primary={formatDate(cart.cart.updated_at)}
-                secondary={`${cart.cart_price} €`}
+                secondary={`${centToEuro(cart.cart_price)} €`}
               />
             </ListItem>)
           )}
