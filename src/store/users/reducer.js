@@ -64,7 +64,7 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                userInfo: action.userInfo
+                user_info: action.userInfo
             }
         case FETCH_POST_WISHLIST_SUCCESS:
             return {
