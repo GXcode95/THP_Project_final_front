@@ -11,7 +11,6 @@ import EditGameForm from 'components/forms/EditGame/EditGameForm';
 import FavoriteButton from 'components/buttons/FavoriteButton';
 import { fetchPostWishListSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
 import { setSnackbar } from 'store/snackbar/actions';
-
 const GameCard = ({ game, edit }) => {
   const dispatch = useDispatch()
   const [editMode, setEditMode] = useState(false)
@@ -94,9 +93,9 @@ const GameCard = ({ game, edit }) => {
             <Box sx={{ padding: '10px' }}>
               <Image
                 cloudName={process.env.REACT_APP_CLOUD_NAME}
-                publicId={game.images && game.images.length > 0 ? "/seed/" + game.images[0] : "default_game"}
+                publicId={game.images && game.images.length > 0 ? game.images[0] : "default_game"}
                 height={handleCardHeight()}
-                crop="crop"
+                crop={game.images && game.images.length > 0 ? "crop" : "scale" }
               />
             </Box>
           </Grid>
