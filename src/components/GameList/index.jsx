@@ -1,17 +1,27 @@
 import React from 'react'
 import GameCard from 'components/GameCard'
 import { Grid } from '@mui/material'
+import { useSelector } from 'react-redux'
+import Progress from 'components/Progress'
 
 const GameList = ({ games, edit }) => {
+  const gamesReducer = useSelector(state => state.gameReducer)
+
 
   return (
-    <Grid container spacing={3}>
-      {games && games.map((game, i) => (
-        <Grid key={i} item xs={12} md={6} lg={6}>
-          <GameCard game={game} edit={edit} />
+    <>
+      {gamesReducer && gamesReducer.loading ?
+        <Progress />
+        :
+        <Grid container spacing={3}>
+          {games && games.map((game, i) => (
+            <Grid key={i} item xs={12} md={6} lg={6}>
+              <GameCard game={game} edit={edit} />
+            </Grid>
+          ))}
         </Grid>
-      ))}
-    </Grid>
+      }
+    </>
   )
 }
 

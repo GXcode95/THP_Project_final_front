@@ -8,7 +8,7 @@ const Game = () => {
 
   return (
     <>
-      {gamesReducer.loading ? <Progress /> : <GameDetails /> }
+      {gamesReducer && gamesReducer.loading ? <Progress /> : <GameDetails /> }
     </>
   )
 }
