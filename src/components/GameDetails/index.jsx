@@ -87,7 +87,6 @@ const GameDetails = () => {
           </Grid>
         }
         <Grid item xs={12} md={6} lg={8}>
-          {console.log(game)}
           <GameInfo game={game && game} className="game-info-details" />
           <Button onClick={handleRent}>Louer</Button>
         </Grid>

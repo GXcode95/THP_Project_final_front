@@ -9,6 +9,7 @@ import GameList from 'components/GameList'
 import BannerTitle from 'components/BannerTitle'
 import HeroBanner from 'components/navigation/NavBar/HeroBanner'
 import { Box, Button, Container } from '@mui/material'
+import Progress from 'components/Progress'
 
 const Home = () => {
   const [games, setGames] = React.useState()
@@ -47,7 +48,7 @@ const Home = () => {
           </Box>
         </Container>)
         :
-        <h2>Loading ...</h2>
+        <Progress />
       }
       <BannerTitle textColor="white.main" text="F.A.Q" />
       <Faq />

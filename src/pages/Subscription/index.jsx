@@ -7,27 +7,26 @@ import VisitorSubscription from 'components/VisitorSubscription'
 import { Box } from '@mui/material'
 import APIManager from 'services/Api'
 import { fetchUserRequest, fetchUserError, fetchUserSignInSuccess } from 'store/users/actions'
-import { useState } from 'react'
+import Progress from 'components/Progress'
+
 
 const Subscription = () => {
   const dispatch = useDispatch()
-  const userStored = useSelector(state => state.userReducer)
-  const [user, setUser] = useState(userStored)
+  const userReducer = useSelector(state => state.userReducer)
 
   useEffect (
     () => {
       const fetchUser = async () => {
         dispatch(fetchUserRequest())
-        const response = await APIManager.getUserInfo(userStored.user_info.id)
+        const response = await APIManager.getUserInfo(userReducer.user_info.id)
         if(response.error){
           dispatch(fetchUserError(response.error))
         }else{
           dispatch(fetchUserSignInSuccess(response))
-          setUser(response)
         }
       };
     
-      if (userStored && isSigned(user)) 
+      if (userReducer && isSigned(userReducer)) 
         fetchUser()
     
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,9 +35,14 @@ const Subscription = () => {
 
 
   return (
-    <Box mx="1em">
-      { isSubscribed(user) ?  <UserSubscription user={user}/> : <VisitorSubscription />  }
-    </Box>
+    <>
+    {(userReducer &&  userReducer.loading ) ? 
+      <Progress /> : 
+      <Box mx="1em">
+      { isSubscribed(userReducer) ?  <UserSubscription user={userReducer}/> : <VisitorSubscription />  }
+      </Box>
+    }
+    </>
   )
 }
     

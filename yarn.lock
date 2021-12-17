@@ -7106,6 +7106,11 @@ jest@26.6.0:
     import-local "^3.0.2"
     jest-cli "^26.6.0"
 
+js-cookie@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.1.tgz#69e106dc5d5806894562902aa5baec3744e9b2b8"
+  integrity sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==
+
 js-cookie@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-3.0.1.tgz#9e39b4c6c2f56563708d7d31f6f5f21873a92414"
@@ -9481,6 +9486,14 @@ react-carousel-minimal@^1.4.1:
     "@testing-library/user-event" "^12.1.10"
     core-js "^3.16.0"
     react-easy-swipe "0.0.22"
+
+react-cookie-consent@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/react-cookie-consent/-/react-cookie-consent-7.0.1.tgz#608162807c79ef28ac1ce351dc5878d3e6746edd"
+  integrity sha512-oCLoqfu9c3l0bQTe5+aLLBPfEjtbyyxh2BidN8VyE7tFkhbBK4A3ZB3TRIUKpVSJJgh8dULbbEN2tjRfcX8Pgg==
+  dependencies:
+    js-cookie "^2.2.1"
+    prop-types "^15.7.2"
 
 react-dev-utils@^11.0.3:
   version "11.0.4"
