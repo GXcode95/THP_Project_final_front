@@ -50,10 +50,10 @@ export const fetchUserSignOutSuccess = () => {
     }
 }
 
-export const fetchUserUpdateSuccess = (user) => {
+export const fetchUserUpdateSuccess = (userInfo) => {
     return {
         type: FETCH_USER_UPDATE_SUCCESS,
-        user
+        userInfo
     }
 }
 

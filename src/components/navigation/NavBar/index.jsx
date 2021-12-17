@@ -10,28 +10,28 @@ import RentButton from 'components/buttons/RentButton'
 import isSigned from 'helpers/isSigned'
 import { Link } from 'react-router-dom'
 import { MobileView, BrowserView } from 'react-device-detect';
+import isAdmin from 'helpers/isAdmin';
 
-
-const NavBar = ()  => {
+const NavBar = () => {
   const user = useSelector(state => state.userReducer)
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar  
+        <Toolbar
           sx={{
             display: "flex",
-            justifyContent: "space-between", 
-            alignItems: "center",  
+            justifyContent: "space-between",
+            alignItems: "center",
             width: "100%"
-          }} 
+          }}
         >
           <Box display="flex" alignItems="center" gap={2}>
             <Link to='/'>
               <MobileView>
-                <img src={logoSmall} alt="playbox logo" height="50px"/>
+                <img src={logoSmall} alt="playbox logo" height="50px" />
               </MobileView>
-              <BrowserView>         
-                <img src={logo} alt="playbox logo" height="50px"/>
+              <BrowserView>
+                <img src={logo} alt="playbox logo" height="50px" />
               </BrowserView>
             </Link>
             <Link to='/jeux'>
@@ -39,13 +39,13 @@ const NavBar = ()  => {
             </Link>
           </Box>
           <Box>
-            
-            { isSigned(user) && <CartButton color="white"/> }
-            { isSigned(user) && <RentButton color="white"/> }
+
+            {((isSigned(user)) && (!isAdmin(user))) && <CartButton color="white" />}
+            {((isSigned(user)) && (!isAdmin(user))) && <RentButton color="white" />}
             {
               isSigned(user) ?
-              <AvatarDropdown /> :
-              <LoginButton />
+                <AvatarDropdown /> :
+                <LoginButton />
             }
           </Box>
         </Toolbar>

@@ -59,11 +59,12 @@ const AvatarDropdown = () => {
             Profile
           </Link>
         </MenuItem>
-        <MenuItem >
-          <Link to="/abonnement">
-            Abonnement
-          </Link>
-        </MenuItem>
+        {user && (!isAdmin(user)) &&
+          < MenuItem >
+            <Link to="/abonnement">
+              Abonnement
+            </Link>
+          </MenuItem>}
         <MenuItem onClick={signOut}>
           Logout
         </MenuItem>
