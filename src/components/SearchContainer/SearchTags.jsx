@@ -6,7 +6,7 @@ const SearchTags = ({tags, handleClick}) => {
   return (
     <Stack direction="row" id="stacked-tags" spacing={2}>
       
-      {tags && tags.map( (tag,i) => (
+      {tags &&  tags.length > 0 && tags.map( (tag,i) => (
         <Tag tag={tag} key={i} onClick={handleClick}/>
       ))}
 
