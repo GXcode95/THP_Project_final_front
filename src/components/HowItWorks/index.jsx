@@ -28,11 +28,11 @@ const HowItWorks = () => {
 				}}
 			>
 
-				<Typography variant="h3" marked="center" component="h2" sx={{ fontWeight: '800', paddingTop: 2 }} className="title-pb" id="howitworks">
+				<Typography variant="h3" marked="center" component="h2" sx={{ fontWeight: '800', paddingTop: 2, textAlign: 'center' }} className="title-pb" id="howitworks">
 					HOW IT WORKS ?
 				</Typography>
 				<Grid container spacing={2} alignItems='center' sx={{ paddingTop: 5 }}>
-					<Grid item xs={6} md={6}>
+					<Grid item xs={12} md={6}>
 						<Box textAlign="center">
 							<Typography variant="h5" className="title-r title-pb-7 " sx={{ textAlign: "left" }}>Chaque mois recevez vos jeux</Typography>
 							<Typography variant="h5" className="title-r" color='secondary' sx={{ textAlign: "left", fontWeight: '600' }}>selon votre selection et votre abonnement</Typography>
@@ -42,7 +42,7 @@ const HowItWorks = () => {
 							alt="curvy lines"
 							width="90%"
 						/></Grid>
-					<Grid item xs={6} md={6}>
+					<Grid item xs={12} md={6}>
 						<Timeline position="alternate">
 							<TimelineItem>
 								<TimelineSeparator>
