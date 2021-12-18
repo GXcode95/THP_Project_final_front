@@ -5,7 +5,7 @@ import CartItem from 'components/CartItem'
 import { fetchUserRequest, fetchUserError, fetchUpdateCartSuccess, fetchUpdateOrderSuccess, fetchDeleteOrderSuccess } from 'store/users/actions'
 import APIManager from 'services/Api'
 import Progress from 'components/Progress'
-import centToEuro from 'helpers/CentToEuro'
+import processTextToPrice from 'helpers/ProcessTextForPrice'
 
 const Cart = () => {
   const dispatch = useDispatch()
@@ -23,17 +23,16 @@ const Cart = () => {
     const totalPriceElement = document.getElementById("total_price")
 
     const quantity = parseInt(quantityElement.textContent.split(' ')[2])
-    const price = parseInt(quantityElement.textContent.split(' ')[0])
-    const totalPrice = parseInt(totalPriceElement.textContent.split(' ')[1].slice(0, -1))
+    const price = quantityElement.textContent.split(' ')[0]
+    const totalPrice = totalPriceElement.textContent.split(' ')[1].slice(0, -1)
 
-    dispatch(fetchUserRequest())
     const response = await APIManager.updateOrder(orderId, {quantity: quantity + 1})
     if(response.error) {
       dispatch(fetchUserError(response.error))
     } else {
       dispatch(fetchUpdateOrderSuccess(response))
-      totalPriceElement.textContent = `Total: ${centToEuro(totalPrice + price)}€`
-      quantityElement.textContent = `${centToEuro(price)}€ x ${quantity + 1} = ${centToEuro(price * (quantity + 1))}€`
+      totalPriceElement.textContent = `Total: ${processTextToPrice(price, 1, totalPrice)}€`
+      quantityElement.textContent = `${processTextToPrice(price)}€ x ${quantity + 1} = ${processTextToPrice(price, quantity + 1)}€`
     }
   }
 
@@ -42,17 +41,16 @@ const Cart = () => {
     const totalPriceElement = document.getElementById("total_price")
 
     const quantity = parseInt(quantityElement.textContent.split(' ')[2]) > 1 ? parseInt(quantityElement.textContent.split(' ')[2]) : 2
-    const price = parseInt(quantityElement.textContent.split(' ')[0])
+    const price = quantityElement.textContent.split(' ')[0]
     const totalPrice = totalPriceElement.textContent.split(' ')[1].slice(0, -1)
 
-    dispatch(fetchUserRequest())
     const response = await APIManager.updateOrder(orderId, {quantity: quantity -1})
     if(response.error) {
       dispatch(fetchUserError(response.error))
     } else {
       dispatch(fetchUpdateOrderSuccess(response))
-      totalPriceElement.textContent = parseInt(quantityElement.textContent.split(' ')[2]) > 1 ? `Total: ${centToEuro(totalPrice) - centToEuro(price)}€` : `Total: ${centToEuro(totalPrice)}€`
-      quantityElement.textContent = `${centToEuro(price)}€ x ${quantity - 1} = ${centToEuro(price * (quantity - 1))}€`
+      totalPriceElement.textContent = parseInt(quantityElement.textContent.split(' ')[2]) > 1 ? `Total: ${processTextToPrice(price, 1, totalPrice, -1)}€` : `Total: ${processTextToPrice(totalPrice)}€`
+      quantityElement.textContent = `${processTextToPrice(price)}€ x ${quantity - 1} = ${processTextToPrice(price, (quantity - 1))}€`
     }
   }
 
@@ -61,16 +59,15 @@ const Cart = () => {
     const quantityElement = document.getElementById(orderId).lastChild
     const totalPriceElement = document.getElementById("total_price")
 
-    const price = parseInt(quantityElement.textContent.split(' ')[4].slice(0, -1))
-    const totalPrice = parseInt(totalPriceElement.textContent.split(' ')[1].slice(0, -1))
+    const price = quantityElement.textContent.split(' ')[4].slice(0, -1)
+    const totalPrice = totalPriceElement.textContent.split(' ')[1].slice(0, -1)
 
-    dispatch(fetchUserRequest())
     const response = await APIManager.deleteOrder(orderId)
     if(response.error) {
       dispatch(fetchUserError(response.error))
     } else {
       dispatch(fetchDeleteOrderSuccess(response))
-      totalPriceElement.textContent = `Total: ${centToEuro(totalPrice - price)}€`
+      totalPriceElement.textContent = `Total: ${processTextToPrice(price, 1, totalPrice, -1)}€`
       productElement.remove()
     }
   }
@@ -83,7 +80,6 @@ const Cart = () => {
   useEffect (
     () => {
       const fetchCart = async () => {
-        dispatch(fetchUserRequest())
         const response = await APIManager.getCart(userReducer.cart.current_cart.id)
         if(response.error) {
           dispatch(fetchUserError(response.error))
@@ -123,7 +119,7 @@ const Cart = () => {
                 handleDelete={handleDelete}
               />
               <Typography id="total_price" variant="h5" color="primary" mb="0.4em" >
-                Total: {cart && centToEuro(totalPrice(cart.cart_games))}€
+                Total: {cart && (totalPrice(cart.cart_games))/100}€
               </Typography>
 
               <Button onClick={e => handlePayment}>
