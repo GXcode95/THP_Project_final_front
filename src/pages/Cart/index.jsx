@@ -110,23 +110,6 @@ const Cart = () => {
         <Typography variant="h2" color="primary" mb="0.4em" >
           Mon panier
         </Typography>
-<<<<<<< HEAD
-        <CartItem
-          games={cart.cart_games}
-          quantityButton={true}
-          deleteButton={true}
-          handleAdd={handleAdd}
-          handleRemove={handleRemove}
-          handleDelete={handleDelete}
-        />
-        <Typography id="total_price" variant="h5" color="primary" mb="0.4em" >
-          Total: {cart && totalPrice(cart.cart_games)}€
-        </Typography>
-        
-        <Button onClick={e => handlePayment}>
-          Payer
-        </Button>
-=======
         { userReducer && userReducer.loading ? 
             <Progress /> 
             :
@@ -143,10 +126,11 @@ const Cart = () => {
                 Total: {cart && centToEuro(totalPrice(cart.cart_games))}€
               </Typography>
 
-              <StripeButton item={"Panier"} quantity={1} type="game" /> 
+              <Button onClick={e => handlePayment}>
+               Payer
+              </Button>
             </>
         }
->>>>>>> main
 
       </Box>
     </Container>
