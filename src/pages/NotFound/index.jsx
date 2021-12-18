@@ -1,11 +1,18 @@
 import React from 'react'
-       
+import {  Box} from '@mui/material'
+import './notFound.scss'
+import Dices from './Dices'
 const NotFound = () => {
 
   return (
-    <div className=''>
-      <h2>Not Found</h2>
-    </div>
+    <Box 
+      position="relative"
+      display="flex"
+      mt="4em"
+      sx={{justifyContent:"center"}} 
+    >
+      <Dices />
+    </Box>
   )
 }
     
