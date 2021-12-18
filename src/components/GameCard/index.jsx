@@ -34,26 +34,26 @@ const GameCard = ({ game, edit }) => {
     }
   }
   const navigate = useNavigate()
-  
+
   const handleRent = async () => {
-    let wishListLength = 0  
+    let wishListLength = 0
     rent.wishlist && rent.wishlist.map(game => wishListLength += game.quantity)
-    
+
     if (!isSigned(userReducer)) {
       navigate('/connexion')
     } else if (!isSubscribed(userReducer)) {
       navigate('/abonnement')
     } else if (wishListLength >= rent.wishlist_limit) {
-      dispatch(setSnackbar(true, "error","Vous avez atteint la limite de jeux autorisés par votre abonnement"))
-    } else if (rent.wishlist.find(wishedGame => wishedGame.game.id === game.id)){
-      dispatch(setSnackbar(true, "error","Ce jeu a déjà été ajouté à votre liste de jeux pour le mois prochain!"))
+      dispatch(setSnackbar(true, "error", "Vous avez atteint la limite de jeux autorisés par votre abonnement"))
+    } else if (rent.wishlist.find(wishedGame => wishedGame.game.id === game.id)) {
+      dispatch(setSnackbar(true, "error", "Ce jeu a déjà été ajouté à votre liste de jeux pour le mois prochain!"))
     } else {
       dispatch(fetchUserRequest())
       const response = await APIManager.createRent({ quantity: 1, user_id: user.id, game_id: game.id })
-      if(response.error){
+      if (response.error) {
         dispatch(fetchUserError(response.error))
-        dispatch(setSnackbar(true, "error",  response.error))
-      }else{
+        dispatch(setSnackbar(true, "error", response.error))
+      } else {
         dispatch(fetchPostWishListSuccess(response.wishlist))
         dispatch(setSnackbar(true, "success", "Le jeu a bien été ajouté a votre liste de jeux pour le mois prochain!"))
       }
@@ -65,7 +65,7 @@ const GameCard = ({ game, edit }) => {
       navigate('/connexion')
     } else {
       const response = await APIManager.createOrder({ quantity: 1, cart_id: cart.current_cart.id, game_id: game.id })
-      if (!response.error) dispatch(setSnackbar(true, "success","Jeu ajouté au au panier!"))
+      if (!response.error) dispatch(setSnackbar(true, "success", "Jeu ajouté au au panier!"))
     }
   }
 
@@ -87,12 +87,12 @@ const GameCard = ({ game, edit }) => {
 
         <Grid container spacing={1} marginLeft={1} marginRight={1} minHeight={`${handleCardHeight()}px`}>
           <Grid item lg={6} md={5} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
-            <Box sx={{ padding: '10px'}}>
+            <Box sx={{ padding: '10px' }}>
               <Image
                 cloudName={process.env.REACT_APP_CLOUD_NAME}
                 publicId={game.images && game.images.length > 0 ? game.images[0] : "default_game"}
                 height={handleCardHeight()}
-                crop={game.images && game.images.length > 0 ? "scale" : "scale" }
+                crop={game.images && game.images.length > 0 ? "scale" : "scale"}
               />
             </Box>
           </Grid>
@@ -116,7 +116,7 @@ const GameCard = ({ game, edit }) => {
                 </strong>
                 <sup>    <span className="badge">{game.sell_stock > 0 && `${game.sell_stock} en stock`}</span></sup>
               </Typography>
-              <Stack direction="row" justifyContent="space-evenly" sx={{ marginBottom: "1em" }}>
+              <Stack direction="row" justifyContent="space-evenly" sx={{ marginBottom: "1em", pr: "6px" }}>
                 <FavoriteButton gameID={game.id} userReducer={userReducer} />
                 <Button onClick={handleBuy} color="primary" className="buttons-card">Acheter</Button>
                 <Button onClick={handleRent} color="secondary" className="buttons-card"> Louer</Button>
