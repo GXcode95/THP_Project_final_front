@@ -79,6 +79,18 @@ const Cart = () => {
     }
   }
 
+  const handlePayment = async () => {
+    // const stripeParams = {
+    //   line_items: {
+    //     price: 'price_1K81H5DzWhv05aHOWgjjlK5J',
+    //     quantity: 1
+    //   },
+    //   mode: 'subscription'
+    // }
+    const response = await APIManager.createCheckout({ mode: 'payment' })
+      window.location.href = response.redirect_url
+  }
+
   useEffect (
     () => {
       const fetchCart = async () => {
@@ -120,7 +132,8 @@ const Cart = () => {
         <Typography id="total_price" variant="h5" color="primary" mb="0.4em" >
           Total: {cart && totalPrice(cart.cart_games)}€
         </Typography>
-
+        
+        
         <StripeButton item={"Panier"} quantity={1} type="game" /> 
       </Box>
     </Container>

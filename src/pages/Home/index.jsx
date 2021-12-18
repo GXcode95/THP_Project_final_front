@@ -2,7 +2,7 @@ import React from 'react'
 import APIManager from 'services/Api'
 import { useDispatch } from 'react-redux'
 import { fetchGamesRequest, fetchGamesError, fetchGamesSuccess } from 'store/games/actions'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Faq from 'components/Faq'
 import HowItWorks from 'components/HowItWorks'
 import GameList from 'components/GameList'
@@ -13,6 +13,7 @@ import { Box, Button, Container } from '@mui/material'
 const Home = () => {
   const [games, setGames] = React.useState()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   React.useEffect(
     () => {
@@ -30,8 +31,45 @@ const Home = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []
   )
+
+  const handlePayment = async () => {
+    const stripeParams = {
+      line_items: {
+        price: 'price_1K81H5DzWhv05aHOWgjjlK5J',
+        quantity: 1
+      },
+      mode: 'subscription'
+    }
+  // const stripeParams = {
+  //   mode: 'payment'
+  // }
+
+    const response = await APIManager.createCheckout(stripeParams)
+      console.log("RRRRRREEEEEEPPPPPOOOOOO?NNNNNNNSSSSSEEEEEEE", response)
+      window.location.href = response.redirect_url
+  }
+
+  const handleBillingPortal = async () => {
+    const response = await APIManager.createBillingPortal()
+    console.log("BIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIILLING",response)
+    window.location.href = response.redirect_url
+  }
+
+  const handlePrice = async () => {
+    const response = await APIManager.updatePrice("price_1K5oEgDzWhv05aHOikcoWFCf", {amount: 10000})
+  }
+
   return (
     <div className=''>
+      <Button onClick={handlePayment}>
+        PAYMENT ABONNEMENT
+      </Button>
+      <Button onClick={handleBillingPortal}>
+        POOOOOOORTAL
+      </Button>
+      <Button onClick={handlePrice}>
+        CHANGE PRICE
+      </Button>
       <HeroBanner />
       <HowItWorks />
       <BannerTitle textColor="white.main" text="Nos Jeux" />

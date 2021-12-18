@@ -1,14 +1,28 @@
 import React from 'react'
 import { Card, Button, Box, Typography, CardContent, CardHeader } from '@mui/material'
-import StripeButton from 'components/buttons/StripeButton'
 import { useSelector } from 'react-redux'
 import isSigned from 'helpers/isSigned'
 import {Link} from 'react-router-dom'
+import APIManager from 'services/Api'
+
 const PricingCard = ({ tier, variant, description }) => {
   const user = useSelector(state => state.userReducer)
   
   const priceInEuro = (priceInCent) => {
     return priceInCent / 100
+  }
+
+  const handlePayment = async (price_id) => {
+    const stripeParams = {
+      line_items: {
+        price: price_id,
+        quantity: 1
+      },
+      mode: 'subscription'
+    }
+
+    const response = await APIManager.createCheckout(stripeParams)
+      window.location.href = response.redirect_url
   }
 
   
@@ -46,7 +60,10 @@ const PricingCard = ({ tier, variant, description }) => {
         </ul>
       </CardContent>
       {user && isSigned(user) ? 
-        <StripeButton item={tier} quantity={1} variant={variant} /> :
+        <Button onClick={e => handlePayment(tier.price_id)}>
+          J'en profite
+        </Button> 
+        :
         <Button className="stripe stripe-package" sx={{fontWeight: 600, mb: "0.5em"}}>
           <Link to='/connexion'>
             J'en profite

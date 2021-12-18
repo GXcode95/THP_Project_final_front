@@ -8,8 +8,6 @@ import APIManager from 'services/Api'
 const Pricing = () => {
   const [tiers, setTiers] = React.useState()
 
-
-
   const getVariant = (i) => {
     switch (i) {
       case 0:
