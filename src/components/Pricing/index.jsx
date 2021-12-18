@@ -2,11 +2,10 @@ import * as React from 'react';
 import { Grid, Container } from '@mui/material';
 import PricingHero from './PricingHero'
 import PricingCard from './PricingCard'
-import APIManager from 'services/Api'
 import curvy from 'assets/images/curvyLines.png'
 
 
-const Pricing = ({tiers}) => {
+const Pricing = ({ tiers }) => {
 
 
   return (
@@ -25,7 +24,7 @@ const Pricing = ({tiers}) => {
             sm={6}
             md={4}
           >
-            { tiers && <PricingCard tier={tier} description={tier.description} /> }
+            {tiers && <PricingCard tier={tier} description={tier.description} />}
           </Grid>
         ))}
       </Grid>
