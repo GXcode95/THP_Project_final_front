@@ -9,7 +9,7 @@ export default function Faq() {
 	};
 
 	return (
-		<Container>
+		<Container sx={{ paddingBottom: "3em" }}>
 			<div id="faq"></div>
 			<Accordion
 				expanded={expanded === 'panel1'}
@@ -94,7 +94,7 @@ export default function Faq() {
 				</AccordionSummary>
 				<AccordionDetails>
 					<Typography>
-						Pas de panique. Chez Gameflix, faute avouée est à moitié pardonnée.
+						Pas de panique. Chez PlayBOX, faute avouée est à moitié pardonnée.
 						Si vous nous indiquez une petite pièce perdue ou manquante (un pion, une carte...), nous retiendrons 1€ sur votre prochain mois de livraison.
 						Si le dégât est plus important (plateau détruit, partie entière d’un jeu manquante), nous retiendrons un montant proportionnel à la perte.
 						Si le jeu revient non-fonctionnel, nous vous le facturerons au prix de vente neuf sur notre site.
