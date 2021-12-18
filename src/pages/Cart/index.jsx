@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Container, Typography, Button } from '@mui/material'
-import {Link} from 'react-router-dom'
 import CartItem from 'components/CartItem'
-import StripeButton from 'components/buttons/StripeButton'
-
 import { fetchUserRequest, fetchUserError, fetchUpdateCartSuccess, fetchUpdateOrderSuccess, fetchDeleteOrderSuccess } from 'store/users/actions'
-import userReducer from 'store/users/reducer'
-import gamesReducer from 'store/games/reducer'
-import RentButton from 'components/buttons/RentButton'
 import APIManager from 'services/Api'
 
 const Cart = () => {
@@ -80,13 +74,6 @@ const Cart = () => {
   }
 
   const handlePayment = async () => {
-    // const stripeParams = {
-    //   line_items: {
-    //     price: 'price_1K81H5DzWhv05aHOWgjjlK5J',
-    //     quantity: 1
-    //   },
-    //   mode: 'subscription'
-    // }
     const response = await APIManager.createCheckout({ mode: 'payment' })
       window.location.href = response.redirect_url
   }
@@ -133,8 +120,10 @@ const Cart = () => {
           Total: {cart && totalPrice(cart.cart_games)}€
         </Typography>
         
-        
-        <StripeButton item={"Panier"} quantity={1} type="game" /> 
+        <Button onClick={e => handlePayment}>
+          Payer
+        </Button>
+
       </Box>
     </Container>
   )

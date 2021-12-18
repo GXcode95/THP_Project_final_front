@@ -3,11 +3,11 @@ import Pricing from 'components/Pricing'
 import HowItWorks from 'components/HowItWorks'
 import Faq from 'components/Faq'
 import {Box} from '@mui/material'
-const VisitorSubscription = () => {
+const VisitorSubscription = ({tiers}) => {
 
   return (
     <div>
-      <Pricing />
+      <Pricing tiers={tiers}/>
       <Box py="3em"/>
       <HowItWorks />
       <Box py="3em"/>

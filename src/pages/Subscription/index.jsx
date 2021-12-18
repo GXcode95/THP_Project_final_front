@@ -10,9 +10,20 @@ import { fetchUserRequest, fetchUserError, fetchUserSignInSuccess } from 'store/
 import { useState } from 'react'
 
 const Subscription = () => {
+  const [tiers, setTiers] = React.useState()
   const dispatch = useDispatch()
   const userStored = useSelector(state => state.userReducer)
   const [user, setUser] = useState(userStored)
+
+  React.useEffect(
+    () => {
+      const fetchAllPackages = async () => {
+        const response = await APIManager.getAllPackages()
+        setTiers(response)
+      }
+      fetchAllPackages()
+    }, []
+  )
 
   useEffect (
     () => {
@@ -37,7 +48,7 @@ const Subscription = () => {
 
   return (
     <Box mx="1em">
-      { isSubscribed(user) ?  <UserSubscription user={user}/> : <VisitorSubscription />  }
+      { isSubscribed(user) ?  <UserSubscription user={user} tiers={tiers}/> : <VisitorSubscription tiers={tiers}/>  }
     </Box>
   )
 }

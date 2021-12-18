@@ -5,8 +5,9 @@ import isSigned from 'helpers/isSigned'
 import {Link} from 'react-router-dom'
 import APIManager from 'services/Api'
 
-const PricingCard = ({ tier, variant, description }) => {
+const PricingCard = ({ tier, description }) => {
   const user = useSelector(state => state.userReducer)
+  console.log("STOOOORE", user)
   
   const priceInEuro = (priceInCent) => {
     return priceInCent / 100
@@ -60,7 +61,7 @@ const PricingCard = ({ tier, variant, description }) => {
         </ul>
       </CardContent>
       {user && isSigned(user) ? 
-        <Button onClick={e => handlePayment(tier.price_id)}>
+        <Button className="stripe stripe-package" sx={{fontWeight: 600, ml:"0.4em", mb: "0.5em"}} onClick={e => handlePayment(tier.price_id)}>
           J'en profite
         </Button> 
         :
