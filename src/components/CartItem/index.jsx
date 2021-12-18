@@ -32,7 +32,7 @@ const CartItem = (props) => {
                   <Avatar>
                     <Image
                       cloudName={process.env.REACT_APP_CLOUD_NAME}
-                      publicId={gameObj.images && gameObj.images.length > 0 ? "/seed/" + gameObj.images[0] : "default_game"}
+                      publicId={gameObj.images && gameObj.images.length > 0 ? gameObj.images[0] : "default_game"}
                       height={handleCardHeight()}
                       crop="scale"            
                     />
