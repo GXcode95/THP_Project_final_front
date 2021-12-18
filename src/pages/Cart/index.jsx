@@ -6,9 +6,6 @@ import CartItem from 'components/CartItem'
 import StripeButton from 'components/buttons/StripeButton'
 
 import { fetchUserRequest, fetchUserError, fetchUpdateCartSuccess, fetchUpdateOrderSuccess, fetchDeleteOrderSuccess } from 'store/users/actions'
-import userReducer from 'store/users/reducer'
-import gamesReducer from 'store/games/reducer'
-import RentButton from 'components/buttons/RentButton'
 import APIManager from 'services/Api'
 
 const Cart = () => {
