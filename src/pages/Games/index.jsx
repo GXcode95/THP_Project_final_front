@@ -7,9 +7,8 @@ import { fetchGamesRequest, fetchGamesError, fetchGamesSuccess } from 'store/gam
 import SearchContainer from 'components/SearchContainer'
 import Progress from 'components/Progress'
 const Games = ({ edit }) => {
-  const [filteredGames, setFilteredGames] = React.useState()
-
   const [games, setGames] = React.useState()
+  const [sortedGames, setSortedGames] = React.useState()
   const dispatch = useDispatch()
   const gamesReducer = useSelector(state => state.gamesReducer)
 
@@ -23,6 +22,7 @@ const Games = ({ edit }) => {
         } else {
           dispatch(fetchGamesSuccess(response))
           setGames(response)
+          setSortedGames(response)
         }
       }
       fetchAllGames()
@@ -32,9 +32,12 @@ const Games = ({ edit }) => {
 
   return (
     <div>
-      <SearchContainer games={games} setGames={setFilteredGames} />
+      <SearchContainer 
+        games={games}
+        setGames={setSortedGames}
+      />
       <Container>
-      {gamesReducer.loading ? <Progress /> : <GameList games={filteredGames ? filteredGames : games} edit={edit} />}
+      {gamesReducer.loading ? <Progress /> : <GameList games={sortedGames ? sortedGames : games} edit={edit} />}
       </Container>
     </div>
   )
