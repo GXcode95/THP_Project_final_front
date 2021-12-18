@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Snackbar, Alert, IconButton } from '@mui/material';
+import { Snackbar, Alert, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSnackbar } from 'store/snackbar/actions';
@@ -35,7 +35,7 @@ const SendAlert = () => {
         autoHideDuration={7000}
         onClose={handleClose}
         action={action}
-        sx={{mt: 5}}
+        sx={{ mt: 5 }}
       >
         <Alert onClose={handleClose} severity={snackbarReducer.SNType} sx={{ width: '100%' }}>
           {snackbarReducer.SNMessage}
