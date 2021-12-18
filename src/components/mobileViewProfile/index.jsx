@@ -4,7 +4,7 @@ import APIManager from 'services/Api';
 import isSigned from 'helpers/isSigned'
 import EditProfile from 'components/forms/EditProfile'
 import CartHistory from 'components/CartHistory'
-import { Grid, Box, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import GameList from 'components/GameList';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
 const valuetext = (value) => {
@@ -7,7 +6,7 @@ const valuetext = (value) => {
 }
 
 
-const SearchSliders = ({value, setValue, min=0, max, minDistance=10, sortGames}) => {
+const SearchSliders = ({ value, setValue, min = 0, max, minDistance = 10, sortGames }) => {
 
   const handleChange = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
@@ -23,18 +22,18 @@ const SearchSliders = ({value, setValue, min=0, max, minDistance=10, sortGames})
     sortGames()
   };
 
-  
+
   return (
-      <Slider
-        getAriaLabel={() => 'Minimum distance'}
-        value={value}
-        onChange={handleChange}
-        valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
-        disableSwap
-        max={max}
-        min={min}
-      />
+    <Slider
+      getAriaLabel={() => 'Minimum distance'}
+      value={value}
+      onChange={handleChange}
+      valueLabelDisplay="auto"
+      getAriaValueText={valuetext}
+      disableSwap
+      max={max}
+      min={min}
+    />
   );
 }
 

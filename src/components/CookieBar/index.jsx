@@ -1,6 +1,6 @@
 import React from 'react'
 import CookieConsent from "react-cookie-consent";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { changeCookiesConsent } from 'store/users/actions';
 
 const CookieBar = ({ user }) => {

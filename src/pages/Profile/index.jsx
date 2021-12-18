@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+import { BrowserView, MobileView } from 'react-device-detect';
 import BrowserViewProfile from 'components/browserViewProfile'
 import MobileViewProfile from 'components/mobileViewProfile';
 

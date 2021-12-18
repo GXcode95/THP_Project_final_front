@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import APIManager from 'services/Api';
-import isSigned from 'helpers/isSigned'
 import EditProfile from 'components/forms/EditProfile'
 import CartHistory from 'components/CartHistory'
 import { Grid, Box } from '@mui/material'

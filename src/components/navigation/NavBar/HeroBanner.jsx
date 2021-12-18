@@ -1,7 +1,6 @@
 import React from 'react'
 import { Card, Box, Typography, Grid } from '@mui/material'
 import { Button } from '@mui/material'
-import heroBanner from 'assets/images/herobanner_version_1.jpg'
 import { useNavigate } from 'react-router'
 import curvy from "assets/images/hero.svg";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';

@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import Faq from 'components/Faq'
 import HowItWorks from 'components/HowItWorks'
 import GameList from 'components/GameList'
-import BannerTitle from 'components/BannerTitle'
 import HeroBanner from 'components/navigation/NavBar/HeroBanner'
 import { Box, Button, Container, Typography } from '@mui/material'
 import Progress from 'components/Progress'
@@ -81,13 +80,12 @@ const Home = () => {
           <Link to="#"><InstagramIcon /></Link>
           <Link to="#"><GitHubIcon /></Link>
           <Link to="#">
-            <img src="https://www.thehackingproject.org/assets/favicon/favicon-32x32-804b12d1c41c60fe721477b7c3b0a32811dc610580dd40ac92f1cc04cbd05ca4.png" width="28px" />
+            <img src="https://www.thehackingproject.org/assets/favicon/favicon-32x32-804b12d1c41c60fe721477b7c3b0a32811dc610580dd40ac92f1cc04cbd05ca4.png" alt="The-hacking-project logo" width="28px" />
           </Link>
         </Box>
 
-        <Box class="footer-left" mb="0" pb="0">
-
-          <p class="footer-links">
+        <Box className="footer-left" mb="0" pb="0">
+          <p className="footer-links">
             <Link to="#home">Acceuil</Link>
             <Link to="/connexion">Se connecter / S'inscrire</Link>
             <Link to="/jeux">Jeux</Link>

@@ -1,10 +1,10 @@
 import React from 'react'
-import { Button, Box} from '@mui/material'
+import { Box } from '@mui/material'
 import './notFound.scss'
 const Dices = () => {
 
   return (
-    <Box display="flex"  gap="5em">
+    <Box display="flex" gap="5em">
       <div className="scene">
         <div className="cube roll-1 show-front">
           <div className="cube__face cube__face--front">
@@ -76,5 +76,5 @@ const Dices = () => {
     </Box>
   )
 }
-    
+
 export default Dices
