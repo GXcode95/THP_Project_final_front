@@ -24,20 +24,23 @@ const GameList = ({ games, edit }) => {
               <GameCard game={game} edit={edit} />
             </Grid>
           ))}
-          <Grid item xs={12} display="flex" justifyContent="center">
-            <IconButton 
-              className="double-arrow-box"
-              sx={{display:"flex",flexDirection:"column"}}
-              onClick={handleClick}
-            >
-              <Typography variant="body1" color="secondary">afficher plus de jeux</Typography>
-              <DoubleArrowIcon 
-                className="double-arrow"
-                color="secondary"
-                fontSize="large"
-              />
-            </IconButton>
-          </Grid>
+
+          {games && gamesToShow <= games.length && 
+            <Grid item xs={12} display="flex" justifyContent="center">
+              <IconButton 
+                className="double-arrow-box"
+                sx={{display:"flex",flexDirection:"column"}}
+                onClick={handleClick}
+              >
+                <Typography variant="body1" color="secondary">afficher plus de jeux</Typography>
+                <DoubleArrowIcon 
+                  className="double-arrow"
+                  color="secondary"
+                  fontSize="large"
+                />
+              </IconButton>
+            </Grid>
+          }
         </Grid>
       }
     </>
