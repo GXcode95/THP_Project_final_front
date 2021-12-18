@@ -245,7 +245,8 @@ export default class APIManager {
                 images: response.data.images,
                 comments: response.data.comments,
                 rank: response.data.rank,
-                tags: response.data.tags
+                tags: response.data.tags,
+                isRanked: response.data.is_ranked
             }
         return formatedResponse
     }

@@ -39,6 +39,7 @@ const GameTabs = ({ game, setGame }) => {
           </TabPanel>
           {isSigned(userReducer) && 
             <TabPanel value="3">
+              {console.log(game)}
               {game && (game.isRanked || game.isRanked === null) ? 'Déjà noté' : <RatingGame game={game} setGame={setGame} />}
             </TabPanel>
           }
