@@ -8,14 +8,16 @@ const SearchContainer = ({ games, setGames }) => {
 
   const [tags, setTags] = React.useState()
   const [checkedTags, setCheckedTags] = React.useState()
-  const [price,setPrice] = useState([0,200])
+  const [price,setPrice] = useState([0,20000])
   const [rank,setRank] = useState([0,5])
   const [minAge,setMinAge] = useState(0)
   const [players,setPlayers] = useState([1,20])
   const [query, setQuery] = useState("")
   const [filterMode , setFilterMode] = React.useState()
 
-
+  const handleSetPrice = (values) => {
+    setPrice([values[0] * 100, values[1] * 100])
+  }
   const handleSearch = (e) => {
     const query = e.target.value
     setQuery(query ? query.toLowerCase() : "")
@@ -110,7 +112,7 @@ const SearchContainer = ({ games, setGames }) => {
                 games={games}
                 setGames={games}
                 values={{ players, price, rank, minAge }}
-                setValues={{ setPlayers, setPrice, setRank, setMinAge }}
+                setValues={{ setPlayers, handleSetPrice, setRank, setMinAge }}
                 sortGames={sortGames}
               />
 
