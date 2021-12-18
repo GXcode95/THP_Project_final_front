@@ -1,14 +1,15 @@
 import React from 'react'
-import { List, ListItem, ListItemText, ListItemAvatar, ListItemButton, ListItemIcon, 
-         Typography, Grid, Container, Avatar } from '@mui/material'
+import { List, ListItem, ListItemText, ListItemAvatar, ListItemButton, ListItemIcon,
+  Grid, Avatar } from '@mui/material'
 import { Image } from 'cloudinary-react'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import centToEuro from 'helpers/CentToEuro'
 
 const CartItem = (props) => {
   const games = props.games
-  const cartTotal = (gameObj) => `${gameObj.game.price}€ x ${gameObj.quantity} = ${gameObj.game.price * gameObj.quantity}€ `
+  const cartTotal = (gameObj) => `${centToEuro(gameObj.game.price)}€ x ${gameObj.quantity} = ${centToEuro(gameObj.game.price * gameObj.quantity)}€ `
 
   const handleCardHeight = () => {
     const screen = window.screen.width

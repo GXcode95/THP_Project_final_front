@@ -32,10 +32,10 @@ export default function BottomBar() {
             setValue(newValue);
           }}
         >
-          <BottomNavigationAction label="Home" value='/' icon={<HomeIcon />} sx={{ color: '#fff' }} />
-          <BottomNavigationAction label="Louez" value='/abonnement' icon={<CasinoIcon />} sx={{ color: '#fff' }} />
+          <BottomNavigationAction label="Home" value='/' icon={<HomeIcon />} sx={{ color: 'white.main' }} />
+          <BottomNavigationAction label="Louez" value='/abonnement' icon={<CasinoIcon />} sx={{ color: 'white.main' }} />
           {/* <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} /> */}
-          <BottomNavigationAction label="Achetez" value='/panier' icon={<ShoppingBagIcon />} sx={{ color: '#fff' }} />
+          <BottomNavigationAction label="Achetez" value='/panier' icon={<ShoppingBagIcon />} sx={{ color: 'white.main' }} />
         </BottomNavigation>
       </Paper>
     </Box>

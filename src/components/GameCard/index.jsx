@@ -11,6 +11,8 @@ import EditGameForm from 'components/forms/EditGame/EditGameForm';
 import FavoriteButton from 'components/buttons/FavoriteButton';
 import { fetchPostWishListSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
 import { setSnackbar } from 'store/snackbar/actions';
+import centToEuro from 'helpers/CentToEuro'
+
 const GameCard = ({ game, edit }) => {
   const dispatch = useDispatch()
   const [editMode, setEditMode] = useState(false)
@@ -110,7 +112,7 @@ const GameCard = ({ game, edit }) => {
               <GameIconsInfos game={game} />
               <Typography variant="subtitle2" align="left" noWrap color="primary">
                 <strong className="price">
-                  {game.price}€
+                  {centToEuro(game.price)}€
                 </strong>
                 <sup>    <span className="badge">{game.sell_stock > 0 && `${game.sell_stock} en stock`}</span></sup>
               </Typography>
