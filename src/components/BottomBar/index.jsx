@@ -4,7 +4,6 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeIcon from '@mui/icons-material/Home';
 import CasinoIcon from '@mui/icons-material/Casino';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import Paper from '@mui/material/Paper';
 import { useNavigate } from 'react-router';
