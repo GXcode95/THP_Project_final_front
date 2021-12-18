@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Container, Typography, Button } from '@mui/material'
 import CartItem from 'components/CartItem'
-import StripeButton from 'components/buttons/StripeButton'
 import { fetchUserRequest, fetchUserError, fetchUpdateCartSuccess, fetchUpdateOrderSuccess, fetchDeleteOrderSuccess } from 'store/users/actions'
 import APIManager from 'services/Api'
 import Progress from 'components/Progress'
@@ -76,6 +75,11 @@ const Cart = () => {
     }
   }
 
+  const handlePayment = async () => {
+    const response = await APIManager.createCheckout({ mode: 'payment' })
+      window.location.href = response.redirect_url
+  }
+
   useEffect (
     () => {
       const fetchCart = async () => {
@@ -106,6 +110,23 @@ const Cart = () => {
         <Typography variant="h2" color="primary" mb="0.4em" >
           Mon panier
         </Typography>
+<<<<<<< HEAD
+        <CartItem
+          games={cart.cart_games}
+          quantityButton={true}
+          deleteButton={true}
+          handleAdd={handleAdd}
+          handleRemove={handleRemove}
+          handleDelete={handleDelete}
+        />
+        <Typography id="total_price" variant="h5" color="primary" mb="0.4em" >
+          Total: {cart && totalPrice(cart.cart_games)}€
+        </Typography>
+        
+        <Button onClick={e => handlePayment}>
+          Payer
+        </Button>
+=======
         { userReducer && userReducer.loading ? 
             <Progress /> 
             :
@@ -125,6 +146,7 @@ const Cart = () => {
               <StripeButton item={"Panier"} quantity={1} type="game" /> 
             </>
         }
+>>>>>>> main
 
       </Box>
     </Container>

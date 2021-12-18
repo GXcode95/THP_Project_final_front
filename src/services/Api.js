@@ -370,23 +370,6 @@ export default class APIManager {
         return response.data
     }
 
-
-    static async buyPackage(token, id, quantity) {
-        const response = await API.post('/charges', {
-            token,
-            package: {
-                presence: true,
-                package_id: id,
-                quantity: quantity
-            }
-        }).catch(error => handleCatchError(error))
-        
-        if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # BuyPackages =>", response)
-
-        return response.data
-    }
-
     static async updatePackageAdmin(packagesID) {
         const response = await API.put(`/admin/packages/${packagesID}`)
             .catch(error => handleCatchError(error))
@@ -563,5 +546,23 @@ export default class APIManager {
                 isRanked: response.data.is_ranked
             }
         return formatedResponse
+    }
+    
+    ////////////////////
+    ///    STRIPE    ///
+    ////////////////////
+    
+    static async createCheckout(stripeParams) {
+      const response = await API.post(`/stripe/checkouts`, stripeParams)
+      .catch(error => handleCatchError(error))
+      console.log("APIManager # createCheckout =>", response)
+      return response.data
+    }
+
+    static async createBillingPortal() {
+      const response = await API.post(`/stripe/billing_portal`)
+      .catch(error => handleCatchError(error))
+      console.log("APIManager # createBillingPortal =>", response)
+      return response.data
     }
 }
