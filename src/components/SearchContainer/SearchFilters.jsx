@@ -3,13 +3,17 @@ import { Grid, Slider, Typography } from '@mui/material'
 import SearchSliders from './SearchSliders'
 const SearchFilters = ({values, setValues, sortGames}) => {
 
+
   return (
       <Grid container gap="2em">
         <Grid item lg={3} sm={5} xs={5}>
           <Typography varianet="body1" color="secondary">Prix</Typography>
+          {console.log("vlaues price", values.price)}
+          {console.log([values.price[0] / 100, values.price[1] / 100])}
+
           <SearchSliders 
-            value={values.price}
-            setValue={setValues.setPrice}
+            value={[values.price[0] / 100, values.price[1] / 100]}
+            setValue={setValues.handleSetPrice}
             max={200}
             sortGames={sortGames}
           />
