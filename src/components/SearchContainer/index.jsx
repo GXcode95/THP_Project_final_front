@@ -2,12 +2,10 @@ import { Button, Container, Stack } from '@mui/material';
 import SearchBar from './SearchBar';
 import SearchFilters from './SearchFilters';
 import React, {useState} from 'react';
-import { useSelector } from 'react-redux';
 import APIManager from 'services/Api';
 import SearchTags from './SearchTags'
 const SearchContainer = ({ games, setGames }) => {
 
-  const gameReducer = useSelector(state => state.gamesReducer)
   const [tags, setTags] = React.useState()
   const [checkedTags, setCheckedTags] = React.useState()
   const [price,setPrice] = useState([0,200])
@@ -27,9 +25,9 @@ const SearchContainer = ({ games, setGames }) => {
   const getAllCheckedTagIds = () => {
     const tagChips = document.querySelectorAll('.checked-tags')
     let tagIds = []
-    tagChips.forEach(tagChip => 
-      tagIds.push( parseInt(tagChip.getAttribute('name')) ) // get the ids of all tag in the array
-    ) 
+    tagChips.forEach(tagChip =>
+      tagIds.push( parseInt(tagChip.getAttribute('name')) )
+    )
     return tagIds
   }
 
@@ -37,19 +35,14 @@ const SearchContainer = ({ games, setGames }) => {
     const targetedTag = e.target.parentElement
     let checkedTags = getAllCheckedTagIds()
     const tagId = parseInt(targetedTag.getAttribute('name'))
-    console.log("--------------------->", tagId)
 
-    if(targetedTag.classList.contains('checked-tags')) {
-      checkedTags = checkedTags.filter(id => id !== tagId)
-    }else {
-      checkedTags.push(tagId) 
-    }
-  
+    targetedTag.classList.contains('checked-tags') ?
+      checkedTags = checkedTags.filter(id => id !== tagId) :
+      checkedTags.push(tagId)
+
     setCheckedTags(checkedTags)
     sortGames(checkedTags)
   }
-
-
 
   const sortGames = (tagList) => {
     const sortedGamesTemp = games.filter(game => {
@@ -64,48 +57,34 @@ const SearchContainer = ({ games, setGames }) => {
 
     let tempGames = []
     let tempIds = []
+    let tagToCheck = null
 
-    if (tagList) {
-      console.log("lsit",tagList)
-      tagList.forEach( tag =>{
+    if (tagList && tagList.length > 0)
+      tagToCheck = tagList
+    else if (checkedTags && !tagList)
+      tagToCheck = checkedTags
+    
+
+    if(tagToCheck) {
+      tagToCheck.forEach( tag =>{
         games.forEach( game => {
-          console.log('*********************************')
-          console.log(game.tags)
-          console.log(tag)
-          console.log('*********************************')
-          if(game.tags.includes(tag)) console.log("OKOK")
-          if(game.tags.includes(tag) && !tempIds.includes(game.id) ) {
+          if(getTagIds(game).includes(tag) && !tempIds.includes(game.id) ) {
             tempIds.push(game.id)
             tempGames.push(game)
           }
         })
       })
-      console.log("---------------------")
-      console.log(tempGames)
-      console.log("---------------------")
-    } else if (checkedTags) {
-      checkedTags.forEach( tag =>{
-        games.forEach( game => {
-          if(game.tags.includes(tag) && !tempIds.includes(game.id) ) {
-            tempIds.push(game.id)
-            tempGames.push(game)
-          }
-        })
-      })
-      console.log("---------------------")
-      console.log(tempGames)
-      console.log("---------------------")
     } else {
       tempGames = sortedGamesTemp
     }
-    
+
     setGames(tempGames)
   }
-  
-  const getTagsIds = (game) => {
-    console.log("game:", game)
-    console.log(game.tags.map( tag => tag.id))
+
+  const getTagIds = (game) => {
+    return game.tags.map( tag => tag.id)
   }
+
   React.useEffect(
     () => {
       const fetchAllTags = async () => {
@@ -115,35 +94,28 @@ const SearchContainer = ({ games, setGames }) => {
       fetchAllTags()
     }, []
   )
-  React.useEffect(
-    () => {
-      if(games) games.map(game => getTagsIds(games[0]))
-      
-    }
-  )
-
 
   return (
     <Container>
       <Stack alignItems="start" spacing={1} my={2}>
           <SearchBar handleSearch={handleSearch} />
-          
+
           <Button variant="text" color="secondary" onClick={ e =>  setFilterMode(!filterMode)}>
             {filterMode ? "-" : "+"} de filtres...
           </Button>
-          
-          {filterMode && 
+
+          {filterMode &&
             <>
-              <SearchFilters 
+              <SearchFilters
                 games={games}
                 setGames={games}
                 values={{ players, price, rank, minAge }}
                 setValues={{ setPlayers, setPrice, setRank, setMinAge }}
                 sortGames={sortGames}
               />
-                
+
               <SearchTags handleClick={handleClickTags} tags={tags}/>
-              
+
             </>
           }
       </Stack>
