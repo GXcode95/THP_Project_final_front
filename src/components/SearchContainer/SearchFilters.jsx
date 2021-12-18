@@ -48,6 +48,7 @@ const SearchFilters = ({values, setValues, sortGames}) => {
               setValues.setMinAge(newValue) 
               sortGames()
             }}
+            color="secondary"
           />
         </Grid>
       </Grid>
