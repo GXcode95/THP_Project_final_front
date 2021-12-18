@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
-import {Box, Tabs, Tab, Typography} from '@mui/material';
+import {Box, Tabs, Tab, Typography, Button} from '@mui/material';
 import Wishlist from './Wishlist';
 import CurrentRent from './CurrentRents';
 import RentHistory from './RentHistory';
-
+import APIManager from 'services/Api';
+import Progress from 'components/Progress'
 
 const UserSubscription = ({user, tiers}) => {
   const [value, setValue] = useState(0);
@@ -11,6 +12,11 @@ const UserSubscription = ({user, tiers}) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   }; 
+
+  const handleBillingPortal = async () => {
+    const response = await APIManager.createBillingPortal()
+    window.location.href = response.redirect_url
+  }
 
   const wishlist = user.rent.wishlist
   const wishlist_limit = user.rent.wishlist_limit
@@ -47,11 +53,11 @@ const UserSubscription = ({user, tiers}) => {
             {userTier.name}
           </Typography>
           <Typography align="center" my="1em">
-            valable jusqu'au <Typography component="span" color="error">
-                                  {` ${user.user_info.subscription_ending} `}
-                                </Typography>
-            et vous autorise à louer {userTier.game_number} jeu{userTier.game_number > 1 && 'x'}.
+            Votre abonnement vous permet de louer {userTier.game_number} jeu{userTier.game_number > 1 && 'x'}.
           </Typography>
+          <Button onClick={handleBillingPortal}>
+            Accéder au portail d'abonnement
+          </Button>
         </>
       }
       <Box sx={{ bgcolor: 'background.paper', maxWidth:"28em", width:"100%" }} >
@@ -60,10 +66,11 @@ const UserSubscription = ({user, tiers}) => {
           <Tab label="En cours" />
           <Tab label="Historique de location" />
         </Tabs>
-        {TabPanel()}
+
+        {user && user.loading ? <Progress /> : TabPanel()}
       </Box>
     </Box>
-  )
+)
 }
     
 export default UserSubscription

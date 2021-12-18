@@ -17,7 +17,7 @@ const EditInputGrid = (props) => {
     if (response.error) {
       dispatch(fetchUserError(response.error))
     } else {
-      dispatch(fetchUserUpdateSuccess(response.user_info))
+      dispatch(fetchUserUpdateSuccess(response))
     }
   };
 

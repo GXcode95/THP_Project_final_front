@@ -1,8 +1,8 @@
 import React from 'react'
-import {Box, Button} from '@mui/material'
-import {useDropzone} from "react-dropzone"
+import { Box } from '@mui/material'
+import { useDropzone } from "react-dropzone"
 import ImagesList from './ImagesList'
-const ImagesDropzone = ({validate, files, setFiles}) => {
+const ImagesDropzone = ({ validate, files, setFiles }) => {
 
   const onDrop = React.useCallback(async (acceptedFiles) => {
     acceptedFiles.forEach(async (acceptedFile) => {
@@ -10,7 +10,7 @@ const ImagesDropzone = ({validate, files, setFiles}) => {
     })
 
   }, []);
-  const {getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accepts: "images/*"
   })
@@ -19,13 +19,13 @@ const ImagesDropzone = ({validate, files, setFiles}) => {
 
 
   return (
-    <Box 
-      display="flex" 
-      flexDirection="column"    
+    <Box
+      display="flex"
+      flexDirection="column"
       alignItems="center"
       padding="1em"
     >
-      <Box padding="1em" sx={{border: "1px dashed red"}}  {...getRootProps()} >
+      <Box padding="1em" sx={{ border: "1px dashed red" }}  {...getRootProps()} >
         <input {...getInputProps()} />
         {
           isDragActive ?

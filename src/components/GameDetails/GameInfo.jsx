@@ -1,9 +1,9 @@
 import React from 'react';
-import { Card, Box, Typography, Button, Stack, Grid } from '@mui/material';
-import RentButton from 'components/buttons/RentButton';
+import { Box, Typography, Stack } from '@mui/material';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import Rating from '@mui/material/Rating';
+import centToEuro from 'helpers/CentToEuro'
 
 
 const GameInfo = ({ game }) => {
@@ -43,13 +43,11 @@ const GameInfo = ({ game }) => {
       </Typography>
       <Typography variant="subtitle2" align="left" noWrap color="secondary">
         <strong className="price">
-          {game && game.price}€
+          {game && centToEuro(game.price)}€
         </strong>
         <sup>    <span className="badge">{game && game.sell_stock > 0 && `${game.sell_stock} en stock`}</span></sup>
       </Typography>
-      <Typography noWrap py="0.5em" >
-        <RentButton />
-      </Typography>
+      <br />
     </>
   );
 }

@@ -8,6 +8,7 @@ export const light = createTheme({
     },
     secondary: {
       main: '#109eb3',
+      light: '#26A7B8',
     },
     ternary: {
       main: '#ffb735',
@@ -29,6 +30,9 @@ export const light = createTheme({
     },
     black: {
       main: "#000"
+    },
+    grey: {
+      main: "#cecece"
     },
     alert: {
       main: "#Dcc5a3",

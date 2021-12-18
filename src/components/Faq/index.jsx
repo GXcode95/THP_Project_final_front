@@ -1,6 +1,6 @@
-import * as React from 'react';
-import {Container,Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'; 
+import React from 'react';
+import { Container, Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 export default function Faq() {
 	const [expanded, setExpanded] = React.useState(false);
 
@@ -9,11 +9,12 @@ export default function Faq() {
 	};
 
 	return (
-		<Container>
-			<Accordion 
-				expanded={expanded === 'panel1'} 
+		<Container sx={{ paddingBottom: "3em" }}>
+			<div id="faq"></div>
+			<Accordion
+				expanded={expanded === 'panel1'}
 				sx={{ border: "1px solid", borderColor: "primary.main" }}
-				onChange={handleChange('panel1')} 
+				onChange={handleChange('panel1')}
 			>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
@@ -33,10 +34,10 @@ export default function Faq() {
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion 
-				expanded={expanded === 'panel2'} 
+			<Accordion
+				expanded={expanded === 'panel2'}
 				sx={{ border: "1px solid", borderColor: "primary.main" }}
-				onChange={handleChange('panel2')} 
+				onChange={handleChange('panel2')}
 			>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
@@ -55,8 +56,8 @@ export default function Faq() {
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion 
-				expanded={expanded === 'panel3'} 
+			<Accordion
+				expanded={expanded === 'panel3'}
 				onChange={handleChange('panel3')}
 				sx={{ border: "1px solid", borderColor: "primary.main" }}
 			>
@@ -79,8 +80,8 @@ export default function Faq() {
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion 
-				expanded={expanded === 'panel4'} 
+			<Accordion
+				expanded={expanded === 'panel4'}
 				onChange={handleChange('panel4')}
 				sx={{ border: "1px solid", borderColor: "primary.main" }}
 			>
@@ -93,7 +94,7 @@ export default function Faq() {
 				</AccordionSummary>
 				<AccordionDetails>
 					<Typography>
-						Pas de panique. Chez Gameflix, faute avouée est à moitié pardonnée.
+						Pas de panique. Chez PlayBOX, faute avouée est à moitié pardonnée.
 						Si vous nous indiquez une petite pièce perdue ou manquante (un pion, une carte...), nous retiendrons 1€ sur votre prochain mois de livraison.
 						Si le dégât est plus important (plateau détruit, partie entière d’un jeu manquante), nous retiendrons un montant proportionnel à la perte.
 						Si le jeu revient non-fonctionnel, nous vous le facturerons au prix de vente neuf sur notre site.
