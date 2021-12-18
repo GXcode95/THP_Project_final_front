@@ -5,12 +5,12 @@ import { Image } from 'cloudinary-react'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import centToEuro from 'helpers/CentToEuro'
+import centToEuro from 'helpers/CentToEuro';
 
 const CartItem = (props) => {
   const games = props.games
   const cartTotal = (gameObj) => `${centToEuro(gameObj.game.price)}€ x ${gameObj.quantity} = ${centToEuro(gameObj.game.price * gameObj.quantity)}€ `
-
+  console.log("HAIFJAAFZAÖF", games)
   const handleCardHeight = () => {
     const screen = window.screen.width
     if (screen > 1500) {
