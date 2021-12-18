@@ -4,7 +4,7 @@ import ChildCareIcon from '@mui/icons-material/ChildCare';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import Rating from '@mui/material/Rating';
 import centToEuro from 'helpers/CentToEuro'
-
+import processDateForDisplay from 'helpers/processDateForDisplay'
 
 const GameInfo = ({ game }) => {
   return (
@@ -39,7 +39,7 @@ const GameInfo = ({ game }) => {
         Editeur: {game && game.editor}
       </Typography>
       <Typography noWrap py="0.5em" >
-        Date de sortie: {game && game.release_date}
+        Date de sortie: {game && processDateForDisplay(game.release_date)}
       </Typography>
       <Typography variant="subtitle2" align="left" noWrap color="secondary">
         <strong className="price">
