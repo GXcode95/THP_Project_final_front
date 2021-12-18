@@ -36,6 +36,7 @@ const Home = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []
   )
+
   return (
     <Box mb="0" pb="0">
       <HeroBanner />

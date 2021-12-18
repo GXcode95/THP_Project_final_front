@@ -11,8 +11,19 @@ import Progress from 'components/Progress'
 
 
 const Subscription = () => {
+  const [tiers, setTiers] = React.useState()
   const dispatch = useDispatch()
   const userReducer = useSelector(state => state.userReducer)
+
+  React.useEffect(
+    () => {
+      const fetchAllPackages = async () => {
+        const response = await APIManager.getAllPackages()
+        setTiers(response)
+      }
+      fetchAllPackages()
+    }, []
+  )
 
   useEffect (
     () => {
@@ -39,7 +50,7 @@ const Subscription = () => {
     {(userReducer &&  userReducer.loading ) ? 
       <Progress /> : 
       <Box mx="1em">
-      { isSubscribed(userReducer) ?  <UserSubscription user={userReducer}/> : <VisitorSubscription />  }
+      { isSubscribed(userReducer) ?  <UserSubscription user={userReducer} tiers={tiers}/> : <VisitorSubscription tiers={tiers}/>  }
       </Box>
     }
     </>
