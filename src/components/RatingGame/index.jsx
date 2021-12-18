@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import APIManager from 'services/Api'
 import { Button } from '@mui/material'
 
-export default function RatingGame({ game, setGame }) {
+const RatingGame = ({ game, setGame }) => {
   const [value, setValue] = React.useState(0);
 
   const createRate = async () => {
@@ -45,8 +45,4 @@ export default function RatingGame({ game, setGame }) {
     </Box>
   );
 }
-
-
-// (event, newValue) => {
-//   setValue(newValue);
-// }
+export default RatingGame

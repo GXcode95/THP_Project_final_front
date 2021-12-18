@@ -38,21 +38,18 @@ const SignUp = () => {
       address: address
     }
 
-    
     const errorsMessages = validateSignUpForm(userInfo)
     if (errorsMessages.length > 0) {
       dispatch(setSnackbar(true, "error", errorsMessages))
     }else{
       dispatch(fetchUserRequest())
       const response = await APIManager.registerUser(userInfo)
-      if(response){
-        response.error ? 
-          dispatch(fetchUserError(response.error)) && dispatch(setSnackbar(true, "error", response.error)):
-          dispatch(fetchUserRegisterSuccess(response)) && dispatch(setSnackbar(true, "success", "Votre compte a bien été créé! Bienvenue chez PlayBox!"))
+      if(response.error){
+        dispatch(fetchUserError(response.error)) && dispatch(setSnackbar(true, "error", response.error))
+        navigate('/') 
       }else {
-        alert("Un problème est survenue, merci de réessayer dans quelques instant")
+        dispatch(fetchUserRegisterSuccess(response)) && dispatch(setSnackbar(true, "success", "Votre compte a bien été créé! Bienvenue chez PlayBox!"))
       }
-      navigate('/') 
     }
   }
 

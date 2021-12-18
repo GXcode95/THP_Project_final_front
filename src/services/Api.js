@@ -245,7 +245,8 @@ export default class APIManager {
                 images: response.data.images,
                 comments: response.data.comments,
                 rank: response.data.rank,
-                tags: response.data.tags
+                tags: response.data.tags,
+                isRanked: response.data.is_ranked
             }
         return formatedResponse
     }
@@ -550,6 +551,7 @@ export default class APIManager {
         const response = await API.post(`/ranks`, { game_id: gameID, note: note })
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
+
         console.log("APIManager # createRank =>", response)
         const formatedResponse = response.data.error ?
             response.data : {
