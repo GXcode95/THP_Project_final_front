@@ -35,6 +35,7 @@ const FavoriteButton = ({ gameID, userReducer }) => {
         setIsFav(true)
     }
     ,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
 
@@ -43,7 +44,7 @@ const FavoriteButton = ({ gameID, userReducer }) => {
       {isSigned(userReducer) &&
         <IconButton aria-label="favorite" onClick={handleFavorite}>
           {isFav ?
-            <FavoriteIcon /> :
+            <FavoriteIcon color="error" /> :
             <FavoriteBorderTwoToneIcon />
           }
         </IconButton>}

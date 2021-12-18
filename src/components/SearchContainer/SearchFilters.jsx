@@ -8,9 +8,6 @@ const SearchFilters = ({values, setValues, sortGames}) => {
       <Grid container gap="2em">
         <Grid item lg={3} sm={5} xs={5}>
           <Typography varianet="body1" color="secondary">Prix</Typography>
-          {console.log("vlaues price", values.price)}
-          {console.log([values.price[0] / 100, values.price[1] / 100])}
-
           <SearchSliders 
             value={[values.price[0] / 100, values.price[1] / 100]}
             setValue={setValues.handleSetPrice}
@@ -41,8 +38,9 @@ const SearchFilters = ({values, setValues, sortGames}) => {
             minDistance={0}
             />
         </Grid>
+        
         <Grid item lg={3} sm={5} xs={5}>
-          <Typography varianet="body1" color="secondary">Age minimum</Typography>
+          <Typography variant="body1" color="secondary">Age minimum</Typography>
           <Slider
             value={values.minAge}
             aria-label="age minimum"
