@@ -85,9 +85,9 @@ const Home = () => {
           </Link>
         </Box>
 
-        <Box class="footer-left" mb="0" pb="0">
+        <Box className="footer-left" mb="0" pb="0">
 
-          <p class="footer-links">
+          <p className="footer-links">
             <Link to="#home">Acceuil</Link>
             <Link to="/connexion">Se connecter / S'inscrire</Link>
             <Link to="/jeux">Jeux</Link>
