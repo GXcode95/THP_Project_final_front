@@ -31,6 +31,7 @@ const SearchSliders = ({ value, setValue, min = 0, max, minDistance = 10, sortGa
       valueLabelDisplay="auto"
       getAriaValueText={valuetext}
       disableSwap
+      color="secondary"
       max={max}
       min={min}
     />
