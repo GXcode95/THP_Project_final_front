@@ -53,8 +53,7 @@ const Pricing = () => {
     }}>
       <PricingHero />
       <Grid container spacing={5} alignItems="flex-end">
-        {tiers && tiers.map((tier, i) => (
-          // Enterprise card is full width at sm breakpoint
+        {tiers && tiers.length > 0 && tiers.map((tier, i) => (
           <Grid
             item
             key={tier.name}
@@ -62,7 +61,7 @@ const Pricing = () => {
             sm={6}
             md={4}
           >
-            <PricingCard tier={tier} variant={getVariant(i)} description={getDescription(i)} />
+            { tiers && <PricingCard tier={tier} variant={getVariant(i)} description={getDescription(i)} /> }
           </Grid>
         ))}
       </Grid>
