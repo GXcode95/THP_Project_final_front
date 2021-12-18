@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Container, Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 export default function Faq() {
