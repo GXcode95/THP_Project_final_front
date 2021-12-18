@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, Container, Typography, Button } from '@mui/material'
-import {Link} from 'react-router-dom'
+import { Box, Container, Typography } from '@mui/material'
 import CartItem from 'components/CartItem'
 import StripeButton from 'components/buttons/StripeButton'
-
 import { fetchUserRequest, fetchUserError, fetchUpdateCartSuccess, fetchUpdateOrderSuccess, fetchDeleteOrderSuccess } from 'store/users/actions'
-import userReducer from 'store/users/reducer'
-import gamesReducer from 'store/games/reducer'
-import RentButton from 'components/buttons/RentButton'
 import APIManager from 'services/Api'
 import Progress from 'components/Progress'
+import centToEuro from 'helpers/CentToEuro'
 
 const Cart = () => {
   const dispatch = useDispatch()
@@ -37,8 +33,8 @@ const Cart = () => {
       dispatch(fetchUserError(response.error))
     } else {
       dispatch(fetchUpdateOrderSuccess(response))
-      totalPriceElement.textContent = `Total: ${totalPrice + price}€`
-      quantityElement.textContent = `${price}€ x ${quantity + 1} = ${price * (quantity + 1)}€`
+      totalPriceElement.textContent = `Total: ${centToEuro(totalPrice + price)}€`
+      quantityElement.textContent = `${centToEuro(price)}€ x ${quantity + 1} = ${centToEuro(price * (quantity + 1))}€`
     }
   }
 
@@ -56,8 +52,8 @@ const Cart = () => {
       dispatch(fetchUserError(response.error))
     } else {
       dispatch(fetchUpdateOrderSuccess(response))
-      totalPriceElement.textContent = parseInt(quantityElement.textContent.split(' ')[2]) > 1 ? `Total: ${totalPrice - price}€` : `Total: ${totalPrice}€`
-      quantityElement.textContent = `${price}€ x ${quantity - 1} = ${price * (quantity - 1)}€`
+      totalPriceElement.textContent = parseInt(quantityElement.textContent.split(' ')[2]) > 1 ? `Total: ${centToEuro(totalPrice) - centToEuro(price)}€` : `Total: ${centToEuro(totalPrice)}€`
+      quantityElement.textContent = `${centToEuro(price)}€ x ${quantity - 1} = ${centToEuro(price * (quantity - 1))}€`
     }
   }
 
@@ -75,7 +71,7 @@ const Cart = () => {
       dispatch(fetchUserError(response.error))
     } else {
       dispatch(fetchDeleteOrderSuccess(response))
-      totalPriceElement.textContent = `Total: ${totalPrice - price}€`
+      totalPriceElement.textContent = `Total: ${centToEuro(totalPrice - price)}€`
       productElement.remove()
     }
   }
@@ -123,7 +119,7 @@ const Cart = () => {
                 handleDelete={handleDelete}
               />
               <Typography id="total_price" variant="h5" color="primary" mb="0.4em" >
-                Total: {cart && totalPrice(cart.cart_games)}€
+                Total: {cart && centToEuro(totalPrice(cart.cart_games))}€
               </Typography>
 
               <StripeButton item={"Panier"} quantity={1} type="game" /> 
