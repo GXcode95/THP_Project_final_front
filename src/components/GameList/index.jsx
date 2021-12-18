@@ -12,7 +12,7 @@ const GameList = ({ games, edit }) => {
       {gamesReducer && gamesReducer.loading ?
         <Progress />
         :
-        <Grid container spacing={3}>
+        <Grid container spacing={3} pb={10}>
           {games && games.map((game, i) => (
             <Grid key={i} item xs={12} md={6} lg={6}>
               <GameCard game={game} edit={edit} />
