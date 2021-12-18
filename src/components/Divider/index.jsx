@@ -6,7 +6,7 @@ const Divider = () => {
 
   return (
     <Box sx={{ width: '100%', opacity: 0.75 }}>
-      <img src={divider} width="100%" heightMax="350px" />
+      <img src={divider} width="100%" height="250px" />
     </Box>
   )
 }
