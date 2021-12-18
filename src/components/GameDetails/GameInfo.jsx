@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Typography, Stack } from '@mui/material';
-import RentButton from 'components/buttons/RentButton';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import Rating from '@mui/material/Rating';
