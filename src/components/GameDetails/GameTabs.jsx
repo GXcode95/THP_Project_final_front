@@ -6,10 +6,14 @@ import TabPanel from '@mui/lab/TabPanel';
 import Box from '@mui/material/Box';
 import { Container, Grid } from '@mui/material'
 import Comments from 'components/Comments'
-import RatingGame from 'components/Rating';
+import RatingGame from 'components/RatingGame';
 import isSigned from 'helpers/isSigned';
+import { useSelector } from 'react-redux'
+
 const GameTabs = ({ game, setGame }) => {
   const [value, setValue] = React.useState('1');
+  const userReducer = useSelector( state => state.userReducer)
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -22,7 +26,9 @@ const GameTabs = ({ game, setGame }) => {
             <TabList onChange={handleChange}>
               <Tab label="Description" value="1" />
               <Tab label="Commentaires" value="2" />
-              <Tab label="Noter le jeu" value="3" />
+              {isSigned(userReducer) && 
+                <Tab label="Noter le jeu" value="3" />
+              }
             </TabList>
           </Box>
           <TabPanel value="1">{game && game.description}</TabPanel>
@@ -31,9 +37,11 @@ const GameTabs = ({ game, setGame }) => {
               <Comments comments={game && game.comments} game={game} setGame={setGame} />
             </Container>
           </TabPanel>
-          <TabPanel value="3">
-            {game && (game.isRanked || game.isRanked === null) ? 'Déjà noté' : <RatingGame game={game} setGame={setGame} />}
-          </TabPanel>
+          {isSigned(userReducer) && 
+            <TabPanel value="3">
+              {game && (game.isRanked || game.isRanked === null) ? 'Déjà noté' : <RatingGame game={game} setGame={setGame} />}
+            </TabPanel>
+          }
         </TabContext>
       </Box>
     </Grid>
