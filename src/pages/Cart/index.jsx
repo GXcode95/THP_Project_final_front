@@ -122,7 +122,7 @@ const Cart = () => {
                 Total: {cart && (totalPrice(cart.cart_games))/100}€
               </Typography>
 
-              <Button onClick={e => handlePayment}>
+              <Button onClick={e => handlePayment()}>
                Payer
               </Button>
             </>
