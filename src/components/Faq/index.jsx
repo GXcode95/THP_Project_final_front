@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Container,Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'; 
+import { Container, Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 export default function Faq() {
 	const [expanded, setExpanded] = React.useState(false);
 
@@ -10,10 +10,11 @@ export default function Faq() {
 
 	return (
 		<Container>
-			<Accordion 
-				expanded={expanded === 'panel1'} 
+			<div id="faq"></div>
+			<Accordion
+				expanded={expanded === 'panel1'}
 				sx={{ border: "1px solid", borderColor: "primary.main" }}
-				onChange={handleChange('panel1')} 
+				onChange={handleChange('panel1')}
 			>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
@@ -33,10 +34,10 @@ export default function Faq() {
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion 
-				expanded={expanded === 'panel2'} 
+			<Accordion
+				expanded={expanded === 'panel2'}
 				sx={{ border: "1px solid", borderColor: "primary.main" }}
-				onChange={handleChange('panel2')} 
+				onChange={handleChange('panel2')}
 			>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
@@ -55,8 +56,8 @@ export default function Faq() {
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion 
-				expanded={expanded === 'panel3'} 
+			<Accordion
+				expanded={expanded === 'panel3'}
 				onChange={handleChange('panel3')}
 				sx={{ border: "1px solid", borderColor: "primary.main" }}
 			>
@@ -79,8 +80,8 @@ export default function Faq() {
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion 
-				expanded={expanded === 'panel4'} 
+			<Accordion
+				expanded={expanded === 'panel4'}
 				onChange={handleChange('panel4')}
 				sx={{ border: "1px solid", borderColor: "primary.main" }}
 			>

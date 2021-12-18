@@ -3,6 +3,7 @@ import { Grid, Container } from '@mui/material';
 import PricingHero from './PricingHero'
 import PricingCard from './PricingCard'
 import APIManager from 'services/Api'
+import curvy from 'assets/images/curvyLines.png'
 
 
 const Pricing = () => {
@@ -45,7 +46,11 @@ const Pricing = () => {
   )
 
   return (
-    <Container maxWidth="md" component="main">
+    <Container maxWidth="md" component="main" sx={{
+      mb: 8, background: `url(${curvy}) repeat`,
+      backgroundSize: "cover",
+      backgroundPosition: "center"
+    }}>
       <PricingHero />
       <Grid container spacing={5} alignItems="flex-end">
         {tiers && tiers.map((tier, i) => (
