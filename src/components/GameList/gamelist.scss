@@ -1,0 +1,25 @@
+.double-arrow {
+  transform: rotate(90deg);
+}
+.double-arrow-box {
+  transition: 1s;
+  animation: up-down ease-in-out 2s infinite;
+  position:relative;
+  transform: scale(1.1);
+}
+.double-arrow-box:hover {
+  transform: scale(1.12);
+  transition: 1s;
+}
+
+@keyframes up-down {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: 0.3em;
+  }
+  100% {
+    top: 0;
+  }
+}
