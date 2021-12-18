@@ -11,12 +11,7 @@ const SearchBar = ({ setFilter, filter }) => {
   }
 
   return (
-    <Box width="100%">
-      <Box display="flex" alignItems="center">
-        <SearchIcon color="primary" sx={{ fontSize: "3em" }} />
-        <TextField onChange={handleChange} label="recherche" fullWidth />
-      </Box>
-    </Box>
+    <TextField onChange={handleChange} label="recherche" fullWidth />
   )
 }
 

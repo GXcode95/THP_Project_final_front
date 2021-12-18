@@ -4,11 +4,13 @@ import { Box, Container, Typography, Button } from '@mui/material'
 import CartItem from 'components/CartItem'
 import { fetchUserRequest, fetchUserError, fetchUpdateCartSuccess, fetchUpdateOrderSuccess, fetchDeleteOrderSuccess } from 'store/users/actions'
 import APIManager from 'services/Api'
+import Progress from 'components/Progress'
+import centToEuro from 'helpers/CentToEuro'
 
 const Cart = () => {
   const dispatch = useDispatch()
-  const storedCart = useSelector(state => state.userReducer.cart)
-  const [cart, setCart] = useState(storedCart)
+  const userReducer = useSelector(state => state.userReducer)
+  const [cart, setCart] = useState(userReducer.cart)
 
   const totalPrice = (cart_games) => {
     let total = 0
@@ -30,8 +32,8 @@ const Cart = () => {
       dispatch(fetchUserError(response.error))
     } else {
       dispatch(fetchUpdateOrderSuccess(response))
-      totalPriceElement.textContent = `Total: ${totalPrice + price}€`
-      quantityElement.textContent = `${price}€ x ${quantity + 1} = ${price * (quantity + 1)}€`
+      totalPriceElement.textContent = `Total: ${centToEuro(totalPrice + price)}€`
+      quantityElement.textContent = `${centToEuro(price)}€ x ${quantity + 1} = ${centToEuro(price * (quantity + 1))}€`
     }
   }
 
@@ -49,8 +51,8 @@ const Cart = () => {
       dispatch(fetchUserError(response.error))
     } else {
       dispatch(fetchUpdateOrderSuccess(response))
-      totalPriceElement.textContent = parseInt(quantityElement.textContent.split(' ')[2]) > 1 ? `Total: ${totalPrice - price}€` : `Total: ${totalPrice}€`
-      quantityElement.textContent = `${price}€ x ${quantity - 1} = ${price * (quantity - 1)}€`
+      totalPriceElement.textContent = parseInt(quantityElement.textContent.split(' ')[2]) > 1 ? `Total: ${centToEuro(totalPrice) - centToEuro(price)}€` : `Total: ${centToEuro(totalPrice)}€`
+      quantityElement.textContent = `${centToEuro(price)}€ x ${quantity - 1} = ${centToEuro(price * (quantity - 1))}€`
     }
   }
 
@@ -68,7 +70,7 @@ const Cart = () => {
       dispatch(fetchUserError(response.error))
     } else {
       dispatch(fetchDeleteOrderSuccess(response))
-      totalPriceElement.textContent = `Total: ${totalPrice - price}€`
+      totalPriceElement.textContent = `Total: ${centToEuro(totalPrice - price)}€`
       productElement.remove()
     }
   }
@@ -82,7 +84,7 @@ const Cart = () => {
     () => {
       const fetchCart = async () => {
         dispatch(fetchUserRequest())
-        const response = await APIManager.getCart(storedCart.current_cart.id)
+        const response = await APIManager.getCart(userReducer.cart.current_cart.id)
         if(response.error) {
           dispatch(fetchUserError(response.error))
         } else {
@@ -108,6 +110,7 @@ const Cart = () => {
         <Typography variant="h2" color="primary" mb="0.4em" >
           Mon panier
         </Typography>
+<<<<<<< HEAD
         <CartItem
           games={cart.cart_games}
           quantityButton={true}
@@ -123,6 +126,27 @@ const Cart = () => {
         <Button onClick={e => handlePayment}>
           Payer
         </Button>
+=======
+        { userReducer && userReducer.loading ? 
+            <Progress /> 
+            :
+            <>   
+              <CartItem
+                games={cart.cart_games}
+                quantityButton={true}
+                deleteButton={true}
+                handleAdd={handleAdd}
+                handleRemove={handleRemove}
+                handleDelete={handleDelete}
+              />
+              <Typography id="total_price" variant="h5" color="primary" mb="0.4em" >
+                Total: {cart && centToEuro(totalPrice(cart.cart_games))}€
+              </Typography>
+
+              <StripeButton item={"Panier"} quantity={1} type="game" /> 
+            </>
+        }
+>>>>>>> main
 
       </Box>
     </Container>

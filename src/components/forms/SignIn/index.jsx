@@ -24,10 +24,12 @@ const SignIn = () => {
     if (consent) {
       dispatch(fetchUserRequest())
       const response = await APIManager.signInUser(email, password)
-      response.error ?
-        dispatch(fetchUserError(response.error)) && dispatch(setSnackbar(true, "error", "Email et/ou mot de passe sont incorrect(s) ")) :
+      if(response.error) {
+        dispatch(fetchUserError(response.error)) && dispatch(setSnackbar(true, "error", "Email et/ou mot de passe sont incorrect(s) "))
+      } else {
         dispatch(fetchUserSignInSuccess(response)) && dispatch(setSnackbar(true, "success", "Vous êtes maintenant connecté(e)"))
-      navigate('/')
+        navigate('/')
+      }
     } else {
       alert('vous devez accepter les cookies pour vous connecter')
       setBanner(true)

@@ -77,6 +77,7 @@ const App = () => {
         <CssBaseline />
         <Router>
           <NavBar />
+          <SendAlert />
           <Routes>
             <Route path="/" element={<Home />} exact />
             <Route path="/jeux" element={<Games />} exact />

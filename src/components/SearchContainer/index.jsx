@@ -1,4 +1,4 @@
-import { Button, Container, Typography } from '@mui/material';
+import { Button, Container, Stack } from '@mui/material';
 import SearchBar from './SearchBar';
 import SearchFilters from './SearchFilters';
 import React from 'react';
@@ -74,19 +74,24 @@ const SearchContainer = ({ games, setGames }) => {
     return arrayTmp
   }
 
-  const getAllCheckedTags = () => {
-    const checkboxLabels = document.querySelectorAll('#form-group-checkboxs-tags>label input')
-    let checkedTags = []
-
-    checkboxLabels.forEach(input => {
-      if (input.parentElement.classList.contains('Mui-checked'))
-        checkedTags.push(parseInt(input.name))
-    })
-    return checkedTags
+  const getAllCheckedTagIds = () => {
+    const tagChips = document.querySelectorAll('.checked-tags')
+    let tagIds = []
+    tagChips.forEach(tagChip => 
+      tagIds.push( parseInt(tagChip.getAttribute('name')) ) // get the ids of all tag in the array
+    ) 
+    return tagIds
   }
-
-  const handleSubmit = (e) => {
-    let checkedTags = getAllCheckedTags()
+  const handleClickTags = (e) => {
+    const targetedTag = e.target.parentElement
+    let checkedTags = getAllCheckedTagIds()
+    const tagId = parseInt(targetedTag.getAttribute('name'))
+    console.log(tagId)
+    if(targetedTag.classList.contains('checked-tags')) {
+      checkedTags = checkedTags.filter(id => id !== tagId)
+    }else {
+      checkedTags.push(tagId) 
+    }
     setFilter({ ...filter, tags: checkedTags })
   }
   
@@ -114,28 +119,31 @@ const SearchContainer = ({ games, setGames }) => {
 
   return (
     <Container>
-      <SearchBar setFilter={setFilter} filter={filter} />
-      
-      <Button variant="text" color="secondary" onClick={ e =>  setFilterMode(!filterMode)}>
-        {filterMode ? "-" : "+"} de filtres...
-      </Button>
-      
-      {filterMode && 
-        <>
-          <SearchFilters 
-            filter={filter}
-            setFilter={setFilter}
-            min_prices={min_prices}
-            min_players={min_players}
-            min_ages={min_ages}
-            max_prices={max_prices}
-            max_players={max_players}
-            min_rank={min_rank}
-          />
-            
-          <SearchTags handleSubmit={handleSubmit}  tags={tags}/>
-        </>
-      }
+      <Stack alignItems="start" spacing={1} my={2}>
+          <SearchBar setFilter={setFilter} filter={filter} />
+          
+          <Button variant="text" color="secondary" onClick={ e =>  setFilterMode(!filterMode)}>
+            {filterMode ? "-" : "+"} de filtres...
+          </Button>
+          
+          {filterMode && 
+            <>
+              <SearchFilters 
+                filter={filter}
+                setFilter={setFilter}
+                min_prices={min_prices}
+                min_players={min_players}
+                min_ages={min_ages}
+                max_prices={max_prices}
+                max_players={max_players}
+                min_rank={min_rank}
+              />
+                
+              <SearchTags handleClick={handleClickTags} tags={tags}/>
+              
+            </>
+          }
+      </Stack>
     </Container>
   );
 };

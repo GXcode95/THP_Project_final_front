@@ -11,6 +11,7 @@ import EditGameForm from 'components/forms/EditGame/EditGameForm';
 import FavoriteButton from 'components/buttons/FavoriteButton';
 import { fetchPostWishListSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
 import { setSnackbar } from 'store/snackbar/actions';
+import centToEuro from 'helpers/CentToEuro'
 
 const GameCard = ({ game, edit }) => {
   const dispatch = useDispatch()
@@ -78,25 +79,20 @@ const GameCard = ({ game, edit }) => {
     <>
       <Card elevation={6}
         sx={{
-          padding: "0em",
+          padding: 0,
           borderRadius: '6px'
-
         }}
       >
-        <Link to={`/jeu/${game.id}`}>
-          <Typography variant="h4" align="center" noWrap py="0.5em" >
-            {game.name}
-          </Typography>
-        </Link>
 
-        <Grid container minHeight={`${handleCardHeight()}px`}>
+
+        <Grid container spacing={1} marginLeft={1} marginRight={1} minHeight={`${handleCardHeight()}px`}>
           <Grid item lg={6} md={5} xs={12} display="flex" justifyContent="center" alignItems="center" overflow="hidden">
-            <Box sx={{ padding: '10px' }}>
+            <Box sx={{ padding: '10px'}}>
               <Image
                 cloudName={process.env.REACT_APP_CLOUD_NAME}
-                publicId={game.images && game.images.length > 0 ? "/seed/" + game.images[0] : "default_game"}
+                publicId={game.images && game.images.length > 0 ? game.images[0] : "default_game"}
                 height={handleCardHeight()}
-                crop="crop"
+                crop={game.images && game.images.length > 0 ? "scale" : "scale" }
               />
             </Box>
           </Grid>
@@ -116,7 +112,7 @@ const GameCard = ({ game, edit }) => {
               <GameIconsInfos game={game} />
               <Typography variant="subtitle2" align="left" noWrap color="primary">
                 <strong className="price">
-                  {game.price}€
+                  {centToEuro(game.price)}€
                 </strong>
                 <sup>    <span className="badge">{game.sell_stock > 0 && `${game.sell_stock} en stock`}</span></sup>
               </Typography>

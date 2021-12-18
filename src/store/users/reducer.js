@@ -13,7 +13,8 @@ import {
     FETCH_POST_ORDER_SUCCESS,
     FETCH_UPDATE_ORDER_SUCCESS,
     FETCH_DELETE_ORDER_SUCCESS,
-    CHANGE_COOKIES_CONSENT
+    CHANGE_COOKIES_CONSENT,
+    END_OF_LOADING
 } from "./types";
 
 const initialState = {
@@ -63,7 +64,7 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                userInfo: action.userInfo
+                user_info: action.userInfo
             }
         case FETCH_POST_WISHLIST_SUCCESS:
             return {
@@ -128,6 +129,11 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 consentCookies: action.consentCookies
+            }
+        case END_OF_LOADING:
+            return {
+                ...state,
+                loading: false
             }
         default:
             return state

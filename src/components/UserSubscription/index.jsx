@@ -4,7 +4,7 @@ import Wishlist from './Wishlist';
 import CurrentRent from './CurrentRents';
 import RentHistory from './RentHistory';
 import APIManager from 'services/Api';
-
+import Progress from 'components/Progress'
 
 const UserSubscription = ({user, tiers}) => {
   const [value, setValue] = useState(0);
@@ -66,7 +66,8 @@ const UserSubscription = ({user, tiers}) => {
           <Tab label="En cours" />
           <Tab label="Historique de location" />
         </Tabs>
-        {TabPanel()}
+
+        {user && user.loading ? <Progress /> : TabPanel()}
       </Box>
     </Box>
 )
