@@ -8,8 +8,10 @@ import HowItWorks from 'components/HowItWorks'
 import GameList from 'components/GameList'
 import BannerTitle from 'components/BannerTitle'
 import HeroBanner from 'components/navigation/NavBar/HeroBanner'
-import { Box, Button, Container } from '@mui/material'
+import { Box, Button, Container, Typography } from '@mui/material'
 import Progress from 'components/Progress'
+import Pricing from 'components/Pricing'
+
 
 const Home = () => {
   const [games, setGames] = React.useState()
@@ -35,24 +37,36 @@ const Home = () => {
     <div className=''>
       <HeroBanner />
       <HowItWorks />
-      <BannerTitle textColor="white.main" text="Nos Jeux" />
-      {games ? (
-        <Container>
-          <GameList games={games.slice(0, 4)} />
-          <Box display="flex" justifyContent="center" pt="3em">
-            <Button color="ternary" sx={{ color: "primary.main" }}>
-              <Link to="/jeux">
-                Plus de jeux
-              </Link>
-            </Button>
-          </Box>
-        </Container>)
-        :
-        <Progress />
-      }
-      <BannerTitle textColor="white.main" text="F.A.Q" />
+      <Box sx={{ backgroundColor: '#fafafa', pt: 8, pb: 6 }} >
+        <Typography variant="h3" align="center" component="h2" sx={{ fontWeight: '800', marginBottom: 4, paddingTop: 4 }} className="title-pb">
+          LES JEUX
+        </Typography>
+        <Typography variant="h5" align="center" component="h5" sx={{ fontWeight: '400', marginBottom: 4, paddingTop: 1 }} className="title-pb" >
+          Decouvrez tous nos jeux en location ou à l'achat
+        </Typography>
+        {games ? (
+          <Container>
+            <GameList games={games.slice(0, 6)} />
+            <Box display="flex" justifyContent="center" pt="3em">
+              <Button color="ternary" sx={{ color: "primary.main" }}>
+                <Link to="/jeux">
+                  Plus de jeux
+                </Link>
+              </Button>
+            </Box>
+          </Container>)
+          :
+          <Progress />
+        }
+      </Box>
+      <Pricing sx={{
+        mb: 8
+      }} />
+      <Typography variant="h3" align="center" component="h2" sx={{ fontWeight: '800', marginBottom: 4, mt: 8, paddingTop: 4 }} className="title-pb">
+        QUESTIONS / REPONSES
+      </Typography>
       <Faq />
-    </div>
+    </div >
   )
 }
 

@@ -7,7 +7,6 @@ import Progress from 'components/Progress'
 const GameList = ({ games, edit }) => {
   const gamesReducer = useSelector(state => state.gameReducer)
 
-
   return (
     <>
       {gamesReducer && gamesReducer.loading ?
