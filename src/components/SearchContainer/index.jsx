@@ -1,100 +1,90 @@
 import { Button, Container, Stack } from '@mui/material';
 import SearchBar from './SearchBar';
 import SearchFilters from './SearchFilters';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, {useState} from 'react';
 import APIManager from 'services/Api';
 import SearchTags from './SearchTags'
 const SearchContainer = ({ games, setGames }) => {
 
-  const gameReducer = useSelector(state => state.gamesReducer)
   const [tags, setTags] = React.useState()
-  const min_prices = ["Aucun Filtre", 5, 15, 30, 50, 80]
-  const max_prices = ["Aucun Filtre", 10, 20, 50, 80, 100]
-  const min_ages = ["Aucun Filtre", 3, 5, 10, 18]
-  const min_players = ["Aucun Filtre", 1, 2, 3, 4, 10]
-  const max_players = ["Aucun Filtre", 1, 2, 3, 4, 10]
-  const min_rank = ["Aucun Filtre", 1, 2, 3, 4, 5]
+  const [checkedTags, setCheckedTags] = React.useState()
+  const [price,setPrice] = useState([0,200])
+  const [rank,setRank] = useState([0,5])
+  const [minAge,setMinAge] = useState(0)
+  const [players,setPlayers] = useState([1,20])
+  const [query, setQuery] = useState("")
   const [filterMode , setFilterMode] = React.useState()
 
-  const [filter, setFilter] = React.useState({
-    tags: "Aucun Filtre",
-    min_price: "Aucun Filtre",
-    max_price: "Aucun Filtre",
-    min_age: "Aucun Filtre",
-    min_player: "Aucun Filtre",
-    max_player: "Aucun Filtre",
-    min_rank: "Aucun Filtre",
-    search: ""
-  })
 
-  const filterSearch = (filter, games) => {
-    return games.filter(game => game.name.toLowerCase().includes(filter.search))
-  }
-
-  const filterGames = (filter, arrayTmp, i = 0) => {
-
-    for (i; i < arrayTmp.length; i++) {
-
-      if (filter.min_price !== "Aucun Filtre" && arrayTmp[i].price < filter.min_price) {
-        arrayTmp.splice(i, 1)
-        return filterGames(filter, arrayTmp, i)
-      }
-      else if (filter.max_price !== "Aucun Filtre" && arrayTmp[i].price > filter.max_price) {
-        arrayTmp.splice(i, 1)
-        return filterGames(filter, arrayTmp, i)
-      }
-      else if (filter.min_age !== "Aucun Filtre" && arrayTmp[i].min_age < filter.min_age) {
-        arrayTmp.splice(i, 1)
-        return filterGames(filter, arrayTmp, i)
-      }
-      else if (filter.min_player !== "Aucun Filtre" && arrayTmp[i].min_player < filter.min_player) {
-        arrayTmp.splice(i, 1)
-        return filterGames(filter, arrayTmp, i)
-      }
-      else if (filter.max_player !== "Aucun Filtre" && arrayTmp[i].max_player > filter.max_player) {
-        arrayTmp.splice(i, 1)
-        return filterGames(filter, arrayTmp, i)
-      }
-      else if (filter.min_rank !== "Aucun Filtre" && arrayTmp[i].rank < filter.min_rank) {
-        arrayTmp.splice(i, 1)
-        return filterGames(filter, arrayTmp, i)
-      }
-      else if (filter.tags !== "Aucun Filtre" && filter.tags.length > 0) {
-        let needDestroy = true
-        for (let tag of arrayTmp[i].tags)
-          if (filter.tags.includes(tag.id)) needDestroy = false
-
-        if (needDestroy === true) {
-          arrayTmp.splice(i, 1)
-          return filterGames(filter, arrayTmp, i)
-        }
-      }
-    }
-    return arrayTmp
+  const handleSearch = (e) => {
+    const query = e.target.value
+    setQuery(query ? query.toLowerCase() : "")
+    sortGames()
   }
 
   const getAllCheckedTagIds = () => {
     const tagChips = document.querySelectorAll('.checked-tags')
     let tagIds = []
-    tagChips.forEach(tagChip => 
-      tagIds.push( parseInt(tagChip.getAttribute('name')) ) // get the ids of all tag in the array
-    ) 
+    tagChips.forEach(tagChip =>
+      tagIds.push( parseInt(tagChip.getAttribute('name')) )
+    )
     return tagIds
   }
+
   const handleClickTags = (e) => {
     const targetedTag = e.target.parentElement
     let checkedTags = getAllCheckedTagIds()
     const tagId = parseInt(targetedTag.getAttribute('name'))
-    console.log(tagId)
-    if(targetedTag.classList.contains('checked-tags')) {
-      checkedTags = checkedTags.filter(id => id !== tagId)
-    }else {
-      checkedTags.push(tagId) 
-    }
-    setFilter({ ...filter, tags: checkedTags })
+
+    targetedTag.classList.contains('checked-tags') ?
+      checkedTags = checkedTags.filter(id => id !== tagId) :
+      checkedTags.push(tagId)
+
+    setCheckedTags(checkedTags)
+    sortGames(checkedTags)
   }
-  
+
+  const sortGames = (tagList) => {
+    const sortedGamesTemp = games.filter(game => {
+      return (
+        game.price >= price[0] && game.price <= price[1] &&
+        game.min_player >= players[0] && game.max_player <= players[1] &&
+        game.rank >= rank[0] && game.rank <= rank[1] &&
+        game.min_age >= minAge &&
+        game.name.toLowerCase().includes(query)
+      )
+    })
+
+    let tempGames = []
+    let tempIds = []
+    let tagToCheck = null
+
+    if (tagList && tagList.length > 0)
+      tagToCheck = tagList
+    else if (checkedTags && !tagList)
+      tagToCheck = checkedTags
+    
+
+    if(tagToCheck) {
+      tagToCheck.forEach( tag =>{
+        games.forEach( game => {
+          if(getTagIds(game).includes(tag) && !tempIds.includes(game.id) ) {
+            tempIds.push(game.id)
+            tempGames.push(game)
+          }
+        })
+      })
+    } else {
+      tempGames = sortedGamesTemp
+    }
+
+    setGames(tempGames)
+  }
+
+  const getTagIds = (game) => {
+    return game.tags.map( tag => tag.id)
+  }
+
   React.useEffect(
     () => {
       const fetchAllTags = async () => {
@@ -105,42 +95,27 @@ const SearchContainer = ({ games, setGames }) => {
     }, []
   )
 
-  React.useEffect(
-    () => {
-      if (games && games.length > 0) {
-        let arrayTmp = games.map(x => x)
-        arrayTmp = filterGames(filter, arrayTmp)
-        if (filter.search !== "")
-          arrayTmp = filterSearch(filter, arrayTmp)
-        setGames(arrayTmp)
-      }
-    }, [filter]
-  )
-
   return (
     <Container>
       <Stack alignItems="start" spacing={1} my={2}>
-          <SearchBar setFilter={setFilter} filter={filter} />
-          
+          <SearchBar handleSearch={handleSearch} />
+
           <Button variant="text" color="secondary" onClick={ e =>  setFilterMode(!filterMode)}>
             {filterMode ? "-" : "+"} de filtres...
           </Button>
-          
-          {filterMode && 
+
+          {filterMode &&
             <>
-              <SearchFilters 
-                filter={filter}
-                setFilter={setFilter}
-                min_prices={min_prices}
-                min_players={min_players}
-                min_ages={min_ages}
-                max_prices={max_prices}
-                max_players={max_players}
-                min_rank={min_rank}
+              <SearchFilters
+                games={games}
+                setGames={games}
+                values={{ players, price, rank, minAge }}
+                setValues={{ setPlayers, setPrice, setRank, setMinAge }}
+                sortGames={sortGames}
               />
-                
+
               <SearchTags handleClick={handleClickTags} tags={tags}/>
-              
+
             </>
           }
       </Stack>

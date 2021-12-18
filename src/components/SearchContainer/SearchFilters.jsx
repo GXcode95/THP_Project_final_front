@@ -1,35 +1,56 @@
 import React from 'react'
-import {Grid} from '@mui/material'
-import SearchSelect from './SearchSelect'
-
-const SearchFilters = (props) => {
+import { Grid, Slider, Typography } from '@mui/material'
+import SearchSliders from './SearchSliders'
+const SearchFilters = ({values, setValues, sortGames}) => {
 
   return (
-    <Grid container>
-      <Grid item xs={2}>
-        <SearchSelect name="Prix-Min" selectList={props.min_prices} setFilter={props.setFilter} filter={props.filter} />
-      </Grid>
+      <Grid container gap="2em">
+        <Grid item lg={3} sm={5} xs={5}>
+          <Typography varianet="body1" color="secondary">Prix</Typography>
+          <SearchSliders 
+            value={values.price}
+            setValue={setValues.setPrice}
+            max={200}
+            sortGames={sortGames}
+          />
+        </Grid>
 
-      <Grid item xs={2}>
-        <SearchSelect name="Prix-Max" selectList={props.max_prices} setFilter={props.setFilter} filter={props.filter} />
+        <Grid item lg={3} sm={5} xs={5}>
+          <Typography varianet="body1" color="secondary">Nb de joueurs</Typography>
+          <SearchSliders 
+            value={values.players}
+            setValue={setValues.setPlayers}
+            max={20}
+            sortGames={sortGames}
+            min={1}
+            />
+        </Grid>
+
+
+        <Grid item lg={2} sm={5} xs={5}>
+          <Typography varianet="body1" color="secondary">Note</Typography>        
+          <SearchSliders 
+            value={values.rank}
+            setValue={setValues.setRank}
+            max={5}
+            sortGames={sortGames}
+            minDistance={0}
+            />
+        </Grid>
+        <Grid item lg={3} sm={5} xs={5}>
+          <Typography varianet="body1" color="secondary">Age minimum</Typography>
+          <Slider
+            value={values.minAge}
+            aria-label="age minimum"
+            valueLabelDisplay="auto"
+            max={99}
+            onChange={(e, newValue) => {
+              setValues.setMinAge(newValue) 
+              sortGames()
+            }}
+          />
+        </Grid>
       </Grid>
-    
-      <Grid item xs={2}>
-        <SearchSelect name="Age-Min" selectList={props.min_ages} setFilter={props.setFilter} filter={props.filter} />
-      </Grid>
-    
-      <Grid item xs={2}>
-        <SearchSelect name="Players-Min" selectList={props.min_players} setFilter={props.setFilter} filter={props.filter} />
-      </Grid>
-    
-      <Grid item xs={2}>
-        <SearchSelect name="Players-Max" selectList={props.max_players} setFilter={props.setFilter} filter={props.filter} />
-      </Grid>
-    
-      <Grid item xs={2}>
-        <SearchSelect name="Rank-Min" selectList={props.min_rank} setFilter={props.setFilter} filter={props.filter} />
-      </Grid>
-    </Grid> 
   )
 }
 export default SearchFilters
