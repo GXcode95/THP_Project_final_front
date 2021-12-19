@@ -334,7 +334,7 @@ export default class APIManager {
         return response.data
     }
 
-    static async getCartsHistory(id) {
+    static async getCartsHistory() {
         const response = await API.get(`/carts`)
             .catch(error => handleCatchError(error))
             

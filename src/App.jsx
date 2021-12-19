@@ -9,6 +9,8 @@ import Login from 'pages/Login';
 import Profile from 'pages/Profile';
 import Subscription from 'pages/Subscription';
 import NotFound from 'pages/NotFound'
+import Success from 'pages/Success';
+import Cancel from 'pages/Cancel';
 import { light } from 'style/palette'
 import { ThemeProvider, CssBaseline, Box} from '@mui/material';
 import NavBar from 'components/navigation/NavBar';
@@ -88,6 +90,8 @@ const App = () => {
             {user && isAdmin(user) &&
               <Route path="/dashboard" element={<Dashboard />} exact />
             }
+            <Route path="/success" element={<Success />} exact />
+            <Route path="/cancel" element={<Cancel />} exact />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Box py="3em" />
