@@ -43,8 +43,8 @@ const StatsUser = () => {
           loader={<div>Loading Chart</div>}
           data={[
             ['année', '2020', '2021', '2022'],
-            ['2020', 15, 0, 0],
-            ['2021', users.length, 0, 0],
+            ['2020', 5, 0, 0],
+            ['2021', 0, users.length, 0],
             ['2022', 0, 0, 0]
           ]}
           options={{
