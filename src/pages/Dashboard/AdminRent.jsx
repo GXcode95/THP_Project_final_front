@@ -3,17 +3,20 @@ import {Grid} from '@mui/material'
 import { Typography } from '@mui/material'
 import APIManager from 'services/Api'
 import RentedList from './RentedList'
-
+import { setSnackbar } from 'store/snackbar/actions';
+import { useDispatch } from 'react-redux'
 
 const AdminRent = () => {
   const [rented, setRented] = React.useState()
   const [wishlist, setWishlist] = React.useState()
+  const dispatch = useDispatch()
+
   React.useEffect(
     () => {
       const fetchRents = async  () => {
         const response = await APIManager.getRentsAdmin()
         if(response.error){
-          alert(response.error)
+          dispatch(setSnackbar(true, "error", response.error))
         } else {
           setRented(response.rented)
           setWishlist(response.wishlist)

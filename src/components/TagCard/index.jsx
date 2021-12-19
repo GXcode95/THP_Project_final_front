@@ -5,17 +5,24 @@ import EditIcon from '@mui/icons-material/Edit';
 import EditOffIcon from '@mui/icons-material/EditOff';
 import GradingOutlinedIcon from '@mui/icons-material/GradingOutlined';
 import DeleteButton from 'components/buttons/DeleteButton';
+import { setSnackbar } from 'store/snackbar/actions';
+import { useDispatch } from 'react-redux'
+
 
 const TagCard = ({ setTags, tag }) => {
 
   const [editionMode, setEditionMode] = React.useState(false)
   const [name, setName] = React.useState(tag.name)
+  const dispatch = useDispatch()
 
   const deleteTag = async (e, tagID) => {
     const response = await APIManager.deleteTagsAdmin(tagID)
-    response.error ?
-      alert(response.error) :
+    if(response.error) {
+      dispatch(setSnackbar(true, "error", response.error))
+    } else {
       setTags(response)
+      dispatch(setSnackbar(true, "success", "Tag supprimé !"))
+    }
   }
 
   const handleChange = (e) => {
@@ -24,9 +31,12 @@ const TagCard = ({ setTags, tag }) => {
 
   const editTag = async (e) => {
     const response = await APIManager.updateTagsAdmin(tag.id, name)
-    response.error ?
-      alert(response.error) :
+    if(response.error){
+      dispatch(setSnackbar(true, "error", response.error)) 
+    }else {
       setTags(response)
+      dispatch(setSnackbar(true, "success", "Tag édité."))
+    }
   }
 
   return (

@@ -15,17 +15,18 @@ const ManagingTag = () => {
       const getAllTags = async () => {
         const response = await APIManager.getTags()
         response.error ?
-          alert(response.error) :
+          dispatch(setSnackbar(true, "error", response.error)) :
           setTags(response)
       }
       getAllTags()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []
   )
 
   const createTag = async (e) => {
     const response = await APIManager.createTagsAdmin(name)
     if(response.error) {
-      dispatch(setSnackbar(true, "error", "Une erreur est survenue"));
+      dispatch(setSnackbar(true, "error", response.error));
     } else {
       dispatch(setSnackbar(true, "success", `Tag ${name} crée avec succèss`))
       setTags(response)

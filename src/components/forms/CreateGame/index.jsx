@@ -85,11 +85,12 @@ const CreateGame = () => {
       const fetchAllTags = async () => {
         const response = await APIManager.getTags()
         if (response.error)
-          alert(response.error)
+          dispatch(setSnackbar(true, "error", response.error))
         else
           setTags(response)
       }
       fetchAllTags()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]
   )
   return (

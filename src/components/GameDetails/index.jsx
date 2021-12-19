@@ -65,7 +65,7 @@ const GameDetails = () => {
       const getGame = async (gameID) => {
         const response = await APIManager.getGame(gameID)
         if (response.error) {
-          alert(response.error)
+          dispatch(setSnackbar(true, "error", response.error))
         } else {
           setGame(response)
         }

@@ -31,7 +31,7 @@ const SignIn = () => {
         navigate('/')
       }
     } else {
-      alert('vous devez accepter les cookies pour vous connecter')
+      dispatch(setSnackbar(true, "error", "vous devez accepter les cookies pour vous connecter"))
       setBanner(true)
       Cookies.remove('CookieConsent')
     }
