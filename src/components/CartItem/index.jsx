@@ -2,7 +2,7 @@ import React from 'react'
 import { Image } from 'cloudinary-react'
 import centToEuro from 'helpers/CentToEuro';
 import { List, ListItem, ListItemText, ListItemAvatar, ListItemButton, ListItemIcon,
-  Grid, Avatar } from '@mui/material'
+  Grid, Avatar, Box } from '@mui/material'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -25,8 +25,8 @@ const CartItem = (props) => {
     <div>
       <List sx={{ width: '100%', bgcolor: 'background.primary' }}>
         
-        {games && games.map( gameObj => (
-          <>
+        {games && games.map( (gameObj, i) => (
+          <Box key={i}>
             <ListItem>
               <ListItemAvatar>
                 <Avatar>
@@ -71,7 +71,7 @@ const CartItem = (props) => {
                 </ListItemButton>
               }
             </ListItem>
-          </>
+          </Box>
         ))}
 
       </List>
