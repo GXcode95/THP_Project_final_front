@@ -3,6 +3,8 @@ import {Grid} from '@mui/material'
 import { Typography } from '@mui/material'
 import APIManager from 'services/Api'
 import RentedList from './RentedList'
+
+
 const AdminRent = () => {
   const [rented, setRented] = React.useState()
   const [wishlist, setWishlist] = React.useState()
@@ -23,6 +25,7 @@ const AdminRent = () => {
   )
 
   return (
+    <>
     <Grid container width={"100%"}>
       <Grid item md={12}>
         <Typography variant="h2" align="center">Locations en cours</Typography>
@@ -35,6 +38,9 @@ const AdminRent = () => {
         <RentedList rented={wishlist}/>
       </Grid>
     </Grid>
+
+  
+    </>
   )  
 }
 
