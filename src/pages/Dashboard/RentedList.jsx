@@ -1,23 +1,33 @@
 import React from 'react'
-import {Grid, Typography} from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import APIManager from 'services/Api'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import { setSnackbar } from 'store/snackbar/actions';
+
 const AdminRent = ({rented}) => {
   const [rentsInfo, setRentsInfo] = React.useState()
+  const dispatch = useDispatch()
 
   React.useEffect(
     () => {
       const fetchRentedGameInfo = async (rent) => {
         const response = await APIManager.getGame(rent.game_id)
         if (response.error) {
-          alert(response.error)
+          dispatch(setSnackbar(true, "error", response.error))
           return
         } 
         const currentGame = response
     
         const currentUser = await APIManager.getUserAdmin(rent.user_id)
         if (currentUser.error) {
-          alert(currentUser.error)
+          dispatch(setSnackbar(true, "error", response.error))
           return
         }
     
@@ -48,51 +58,45 @@ const AdminRent = ({rented}) => {
   )
 
   return (
-        <Grid container>
-          <Grid item xs={12} />
-            <Grid container>
-              <Grid item md={4}>
-                <Typography variant="h4" component="p">
-                Jeux
-                </Typography>
-              </Grid>
-              <Grid item md={2}>
-                <Typography variant="h4" component="p">
-                Client
-                </Typography>
-              </Grid>  
-              <Grid item md={4}>
-                <Typography variant="h4" component="p">
-                Adresse
-                </Typography>
-              </Grid>
-              <Grid item md={2}>
-                <Typography variant="h4" component="p">
-                Téléphone
-                </Typography>
-              </Grid>
-          </Grid>
-          <Grid item xs={12}>
-          {rentsInfo && rentsInfo.map( (rent,i) => (
-            <Grid container key={i}>
-              <Grid item md={4}>
-                <Link to={`jeu/${rent.game.id}`}>
-                  { rent.game.name }
-                </Link>
-              </Grid>
-              <Grid item md={2}>
-                {rent.user.user_info.first_name + " " + rent.user.user_info.first_name}
-              </Grid>  
-              <Grid item md={4}>
-                {rent.user.user_info.address}
-              </Grid>
-              <Grid item md={2}>
-                {rent.user.user_info.phone}
-              </Grid>
-            </Grid>
-          ))}
-          </Grid>
-     </Grid>
+    <>
+    { rented && 
+      <TableContainer>
+        <Table sx={{ minWidth: "90%" }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">Jeux</TableCell>
+              <TableCell align="left">Clients</TableCell>
+              <TableCell align="left">Adresses</TableCell>
+              <TableCell align="left">Téléphone</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rentsInfo && rentsInfo.map( (rent,i) => (
+              <TableRow
+                key={i}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell align="left">
+                  <Link to={`jeu/${rent.game.id}`}>
+                    { rent.game.name }
+                  </Link>
+                </TableCell>
+                <TableCell align="left">
+                  {rent.user.user_info.first_name + " " + rent.user.user_info.first_name}
+                </TableCell>
+                <TableCell align="left">
+                  {rent.user.user_info.address}
+                </TableCell>
+                <TableCell align="left">
+                  {rent.user.user_info.phone}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    }
+    </>
   )
 }
 export default AdminRent
