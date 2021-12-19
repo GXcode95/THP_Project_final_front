@@ -61,7 +61,7 @@ const Dashboard = () => {
           >
             <Tab label="Ajouter un jeu" {...a11yProps(0)} />
             <Tab label="Editer un jeu" {...a11yProps(1)} />
-            <Tab label="Autres" {...a11yProps(2)} />
+            <Tab label="Locations" {...a11yProps(2)} />
             <Tab label="Catégories" {...a11yProps(3)} />
             <Tab label="Utilisateurs" {...a11yProps(4)} />
             <Tab label="Stats" {...a11yProps(5)} />
