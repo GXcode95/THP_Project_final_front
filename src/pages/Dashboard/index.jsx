@@ -7,6 +7,8 @@ import AdminNav from 'pages/Dashboard/AdminNav';
 import AdminRent from './AdminRent'
 import EditGameList from 'components/forms/EditGame/EditGameList';
 import ManagingTag from 'components/forms/ManagingTag';
+import UserList from 'components/UserList'
+import StatsUser from 'components/UserList/StatsUser.jsx'
 import { Grid } from '@mui/material';
 
 const Dashboard = () => {
@@ -32,6 +34,10 @@ const Dashboard = () => {
         return <AdminRent />
       case 3:
         return <ManagingTag />
+      case 4:
+        return <UserList />
+      case 5:
+        return <StatsUser />
       default: ;
     }
   }
@@ -55,8 +61,10 @@ const Dashboard = () => {
           >
             <Tab label="Ajouter un jeu" {...a11yProps(0)} />
             <Tab label="Editer un jeu" {...a11yProps(1)} />
-            <Tab label="Autres" {...a11yProps(2)} />
+            <Tab label="Locations" {...a11yProps(2)} />
             <Tab label="Catégories" {...a11yProps(3)} />
+            <Tab label="Utilisateurs" {...a11yProps(4)} />
+            <Tab label="Stats" {...a11yProps(5)} />
           </Tabs>
         </Grid>
         {TabPanel()}
