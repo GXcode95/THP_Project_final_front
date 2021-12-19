@@ -23,7 +23,7 @@ const CartHistory = ({carts}) => {
         sx={{display:"flex", justifyContent:"center", mt: "1em", maxHeight:"60vh"}} 
       >
         <List dense={false}>
-         {carts && carts.map( cart => (
+          {carts && carts.map( cart => (
             <ListItem key={cart.cart.id}>
               <ListItemIcon>
                 <CreditCardIcon />
@@ -32,8 +32,8 @@ const CartHistory = ({carts}) => {
                 primary={formatDate(cart.cart.updated_at)}
                 secondary={`${centToEuro(cart.cart_price)} €`}
               />
-            </ListItem>)
-          )}
+            </ListItem>
+          ))}
         </List>
       </Container>
     </div>

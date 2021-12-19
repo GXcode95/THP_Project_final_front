@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router';
+import { Button, Box, Container } from '@mui/material';
+import EmailInput from 'components/forms/input/EmailInput';
+import PasswordInput from 'components/forms/input/PasswordInput';
+import CookieBar from 'components/CookieBar';
 import APIManager from 'services/Api'
 import { fetchUserRequest, fetchUserSignInSuccess, fetchUserError } from 'store/users/actions'
-import { Button, Box, Container } from '@mui/material';
-import EmailInput from '../input/EmailInput';
-import PasswordInput from '../input/PasswordInput';
-import CookieBar from 'components/CookieBar';
-import Cookies from 'js-cookie';
 import { setSnackbar } from 'store/snackbar/actions';
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router';
+import Cookies from 'js-cookie';
 
 const SignIn = () => {
   const [email, setEmail] = React.useState()

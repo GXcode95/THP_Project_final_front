@@ -1,5 +1,5 @@
 import React from 'react'
-import EmailInput from '../input/EmailInput'
+import EmailInput from 'components/forms/input/EmailInput'
 import APIManager from 'services/Api'
 import {Button, Box, Typography, Card} from '@mui/material' 
 import CloseButton from 'components/buttons/CloseButton'

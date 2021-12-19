@@ -9,14 +9,12 @@ const ImagesDropzone = ({ validate, files, setFiles }) => {
       setFiles(old => [...old, acceptedFile])
     })
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accepts: "images/*"
   })
-
-
-
 
   return (
     <Box
@@ -29,8 +27,8 @@ const ImagesDropzone = ({ validate, files, setFiles }) => {
         <input {...getInputProps()} />
         {
           isDragActive ?
-            <p>Drop the files here ...</p> :
-            <p>Drag 'n' drop some files here, or click to select files</p>
+            <p>Clicker pour ajouter des fichier</p> :
+            <p>Glisser / déposer ou cliquer pour ajouter des fichiers</p>
         }
       </Box>
       <ImagesList files={files} setFiles={setFiles} />

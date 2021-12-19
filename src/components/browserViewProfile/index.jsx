@@ -1,16 +1,14 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux';
 import APIManager from 'services/Api';
+import { Grid, Box, Tab, Tabs } from '@mui/material'
 import EditProfile from 'components/forms/EditProfile'
 import CartHistory from 'components/CartHistory'
-import { Grid, Box } from '@mui/material'
 import GameList from 'components/GameList';
-import { fetchUserRequest, fetchUserError, fetchUpdateFavoriteSuccess, endOfLoading } from 'store/users/actions';
 import Progress from 'components/Progress';
-import { setSnackbar } from 'store/snackbar/actions';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import ProfileNav from './ProfileNav';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchUserRequest, fetchUserError, fetchUpdateFavoriteSuccess, endOfLoading } from 'store/users/actions';
+import { setSnackbar } from 'store/snackbar/actions';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
@@ -25,7 +23,7 @@ const BrowserViewProfile = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  function a11yProps(index) {
+  const a11yProps = (index) => {
     return {
       id: `vertical-tab-${index}`,
       'aria-controls': `vertical-tabpanel-${index}`,
@@ -36,13 +34,10 @@ const BrowserViewProfile = () => {
     switch (value) {
       case 0:
         return <EditProfile user={userReducer.user_info} />
-
       case 1:
         return cartsHistory && <CartHistory carts={cartsHistory} />
       case 2:
         return favGames && favGames.length > 0 && <GameList games={favGames} />
-      case 3:
-        return <Box>'rien'</Box>
       default: ;
     }
   }
@@ -103,7 +98,6 @@ const BrowserViewProfile = () => {
               <Tab icon={<PermIdentityOutlinedIcon />} label="Profil" {...a11yProps(0)} />
               <Tab icon={<LocalMallOutlinedIcon />} label="Achats" {...a11yProps(1)} />
               <Tab icon={<FavoriteBorderIcon />} label="Favoris" {...a11yProps(2)} />
-              <Tab label="??????" {...a11yProps(3)} />
             </Tabs>
           </Grid>
           {TabPanel()}

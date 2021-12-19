@@ -1,9 +1,9 @@
 import React from 'react'
-import GameCard from 'components/GameCard'
 import { Grid, IconButton, Typography} from '@mui/material'
-import { useSelector } from 'react-redux'
-import Progress from 'components/Progress'
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import Progress from 'components/Progress'
+import GameCard from 'components/GameCard'
+import { useSelector } from 'react-redux'
 import './gamelist.scss'
 const GameList = ({ games, edit }) => {
   const gamesReducer = useSelector(state => state.gameReducer)

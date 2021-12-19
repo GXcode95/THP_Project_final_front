@@ -24,9 +24,9 @@ const Alert = ({message, type="main"}) => {
       }} 
       className="alert-message"
     >
-        <Typography vaiant="p" paddingLeft="5%" align="center" width="95%">
-          {message}
-        </Typography>
+      <Typography vaiant="p" paddingLeft="5%" align="center" width="95%">
+        {message}
+      </Typography>
       <CloseButton sx={{width:"5%"}} onClick={handleClick}/>
     </Box>
   )

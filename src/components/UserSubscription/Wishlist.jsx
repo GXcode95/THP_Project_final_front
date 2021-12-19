@@ -10,7 +10,6 @@ const Wishlist = (props) => {
   let wishListLength = 0
   props.wishlist.map(game => wishListLength += game.quantity)
   const [wishListSpaceLeft, setWishListSpaceLeft] = useState(props.wishlist_limit - wishListLength)
-  console.log(wishListSpaceLeft)
 
   const handleAdd = async (rentId) => {
     const quantityElement = document.getElementById(rentId).lastChild
