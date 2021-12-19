@@ -66,7 +66,7 @@ const GameCard = ({ game, edit }) => {
     } else {
       const response = await APIManager.createOrder({ quantity: 1, cart_id: cart.current_cart.id, game_id: game.id })
       if (response.error) {
-        dispatch(setSnackbar(true, response.error))
+        dispatch(setSnackbar(true, "error", response.error))
       } else {
         dispatch(setSnackbar(true, "success", "Jeu ajouté au au panier!"))
         dispatch(fetchPostOrderSuccess(response))

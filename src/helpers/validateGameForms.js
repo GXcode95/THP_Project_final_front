@@ -1,6 +1,7 @@
 const validateGameForms = (data) => {
   let errorsMessages = []
 
+  // eslint-disable-next-line array-callback-return
   Object.keys(data).map( key => {
     switch (key) {
       case "name":

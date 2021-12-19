@@ -12,6 +12,7 @@ export default function BottomBar() {
     () => {
       if (value) navigate(`${value}`)
     
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value, navigate]
   )
 

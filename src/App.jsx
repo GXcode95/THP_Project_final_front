@@ -30,7 +30,6 @@ const App = () => {
   const dispatch = useDispatch()
 
   const user = useSelector(state => state.userReducer)
-  const store = useSelector(state => state)
 
 
   const userRoutes = () => {
@@ -99,7 +98,6 @@ const App = () => {
             <BottomBar />
           </MobileView>
         </Router>
-        <SendAlert />
         <CookieBar user={user} className="cookies-bar" />
       </ThemeProvider>
 

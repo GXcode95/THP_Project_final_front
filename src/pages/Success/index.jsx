@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import APIManager from 'services/Api';
 import { useDispatch } from 'react-redux';
 import { fetchUserRequest, fetchUserError, endOfLoading } from 'store/users/actions';
@@ -26,6 +26,7 @@ const Success = () => {
     }
     fetchLastCart()
   },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   []
   )
 

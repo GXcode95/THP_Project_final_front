@@ -1,6 +1,4 @@
 import React from 'react'
-import { Paper } from '@mui/material'
-import Progress from 'components/Progress'
 import APIManager from 'services/Api'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserError, fetchUserRequest } from 'store/users/actions';

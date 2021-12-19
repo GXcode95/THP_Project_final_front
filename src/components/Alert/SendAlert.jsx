@@ -13,7 +13,7 @@ const SendAlert = () => {
       return;
     }
 
-    dispatch(setSnackbar(false, "", ""))
+    dispatch(setSnackbar(false, "success", ""))
   };
 
   const action = (
@@ -29,18 +29,20 @@ const SendAlert = () => {
 
   return (
     <>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={snackbarReducer.SNOpen}
-        autoHideDuration={7000}
-        onClose={handleClose}
-        action={action}
-        sx={{ mt: 5 }}
-      >
-        <Alert onClose={handleClose} severity={snackbarReducer.SNType} sx={{ width: '100%' }}>
-          {snackbarReducer.SNMessage}
-        </Alert>
-      </Snackbar>
+      {snackbarReducer.SNType &&
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={snackbarReducer.SNOpen}
+          autoHideDuration={7000}
+          onClose={handleClose}
+          action={action}
+          sx={{ mt: 5 }}
+        >
+          <Alert onClose={handleClose} severity={snackbarReducer.SNType} sx={{ width: '100%' }}>
+            {snackbarReducer.SNMessage}
+          </Alert>
+        </Snackbar>
+      }
     </>
   );
 }

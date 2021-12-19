@@ -21,7 +21,7 @@ const CookieBar = ({ user }) => {
     >
       🍪 Ce site utilise les cookies .{" "}
       <span style={{ fontSize: "10px" }}>
-        Si vous vous en fichez acceptez :)
+        Si vous vous en fichez acceptez :D
       </span>
     </CookieConsent >
 
