@@ -6,8 +6,8 @@ import { setSnackbar } from 'store/snackbar/actions';
 import { fetchUserRequest, fetchUserError, fetchUserSignInSuccess } from 'store/users/actions';
 import { Container, Box, Typography, TextField, Button} from '@mui/material';
 import EditGameFormList from './EditGameFormList';
-import NumberField from 'components/GameInput/NumberField';
-import StringField from 'components/GameInput/StringField';
+import NumberField from 'components/forms/GameInput/NumberField';
+import StringField from 'components/forms/GameInput/StringField';
 import CloseButton from 'components/buttons/CloseButton';
 
 const EditGameForm = ({ game, toggleEditMode }) => {

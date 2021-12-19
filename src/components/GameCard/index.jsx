@@ -7,12 +7,9 @@ import FavoriteButton from 'components/buttons/FavoriteButton';
 import APIManager from 'services/Api'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPostWishListSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
+import { fetchPostWishListSuccess, fetchPostOrderSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
 import isSigned from 'helpers/isSigned'
 import isSubscribed from 'helpers/isSubscribed'
-import EditGameForm from 'components/forms/EditGame/EditGameForm';
-import FavoriteButton from 'components/buttons/FavoriteButton';
-import { fetchPostWishListSuccess, fetchPostOrderSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
 import { setSnackbar } from 'store/snackbar/actions';
 import centToEuro from 'helpers/CentToEuro'
 
