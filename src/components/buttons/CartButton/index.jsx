@@ -10,7 +10,6 @@ const CartButton = (props) => {
   const cartItems = useSelector(state => state.userReducer.cart.cart_games)
   return (
     <IconButton onClick={e => navigate("/panier")}>
-      {console.log("cart", cartItems.length)}
       <Badge badgeContent={cartItems && cartItems.length} color="ternary" 
         anchorOrigin={{
           vertical: 'top',

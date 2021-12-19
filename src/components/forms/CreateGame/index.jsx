@@ -25,7 +25,6 @@ const CreateGame = () => {
     let publicIdList=[]
     files.map(
       async (acceptedFile, i) => {
-        console.log("accept", acceptedFile)
         const formData = new FormData();
         formData.append("file", acceptedFile);
         formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET)
@@ -37,7 +36,6 @@ const CreateGame = () => {
         const data = await response.json()
 
         publicIdList.push(data.public_id)
-        console.log(publicIdList)
         if (i === files.length -1) uploadGame(publicIdList)
       }
     )

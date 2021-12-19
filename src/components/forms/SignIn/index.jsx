@@ -39,7 +39,6 @@ const SignIn = () => {
 
   return (
     <Container component="main" maxWidth="xs" >
-      {console.log(banner)}
       <Box
         component="form"
         onSubmit={handleSubmit}

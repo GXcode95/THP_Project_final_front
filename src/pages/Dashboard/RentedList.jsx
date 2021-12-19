@@ -1,5 +1,4 @@
 import React from 'react'
-import { Grid, Typography } from '@mui/material'
 import APIManager from 'services/Api'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -41,19 +40,18 @@ const AdminRent = ({rented}) => {
       }
       const fillRented = async () => {
         let tmp = []
-        console.log(
-           await rented.map(async (rent, i) => {
+        rented.map(async (rent, i) => {
            let response = await fetchRentedGameInfo(rent)
            tmp.push(response)
            if(i === rented.length -1) {
              setRentsInfo(tmp)
            }
-          })
-        )
+        })
       }
       if(rented) {
         fillRented()
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rented]
   )
 
