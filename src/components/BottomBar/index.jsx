@@ -1,22 +1,18 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import { useNavigate } from 'react-router';
+import { Box, BottomNavigationAction, BottomNavigation, Paper } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import CasinoIcon from '@mui/icons-material/Casino';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import Paper from '@mui/material/Paper';
-import { useNavigate } from 'react-router';
 
 export default function BottomBar() {
   const [value, setValue] = React.useState();
   let navigate = useNavigate();
   React.useEffect(
     () => {
-      if (value) {
-        navigate(`${value}`)
-      }
-    }, [value]
+      if (value) navigate(`${value}`)
+    
+    }, [value, navigate]
   )
 
   return (
@@ -33,7 +29,6 @@ export default function BottomBar() {
         >
           <BottomNavigationAction label="Home" value='/' icon={<HomeIcon />} sx={{ color: 'white.main' }} />
           <BottomNavigationAction label="Louez" value='/abonnement' icon={<CasinoIcon />} sx={{ color: 'white.main' }} />
-          {/* <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} /> */}
           <BottomNavigationAction label="Achetez" value='/panier' icon={<ShoppingBagIcon />} sx={{ color: 'white.main' }} />
         </BottomNavigation>
       </Paper>

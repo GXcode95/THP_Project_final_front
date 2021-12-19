@@ -1,12 +1,14 @@
 import React from 'react';
 import { TextField, Button, Box, Grid } from '@mui/material';
-import APIManager from 'services/Api'
 import TagCard from 'components/TagCard';
+import APIManager from 'services/Api'
+import { useDispatch } from 'react-redux'
+import { setSnackbar } from 'store/snackbar/actions';
 
 const ManagingTag = () => {
-
   const [name, setName] = React.useState('')
   const [tags, setTags] = React.useState()
+  const dispatch = useDispatch()
 
   React.useEffect(
     () => {
@@ -20,21 +22,26 @@ const ManagingTag = () => {
     }, []
   )
 
-  const handleChange = (e) => {
-    setName(e.target.value)
-  }
-
   const createTag = async (e) => {
     const response = await APIManager.createTagsAdmin(name)
-    response.error ?
-      alert(response.error) :
+    if(response.error) {
+      dispatch(setSnackbar(true, "error", "Une erreur est survenue"));
+    } else {
+      dispatch(setSnackbar(true, "success", `Tag ${name} crée avec succèss`))
       setTags(response)
+    }
+
   }
 
   return (
     <Box>
       <Grid item>
-        <TextField id="outlined-basic" label="Nom" variant="outlined" onChange={handleChange} sx={{ m: 2 }} />
+        <TextField 
+          id="outlined-basic"
+          label="Nom"
+          variant="outlined"
+          onChange={e => setName(e.target.value)} 
+          sx={{ m: 2 }} />
         <Button color="primary" onClick={createTag} sx={{ m: 3 }} >
           Ajouter la Catégorie
         </Button>

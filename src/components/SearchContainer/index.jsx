@@ -1,7 +1,7 @@
+import React, {useState} from 'react';
 import { Button, Container, Stack } from '@mui/material';
 import SearchBar from './SearchBar';
 import SearchFilters from './SearchFilters';
-import React, {useState} from 'react';
 import APIManager from 'services/Api';
 import SearchTags from './SearchTags'
 const SearchContainer = ({ games, setGames }) => {

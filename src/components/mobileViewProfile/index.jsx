@@ -10,12 +10,11 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import isAdmin from 'helpers/isAdmin';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import { fetchUserRequest, fetchUserError, fetchUpdateFavoriteSuccess, endOfLoading } from 'store/users/actions';
-import Progress from 'components/Progress';
+import isAdmin from 'helpers/isAdmin';
 import { setSnackbar } from 'store/snackbar/actions';
 
 const MobileViewProfile = () => {

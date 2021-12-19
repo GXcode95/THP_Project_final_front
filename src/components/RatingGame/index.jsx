@@ -1,9 +1,7 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import APIManager from 'services/Api'
-import { Button } from '@mui/material'
+import { Box, Button, Rating } from '@mui/material'
 
 const RatingGame = ({ game, setGame }) => {
   const [value, setValue] = React.useState(0);

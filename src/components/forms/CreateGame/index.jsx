@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Checkbox, Container, FormGroup, FormControlLabel, Typography, Box, TextField, Button, Snackbar} from '@mui/material';
+import { Checkbox, Container, FormGroup, FormControlLabel, Typography, Box, TextField, Button} from '@mui/material';
 import NumberField from '../GameInput/NumberField';
 import ImagesDropzone from 'components/ImagesDropzone';
 import APIManager from 'services/Api'
@@ -60,13 +60,6 @@ const CreateGame = () => {
 
     const errorsMessages = validateGameForms(gameInfo)
     const tags = getAllCheckedTags()
-    console.log("----------------------")
-    console.log("----------------------")
-    console.log("----------------------")
-    console.log(tags)
-    console.log("----------------------")
-    console.log("----------------------")
-    console.log("----------------------")
     
     if (errorsMessages.length > 0 ){
       dispatch(setSnackbar(true, "error", errorsMessages))
