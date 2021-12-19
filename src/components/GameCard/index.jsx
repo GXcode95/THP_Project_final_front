@@ -9,7 +9,7 @@ import isSigned from 'helpers/isSigned'
 import isSubscribed from 'helpers/isSubscribed'
 import EditGameForm from 'components/forms/EditGame/EditGameForm';
 import FavoriteButton from 'components/buttons/FavoriteButton';
-import { fetchPostWishListSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
+import { fetchPostWishListSuccess, fetchPostOrderSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
 import { setSnackbar } from 'store/snackbar/actions';
 import centToEuro from 'helpers/CentToEuro'
 
@@ -65,10 +65,14 @@ const GameCard = ({ game, edit }) => {
       navigate('/connexion')
     } else {
       const response = await APIManager.createOrder({ quantity: 1, cart_id: cart.current_cart.id, game_id: game.id })
-      if (!response.error) dispatch(setSnackbar(true, "success", "Jeu ajouté au au panier!"))
+      if (response.error) {
+        dispatch(setSnackbar(true, response.error))
+      } else {
+        dispatch(setSnackbar(true, "success", "Jeu ajouté au au panier!"))
+        dispatch(fetchPostOrderSuccess(response))
+      } 
     }
   }
-
 
   const toggleEditMode = () => {
     setEditMode(!editMode)

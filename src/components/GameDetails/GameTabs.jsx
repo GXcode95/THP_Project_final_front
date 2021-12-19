@@ -1,14 +1,13 @@
 import React from 'react';
-import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Box from '@mui/material/Box';
-import { Container, Grid } from '@mui/material'
+import { Container, Grid, Tab } from '@mui/material'
 import Comments from 'components/Comments'
 import RatingGame from 'components/RatingGame';
-import isSigned from 'helpers/isSigned';
 import { useSelector } from 'react-redux'
+import isSigned from 'helpers/isSigned';
 
 const GameTabs = ({ game, setGame }) => {
   const [value, setValue] = React.useState('1');
@@ -39,7 +38,6 @@ const GameTabs = ({ game, setGame }) => {
           </TabPanel>
           {isSigned(userReducer) && 
             <TabPanel value="3">
-              {console.log(game)}
               {game && (game.isRanked || game.isRanked === null) ? 'Déjà noté' : <RatingGame game={game} setGame={setGame} />}
             </TabPanel>
           }

@@ -10,7 +10,7 @@ const CartButton = (props) => {
   return (
     <IconButton onClick={e => navigate("/panier")}>
       {console.log("cart", cartItems.length)}
-      <Badge badgeContent={cartItems.length} color="ternary" 
+      <Badge badgeContent={cartItems && cartItems.length} color="ternary" 
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'left',
