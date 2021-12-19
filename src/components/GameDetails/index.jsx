@@ -9,7 +9,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import FavoriteButton from "components/buttons/FavoriteButton"
 import isSigned from 'helpers/isSigned'
 import isSubscribed from 'helpers/isSubscribed'
-import { fetchPostWishListSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
+import { fetchPostWishListSuccess, fetchPostOrderSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
 import { setSnackbar } from 'store/snackbar/actions';
 
 const GameDetails = () => {
@@ -52,7 +52,12 @@ const GameDetails = () => {
       navigate('/connexion')
     } else {
       const response = await APIManager.createOrder({ quantity: 1, cart_id: userReducer.cart.current_cart.id, game_id: game.id })
-      if (!response.error) dispatch(setSnackbar(true, "success", "Jeu ajouté au au panier!"))
+      if (response.error) {
+        dispatch(setSnackbar(true, "error", response.error))
+      }else {
+        dispatch(setSnackbar(true, "success", "Jeu ajouté au au panier!"))
+        dispatch(fetchPostOrderSuccess(response))
+      }
     }
   }
   React.useEffect(
