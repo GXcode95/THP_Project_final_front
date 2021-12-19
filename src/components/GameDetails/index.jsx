@@ -3,21 +3,58 @@ import React from 'react';
 import APIManager from 'services/Api'
 import GameTabs from './GameTabs';
 import GameInfo from './GameInfo'
-import { Button, Grid } from '@mui/material'
-import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
-const DEFAULT_CLOUD_IMAGE_URL="http://res.cloudinary.com/thefinalproject/image/upload/c_scale,h_200/default_game"
+import { Button, Grid, Stack } from '@mui/material'
+import { useSelector, useDispatch } from 'react-redux'
+import { useParams, useNavigate } from 'react-router-dom'
+import FavoriteButton from "components/buttons/FavoriteButton"
+import isSigned from 'helpers/isSigned'
+import isSubscribed from 'helpers/isSubscribed'
+import { fetchPostWishListSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
+import { setSnackbar } from 'store/snackbar/actions';
 
 const GameDetails = () => {
   const { gameID } = useParams();
   const [game, setGame] = React.useState();
-  const user = useSelector(state => state.userReducer.user_info)
+  const userReducer = useSelector(state => state.userReducer)
+  const rent = userReducer.rent
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [imageFromCloudinary, setImageFromCloudinary] = React.useState()
+  const DEFAULT_CLOUD_IMAGE_URL="http://res.cloudinary.com/thefinalproject/image/upload/c_scale,h_200/default_game"
+  
   const handleRent = async () => {
-    const response = await APIManager.createRent({ quantity: 1, user_id: user.id, game_id: game.id })
-    if (!response.error) alert("jeu ajouté au favoris")
-  }
+    let wishListLength = 0
+    rent.wishlist && rent.wishlist.map(game => wishListLength += game.quantity)
 
+    if (!isSigned(userReducer)) {
+      navigate('/connexion')
+    } else if (!isSubscribed(userReducer)) {
+      navigate('/abonnement')
+    } else if (wishListLength >= rent.wishlist_limit) {
+      dispatch(setSnackbar(true, "error", "Vous avez atteint la limite de jeux autorisés par votre abonnement"))
+    } else if (rent.wishlist.find(wishedGame => wishedGame.game.id === game.id)) {
+      dispatch(setSnackbar(true, "error", "Ce jeu a déjà été ajouté à votre liste de jeux pour le mois prochain!"))
+    } else {
+      dispatch(fetchUserRequest())
+      const response = await APIManager.createRent({ quantity: 1, user_id: userReducer.user_info.id, game_id: game.id })
+      if (response.error) {
+        dispatch(fetchUserError(response.error))
+        dispatch(setSnackbar(true, "error", response.error))
+      } else {
+        dispatch(fetchPostWishListSuccess(response.wishlist))
+        dispatch(setSnackbar(true, "success", "Le jeu a bien été ajouté a votre liste de jeux pour le mois prochain!"))
+      }
+    }
+  }
+  
+  const handleBuy = async () => {
+    if (!isSigned(userReducer)) {
+      navigate('/connexion')
+    } else {
+      const response = await APIManager.createOrder({ quantity: 1, cart_id: userReducer.cart.current_cart.id, game_id: game.id })
+      if (!response.error) dispatch(setSnackbar(true, "success", "Jeu ajouté au au panier!"))
+    }
+  }
   React.useEffect(
     () => {
       const getGame = async (gameID) => {
@@ -88,7 +125,11 @@ const GameDetails = () => {
         }
         <Grid item xs={12} md={6} lg={8}>
           <GameInfo game={game && game} className="game-info-details" />
-          <Button onClick={handleRent}>Louer</Button>
+          <Stack spacing={2} direction="row">
+            <FavoriteButton gameID={game && game.id} userReducer={userReducer} />
+            <Button onClick={handleBuy} color="primary" className="buttons-card">Acheter</Button>
+            <Button onClick={handleRent} color="secondary" className="buttons-card"> Louer</Button>
+          </Stack>
         </Grid>
       </Grid>
       <br />
