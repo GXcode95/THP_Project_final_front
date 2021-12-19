@@ -3,7 +3,6 @@ import { Grid, Slider, Typography } from '@mui/material'
 import SearchSliders from './SearchSliders'
 const SearchFilters = ({values, setValues, sortGames}) => {
 
-
   return (
       <Grid container gap="2em">
         <Grid item lg={3} sm={5} xs={5}>

@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router';
 import APIManager from 'services/Api'
 import { fetchUserRequest, fetchUserRegisterSuccess, fetchUserError } from 'store/users/actions'
 import { Button,Box, Container } from '@mui/material';
-import EmailInput from '../input/EmailInput';
-import PasswordInput from '../input/PasswordInput';
-import PasswordConfirmationInput from '../input/PasswordConfirmationInput';
-import PhoneInput from '../input/PhoneInput';
-import FirstNameInput from '../input/FirstNameInput';
-import LastNameInput from '../input/LastNameInput';
-import AddressInput from '../input/AddressInput';
+import EmailInput from 'components/forms/input/EmailInput';
+import PasswordInput from 'components/forms/input/PasswordInput';
+import PasswordConfirmationInput from 'components/forms/input/PasswordConfirmationInput';
+import PhoneInput from 'components/forms/input/PhoneInput';
+import FirstNameInput from 'components/forms/input/FirstNameInput';
+import LastNameInput from 'components/forms/input/LastNameInput';
+import AddressInput from 'components/forms/input/AddressInput';
 import validateSignUpForm from 'helpers/validateSignUpForm';
 import { setSnackbar } from 'store/snackbar/actions';
 

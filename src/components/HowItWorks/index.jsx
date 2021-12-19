@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Typography, Box, Container, Grid } from '@mui/material';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -8,7 +9,6 @@ import TimelineDot from '@mui/lab/TimelineDot';
 import TouchAppIcon from '@mui/icons-material/TouchApp';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import { Typography, Box, Container, Grid } from '@mui/material';
 import deliver from "assets/images/delivery.svg";
 
 const HowItWorks = () => {
@@ -29,7 +29,7 @@ const HowItWorks = () => {
 			>
 
 				<Typography variant="h3" marked="center" component="h2" sx={{ fontWeight: '800', paddingTop: 2, textAlign: 'center' }} className="title-pb" id="howitworks">
-					HOW IT WORKS ?
+					COMMENT CA MARCHE ?
 				</Typography>
 				<Grid container spacing={2} alignItems='center' sx={{ paddingTop: 5 }}>
 					<Grid item xs={12} md={6}>

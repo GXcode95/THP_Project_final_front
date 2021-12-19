@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import EditGameFormList from './EditGameFormList';
-import NumberField from '../GameInput/NumberField';
-import StringField from '../GameInput/StringField';
-import { Container, Box, Typography, TextField, Button} from '@mui/material';
-import CloseButton from 'components/buttons/CloseButton';
 import APIManager from 'services/Api';
 import validateGameForms from 'helpers/validateGameForms';
 import { useDispatch } from 'react-redux';
-import { fetchUserRequest, fetchUserError, fetchUserSignInSuccess } from 'store/users/actions';
 import { setSnackbar } from 'store/snackbar/actions';
+import { fetchUserRequest, fetchUserError, fetchUserSignInSuccess } from 'store/users/actions';
+import { Container, Box, Typography, TextField, Button} from '@mui/material';
+import EditGameFormList from './EditGameFormList';
+import NumberField from 'components/GameInput/NumberField';
+import StringField from 'components/GameInput/StringField';
+import CloseButton from 'components/buttons/CloseButton';
 
 const EditGameForm = ({ game, toggleEditMode }) => {
   const dispatch = useDispatch()

@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import { Image } from 'cloudinary-react'
 import { Card, Box, Typography, Button, Stack, Grid } from '@mui/material'
+import { Image } from 'cloudinary-react'
 import GameIconsInfos from './GameIconsInfos'
-import { Link, useNavigate } from 'react-router-dom';
-import APIManager from 'services/Api'
-import { useDispatch, useSelector } from 'react-redux';
-import isSigned from 'helpers/isSigned'
-import isSubscribed from 'helpers/isSubscribed'
 import EditGameForm from 'components/forms/EditGame/EditGameForm';
 import FavoriteButton from 'components/buttons/FavoriteButton';
+import APIManager from 'services/Api'
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchPostWishListSuccess, fetchUserError, fetchUserRequest } from 'store/users/actions';
+import isSigned from 'helpers/isSigned'
+import isSubscribed from 'helpers/isSubscribed'
 import { setSnackbar } from 'store/snackbar/actions';
 import centToEuro from 'helpers/CentToEuro'
 

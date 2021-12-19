@@ -4,9 +4,7 @@ import PricingHero from './PricingHero'
 import PricingCard from './PricingCard'
 import curvy from 'assets/images/curvyLines.png'
 
-
 const Pricing = ({ tiers }) => {
-
 
   return (
     <Container maxWidth="md" component="main" sx={{

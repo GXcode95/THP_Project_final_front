@@ -5,7 +5,6 @@ const valuetext = (value) => {
   return `${value} ans`;
 }
 
-
 const SearchSliders = ({ value, setValue, min = 0, max, minDistance = 10, sortGames }) => {
 
   const handleChange = (event, newValue, activeThumb) => {

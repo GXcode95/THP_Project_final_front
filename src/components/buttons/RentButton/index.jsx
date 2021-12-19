@@ -1,7 +1,7 @@
 import React from 'react'
-import {IconButton} from '@mui/material'
+import { Link } from  'react-router-dom'
+import { IconButton } from '@mui/material'
 import CasinoIcon from '@mui/icons-material/Casino';
-import {Link} from  'react-router-dom'
 const RentButton = (props) => {
 
   return (

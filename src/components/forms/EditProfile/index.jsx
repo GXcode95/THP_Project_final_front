@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import AddressInput from '../input/AddressInput';
-import PhoneInput from '../input/PhoneInput';
-import FirstNameInput from '../input/FirstNameInput';
-import LastNameInput from '../input/LastNameInput';
-import EmailInput from '../input/EmailInput';
+import AddressInput from 'components/forms/input/AddressInput';
+import PhoneInput from 'components/forms/input/PhoneInput';
+import FirstNameInput from 'components/forms/input/FirstNameInput';
+import LastNameInput from 'components/forms/input/LastNameInput';
+import EmailInput from 'components/forms/input/EmailInput';
 import EditInputGrid from './EditInput';
+import { Box, Container, Typography } from '@mui/material';
 
 const EditProfile = ({user}) => {
   const [request, setRequest] = useState(true)

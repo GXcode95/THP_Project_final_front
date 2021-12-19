@@ -1,9 +1,7 @@
 import React from 'react'
-import { Box, Typography, Stack } from '@mui/material'
+import { Box, Typography, Stack, Rating } from '@mui/material'
 import ChildCareIcon from '@mui/icons-material/ChildCare'
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import Rating from '@mui/material/Rating';
-
 
 const GameIconsInfos = ({ game }) => {
   return (
