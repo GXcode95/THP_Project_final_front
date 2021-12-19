@@ -18,6 +18,7 @@ const CreateGame = () => {
   const [minPlayer, setMinPlayer] = useState()
   const [age, setAge] = useState()
   const [price, setPrice] = useState()
+  const [releaseDate, setReleaseDate] = useState()
   const [tags, setTags] = useState()
 
   const handleClick = async () => {
@@ -53,7 +54,8 @@ const CreateGame = () => {
       min_age: age,
       price: price,
       sell_stock: 100,
-      rent_stock:100
+      rent_stock:100,
+      release_date: releaseDate
     }
 
     const errorsMessages = validateGameForms(gameInfo)
@@ -169,6 +171,7 @@ const CreateGame = () => {
               InputLabelProps={{
                 shrink: true,
               }}
+              onChange={ e => setReleaseDate(e.target.value)}
             />
 
             <FormGroup id="form-group-checkboxs">
