@@ -84,7 +84,8 @@ const GameCard = ({ game, edit }) => {
       <Card elevation={6}
         sx={{
           padding: 0,
-          borderRadius: '6px'
+          borderRadius: '6px',
+          paddingRight: 2,
         }}
       >
 

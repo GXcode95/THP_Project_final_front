@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
 const ERROR_MESSAGE = "Opération impossible, il semble y avoir un problème de connection."
-console.log("BASEURL", BASE_URL)
+// console.log("BASEURL", BASE_URL)
 const API = axios.create({ baseURL: BASE_URL });
 API.interceptors.request.use(({ headers, ...config }) => ({
     ...config,
@@ -16,22 +16,22 @@ API.interceptors.request.use(({ headers, ...config }) => ({
 
 const handleCatchError = (error) => {
     if (error.response) {
-        console.log(error)
+        // console.log(error)
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
     } else if (error.request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
         // http.ClientRequest in node.js
-        console.log(error.request);
+        // console.log(error.request);
     } else {
         // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
+        // console.log('Error', error.message);
     }
-    console.log(error.config);
+    // console.log(error.config);
 }
 
 const handleJwt = (response) => {
@@ -51,7 +51,7 @@ export default class APIManager {
         const response = await API.get(`/users/${userId}`)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # getUserInfo =>", response)
+        // console.log("APIManager # getUserInfo =>", response)
         return response.data
     }
 
@@ -59,7 +59,7 @@ export default class APIManager {
         const response = await API.delete("/users/sign_out")
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # signOutUser =>", response)
+        // console.log("APIManager # signOutUser =>", response)
         if (response) Cookies.remove('token')
         return response.data
     }
@@ -69,7 +69,7 @@ export default class APIManager {
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
         handleJwt(response)
-        console.log("APIManager # signUpUser =>", response)
+        // console.log("APIManager # signUpUser =>", response)
         return response.data;
     }
 
@@ -83,7 +83,7 @@ export default class APIManager {
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
         handleJwt(response)
-        console.log("APIManager # signInUser =>", response)
+        // console.log("APIManager # signInUser =>", response)
 
         let formatedResponse = null
         if (response.data.error) {
@@ -106,7 +106,7 @@ export default class APIManager {
             })
         handleJwt(response)
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # signInUserJwt =>", response)
+        // console.log("APIManager # signInUserJwt =>", response)
         let formatedResponse = []
         if (response.data.error) {
             return {...response.data, error: response.data.error }
@@ -122,7 +122,7 @@ export default class APIManager {
         const response = await API.post("/users/password", { "user": { email } })
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # changePasswordRequest =>", response)
+        // console.log("APIManager # changePasswordRequest =>", response)
         return response.data
     }
 
@@ -130,16 +130,16 @@ export default class APIManager {
         const response = await API.patch("/users/password", { "user": { reset_password_token, password, password_confirmation } })
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # changePassword =>", response)
+        // console.log("APIManager # changePassword =>", response)
         return response.data
     }
 
     static async updateUserInfo(userId, userInfoUpdated) {
-        console.log("userINFOupdated", userInfoUpdated)
+        // console.log("userINFOupdated", userInfoUpdated)
         const response = await API.put(`/users/${userId}`, {user: {...userInfoUpdated}})
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # updateUserInfo =>", response)
+        // console.log("APIManager # updateUserInfo =>", response)
         return response.data
     }
 
@@ -151,7 +151,7 @@ export default class APIManager {
         const response = await API.get("/admin/rents/")
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # getRentsAdmin =>", response)
+        // console.log("APIManager # getRentsAdmin =>", response)
         return response.data
     }
 
@@ -159,7 +159,7 @@ export default class APIManager {
         const response = await API.get(`/admin/users/${id}`)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # fetchUsersAdmin =>", response)
+        // console.log("APIManager # fetchUsersAdmin =>", response)
         return response.data
     }
 
@@ -167,7 +167,7 @@ export default class APIManager {
         const response = await API.get(`/admin/users`)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # getUserAdmin =>", response)
+        // console.log("APIManager # getUserAdmin =>", response)
         return response.data
     }
 
@@ -175,7 +175,7 @@ export default class APIManager {
         const response = await API.post("/admin/games", { game: gameInfo, images: gameImages, tags: tags })
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # createGameAdmin =>", response)
+        // console.log("APIManager # createGameAdmin =>", response)
         return response.data
     }
 
@@ -183,7 +183,7 @@ export default class APIManager {
         const response = await API.post(`/admin/games/${gameId}/images`, image)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # createGameImagesAdmin =>", response)
+        // console.log("APIManager # createGameImagesAdmin =>", response)
         return response.data
     }
 
@@ -191,7 +191,7 @@ export default class APIManager {
         const response = await API.put(`/admin/games/${gameId}`, gameInfoUpdated)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # updateGamesAdmin =>", response)
+        // console.log("APIManager # updateGamesAdmin =>", response)
         return response.data
     }
 
@@ -199,7 +199,7 @@ export default class APIManager {
         const response = await API.delete(`admin/games/${gameId}`)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # deleteGameAdmin =>", response)
+        // console.log("APIManager # deleteGameAdmin =>", response)
         return response.data
     }
 
@@ -207,7 +207,7 @@ export default class APIManager {
         const response = await API.delete(`admin/games/${gameId}/images/${imageId}`)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # deleteGameAdmin =>", response)
+        // console.log("APIManager # deleteGameAdmin =>", response)
         return response.data
     }
 
@@ -220,7 +220,7 @@ export default class APIManager {
             .catch(error => handleCatchError(error))
         
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # getAllGames =>", response)
+        // console.log("APIManager # getAllGames =>", response)
 
         // render a games array of object with and images props,
         // wich is an array of string containing the images public_id on cloudinary
@@ -237,7 +237,7 @@ export default class APIManager {
         const response = await API.get(`/games/${gameId}`)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # getGame =>", response)
+        // console.log("APIManager # getGame =>", response)
 
         const formatedResponse = response.data.error ?
             response.data : {
@@ -259,14 +259,14 @@ export default class APIManager {
         const response = await API.post("/orders", orderInfo)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # creatOrder =>", response)
+        // console.log("APIManager # creatOrder =>", response)
         return response.data
     }
 
     static async updateOrder(orderId, orderInfoUpdated) {
         const response = await API.patch(`/orders/${orderId}`, orderInfoUpdated)
             .catch(error => handleCatchError(error))
-        console.log("APIManager # updateOrder =>", response)
+        // console.log("APIManager # updateOrder =>", response)
         return response.data
     }
 
@@ -274,7 +274,7 @@ export default class APIManager {
         const response = await API.delete(`/orders/${orderId}`)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # deleteOrder =>", response)
+        // console.log("APIManager # deleteOrder =>", response)
         return response.data
     }
 
@@ -286,7 +286,7 @@ export default class APIManager {
         const response = await API.get("/rents")
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # getRents =>", response)
+        // console.log("APIManager # getRents =>", response)
         return response.data
     }
 
@@ -294,7 +294,7 @@ export default class APIManager {
         const response = await API.post("/rents", rentInfo)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # createRent =>", response)
+        // console.log("APIManager # createRent =>", response)
         return response.data
     }
 
@@ -302,7 +302,7 @@ export default class APIManager {
         const response = await API.put(`/rents/${rentId}`, rentQuantity)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # updateRent =>", response)
+        // console.log("APIManager # updateRent =>", response)
         return response.data
     }
 
@@ -310,7 +310,7 @@ export default class APIManager {
         const response = await API.delete(`/rents/${rentId}`)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # deleteRent =>", response)
+        // console.log("APIManager # deleteRent =>", response)
         return response.data
     }
 
@@ -321,7 +321,7 @@ export default class APIManager {
     static async getCart(id) {
         const response = await API.get(`/carts/${id}`)
             .catch(error => handleCatchError(error))
-        console.log("APIManager # getCart =>", response)
+        // console.log("APIManager # getCart =>", response)
         if (!response) return { error: ERROR_MESSAGE }
 
         let formatedResponse = []
@@ -330,7 +330,7 @@ export default class APIManager {
         } else {
             formatedResponse = response.data.cart.cart_games.forEach(order => { return {...order, game: {...order.game, ...order.images } } })
         }
-        console.log("FORMATED", formatedResponse)
+        // console.log("FORMATED", formatedResponse)
         return response.data
     }
 
@@ -339,7 +339,7 @@ export default class APIManager {
             .catch(error => handleCatchError(error))
             
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # getCartsHistory =>", response)
+        // console.log("APIManager # getCartsHistory =>", response)
 
         return response.data
     }
@@ -353,7 +353,7 @@ export default class APIManager {
             }).catch(error => handleCatchError(error))
 
             if (!response) return { error: ERROR_MESSAGE }
-            console.log("APIManager # buyCart =>", response)
+            // console.log("APIManager # buyCart =>", response)
             return response.data
         }
         //////////////////////
@@ -365,7 +365,7 @@ export default class APIManager {
             .catch(error => handleCatchError(error))
         
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # getAllPackages =>", response)
+        // console.log("APIManager # getAllPackages =>", response)
     
         return response.data
     }
@@ -375,7 +375,7 @@ export default class APIManager {
             .catch(error => handleCatchError(error))
         
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # updatePackages =>", response)
+        // console.log("APIManager # updatePackages =>", response)
 
         return response.data
     }
@@ -388,7 +388,7 @@ export default class APIManager {
         const response = await API.post(`/comments`, { game_id: gameID, content: content, user_id: userID })
 
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # createComment => ", response)
+        // console.log("APIManager # createComment => ", response)
 
         const formatedResponse = response.data.error ?
             response.data : {
@@ -405,7 +405,7 @@ export default class APIManager {
         const response = await API.put(`/comments/${commentID}`, { content: content })
 
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # updateComment => ", response)
+        // console.log("APIManager # updateComment => ", response)
 
         const formatedResponse = response.data.error ?
             response.data : {
@@ -422,7 +422,7 @@ export default class APIManager {
         const response = await API.delete(`/comments/${commentID}`, )
 
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # deleteComment => ", response)
+        // console.log("APIManager # deleteComment => ", response)
 
         const formatedResponse = response.data.error ?
             response.data : {
@@ -439,7 +439,7 @@ export default class APIManager {
         const response = await API.delete(`/admin/comments/${commentID}`, )
 
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # deleteCommentAdmin => ", response)
+        // console.log("APIManager # deleteCommentAdmin => ", response)
 
         const formatedResponse = response.data.error ?
             response.data : {
@@ -460,7 +460,7 @@ export default class APIManager {
         const response = await API.get(`/tags`)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # getTags =>", response)
+        // console.log("APIManager # getTags =>", response)
         return response.data
     }
 
@@ -468,7 +468,7 @@ export default class APIManager {
         const response = await API.post(`/admin/tags`, { name: name })
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # createTag =>", response)
+        // console.log("APIManager # createTag =>", response)
         return response.data
     }
 
@@ -476,7 +476,7 @@ export default class APIManager {
         const response = await API.put(`/admin/tags/${tagID}`, { name: name })
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # updateTag =>", response)
+        // console.log("APIManager # updateTag =>", response)
         return response.data
     }
 
@@ -484,7 +484,7 @@ export default class APIManager {
         const response = await API.delete(`/admin/tags/${tagID}`)
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
-        console.log("APIManager # deleteTag =>", response)
+        // console.log("APIManager # deleteTag =>", response)
         return response.data
     }
 
@@ -505,14 +505,14 @@ export default class APIManager {
         } else {
             formatedResponse = response.data.map(game => { return {...game.info, images: game.images } })
         }
-        console.log("APIManager # getFavorite =>", formatedResponse)
+        // console.log("APIManager # getFavorite =>", formatedResponse)
         return { favorites: formatedResponse }
     }
 
     static async createFavorite(gameID, userID) {
         const response = await API.post(`/favorites`, { game_id: gameID, user_id: userID })
             .catch(error => handleCatchError(error))
-        console.log("APIManager # createFavorite =>", response)
+        // console.log("APIManager # createFavorite =>", response)
         return response.data
     }
 
@@ -521,7 +521,7 @@ export default class APIManager {
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
 
-        console.log("APIManager # deleteFavorite =>", response)
+        // console.log("APIManager # deleteFavorite =>", response)
         return response.data
     }
 
@@ -535,7 +535,7 @@ export default class APIManager {
             .catch(error => handleCatchError(error))
         if (!response) return { error: ERROR_MESSAGE }
 
-        console.log("APIManager # createRank =>", response)
+        // console.log("APIManager # createRank =>", response)
         const formatedResponse = response.data.error ?
             response.data : {
                 ...response.data.info,
@@ -555,14 +555,14 @@ export default class APIManager {
     static async createCheckout(stripeParams) {
       const response = await API.post(`/stripe/checkouts`, stripeParams)
       .catch(error => handleCatchError(error))
-      console.log("APIManager # createCheckout =>", response)
+    //   console.log("APIManager # createCheckout =>", response)
       return response.data
     }
 
     static async createBillingPortal() {
       const response = await API.post(`/stripe/billing_portal`)
       .catch(error => handleCatchError(error))
-      console.log("APIManager # createBillingPortal =>", response)
+    //   console.log("APIManager # createBillingPortal =>", response)
       return response.data
     }
 }

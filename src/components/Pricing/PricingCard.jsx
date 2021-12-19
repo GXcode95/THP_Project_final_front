@@ -7,7 +7,6 @@ import APIManager from 'services/Api'
 
 const PricingCard = ({ tier, description }) => {
   const user = useSelector(state => state.userReducer)
-  console.log("STOOOORE", user)
   
   const priceInEuro = (priceInCent) => {
     return priceInCent / 100

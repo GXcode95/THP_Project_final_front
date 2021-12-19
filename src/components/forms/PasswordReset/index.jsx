@@ -3,13 +3,18 @@ import EmailInput from 'components/forms/input/EmailInput'
 import APIManager from 'services/Api'
 import {Button, Box, Typography, Card} from '@mui/material' 
 import CloseButton from 'components/buttons/CloseButton'
+import { setSnackbar } from 'store/snackbar/actions';
+import { useDispatch } from 'react-redux'
 
 const PasswordReset = ({togglePasswordReset}) => {
   const [email, setEmail] = React.useState()
-  
+  const dispatch = useDispatch()
+
   const handlePasswordRequest = async() => {
     const response = await APIManager.changePasswordRequest(email)
-    response.error ? alert("message envoyé") : alert("une erreur est survenue")
+    response.error ? 
+    dispatch(setSnackbar(true, "error", response.error)) :
+    dispatch(setSnackbar(true, "success", "message envoyé")) 
     setEmail(null)
     togglePasswordReset()
   }

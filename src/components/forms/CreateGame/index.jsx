@@ -25,7 +25,6 @@ const CreateGame = () => {
     let publicIdList=[]
     files.map(
       async (acceptedFile, i) => {
-        console.log("accept", acceptedFile)
         const formData = new FormData();
         formData.append("file", acceptedFile);
         formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET)
@@ -37,7 +36,6 @@ const CreateGame = () => {
         const data = await response.json()
 
         publicIdList.push(data.public_id)
-        console.log(publicIdList)
         if (i === files.length -1) uploadGame(publicIdList)
       }
     )
@@ -85,11 +83,12 @@ const CreateGame = () => {
       const fetchAllTags = async () => {
         const response = await APIManager.getTags()
         if (response.error)
-          alert(response.error)
+          dispatch(setSnackbar(true, "error", response.error))
         else
           setTags(response)
       }
       fetchAllTags()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]
   )
   return (

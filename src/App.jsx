@@ -55,7 +55,6 @@ const App = () => {
     () => {
       const signInWithJwt = async () => {
         const jwt = Cookies.get('token')
-        console.log('jwt =', jwt)
         if (jwt) {
           dispatch(fetchUserRequest)
           const response = await APIManager.signInUserJwt()
@@ -96,6 +95,7 @@ const App = () => {
           </Routes>
           <Box py="3em" />
           <MobileView>
+            <Box py="3rem"/>
             <BottomBar />
           </MobileView>
         </Router>
@@ -103,8 +103,6 @@ const App = () => {
         <CookieBar user={user} className="cookies-bar" />
       </ThemeProvider>
 
-      {console.log("cookies => ", Cookies.get('token'))}
-      {console.log("store => ", store)}
     </div>
   );
 }

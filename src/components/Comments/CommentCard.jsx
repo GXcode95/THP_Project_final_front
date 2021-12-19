@@ -8,25 +8,35 @@ import APIManager from 'services/Api'
 import isAdmin from 'helpers/isAdmin'
 import isAuthor from 'helpers/isAuthor';
 import UserAvatar from 'components/UserAvatar'
+import { setSnackbar } from 'store/snackbar/actions';
+import { useDispatch } from 'react-redux'
 
 const CommentCard = ({comment, setGame, user}) => {
   const [editMode, setEditMode] = React.useState(false)
   const [author, setAuthor] = React.useState()
+  const dispatch = useDispatch()
+
   const toggleEditMode = () => {
     setEditMode(!editMode)
   }
   const handleDelete = async () => {
     const response = await APIManager.deleteComment(comment.id)
-    response.error ? alert(response.error) : setGame(response)
+    if(response.error) {
+      dispatch(setSnackbar(true, "error", response.error))
+    } else {
+      setGame(response)
+      dispatch(setSnackbar(true, "success", "Commentaire supprimé !"))
+    } 
   }
   const handleSubmit = async(e) => {
     e.preventDefault()
     const response = await APIManager.updateComment(comment.id, e.target.content.value)
     if(response.error){
-      alert(response.error)
+      dispatch(setSnackbar(true, "error", response.error))
     } else {
       setGame(response)
       toggleEditMode()
+      dispatch(setSnackbar(true, "success", "Commentaire mis à jour."))
     }
   }
   const CommentUpdateDate = () => { // return edit date only if comment was edited
