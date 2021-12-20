@@ -1,4 +1,9 @@
 Link for back-end => https://github.com/GXcode95/THP_Project_final_back
+npm => 8.1.4
+yarn => 1.22.17
+ruby => 2.7.4
+rails => 6.1.4
+
 # This application is our final project from The Hacking Project bootcamp
 
 ## It's called Playbox and it's a society game marketplace with a rent system.
